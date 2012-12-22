@@ -14,9 +14,9 @@
 		DA6A9F2E168662BC00A250ED /* DNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6A9F2D168662BC00A250ED /* DNAppDelegate.m */; };
 		DA6A9F31168662BD00A250ED /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6A9F2F168662BD00A250ED /* MainMenu.xib */; };
 		DA6A9F34168662BD00A250ED /* Spotiqueue.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA6A9F32168662BD00A250ED /* Spotiqueue.xcdatamodeld */; };
-		DA6A9F3F1686643400A250ED /* libspotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F3E1686643400A250ED /* libspotify.framework */; };
 		DA6A9F56168667DC00A250ED /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F54168667DC00A250ED /* AudioUnit.framework */; };
 		DA6A9F57168667DC00A250ED /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F55168667DC00A250ED /* CoreAudio.framework */; };
+		DA6A9F6716866A9D00A250ED /* CocoaLibSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F6616866A9D00A250ED /* CocoaLibSpotify.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,9 +34,9 @@
 		DA6A9F2D168662BC00A250ED /* DNAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNAppDelegate.m; sourceTree = "<group>"; };
 		DA6A9F30168662BD00A250ED /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		DA6A9F33168662BD00A250ED /* Spotiqueue.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spotiqueue.xcdatamodel; sourceTree = "<group>"; };
-		DA6A9F3E1686643400A250ED /* libspotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libspotify.framework; sourceTree = "<group>"; };
 		DA6A9F54168667DC00A250ED /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		DA6A9F55168667DC00A250ED /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		DA6A9F6616866A9D00A250ED /* CocoaLibSpotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLibSpotify.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +47,7 @@
 				DA6A9F56168667DC00A250ED /* AudioUnit.framework in Frameworks */,
 				DA6A9F57168667DC00A250ED /* CoreAudio.framework in Frameworks */,
 				DA6A9F1B168662BC00A250ED /* Cocoa.framework in Frameworks */,
-				DA6A9F3F1686643400A250ED /* libspotify.framework in Frameworks */,
+				DA6A9F6716866A9D00A250ED /* CocoaLibSpotify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +76,7 @@
 		DA6A9F19168662BC00A250ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DA6A9F3E1686643400A250ED /* libspotify.framework */,
+				DA6A9F6616866A9D00A250ED /* CocoaLibSpotify.framework */,
 				DA6A9F1A168662BC00A250ED /* Cocoa.framework */,
 				DA6A9F1C168662BC00A250ED /* Other Frameworks */,
 			);
@@ -322,6 +322,7 @@
 				DA6A9F39168662BD00A250ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
