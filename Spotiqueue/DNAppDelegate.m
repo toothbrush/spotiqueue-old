@@ -15,12 +15,33 @@
 @synthesize managedObjectContext = _managedObjectContext;
 
 @synthesize playbackProgressSlider;
+@synthesize searchResults;
 @synthesize trackURLField;
 @synthesize userNameField;
 @synthesize passwordField;
 @synthesize loginSheet;
 @synthesize window;
 @synthesize playbackManager;
+@synthesize search;
+
+- (IBAction)searched:(id)sender{
+ 
+    NSSearchField* searchField = sender;
+    
+    
+    NSLog(@"searched for %@", [searchField stringValue]);
+    
+    [self addObserver:self forKeyPath:@"search.tracks" options:0 context:nil];
+    self.search = [SPSearch searchWithSearchQuery:[searchField stringValue] inSession:[SPSession sharedSession]];
+    
+    
+}
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return self.search.tracks.count;
+}
+
+
 
 -(void)applicationWillFinishLaunching:(NSNotification *)notification {
     
@@ -40,6 +61,7 @@
     
 	[self.window center];
 	[self.window orderFront:nil];
+    [self.searchResults setDataSource:self];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -69,7 +91,12 @@
         if (![[self.playbackProgressSlider cell] isHighlighted]) {
 			[self.playbackProgressSlider setDoubleValue:self.playbackManager.trackPosition];
 		}
-    } else {
+    } else if ([keyPath isEqualToString:@"search.tracks"]) {
+        NSLog(@"Search found tracks: %@", self.search.tracks);
+
+    }
+    else
+        {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
@@ -286,6 +313,10 @@
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+//    [self removeObserver:self forKeyPath:@"search.tracks" context:nil];
+
     
     if ([SPSession sharedSession].connectionState != SP_CONNECTION_STATE_LOGGED_OUT &&
 		[SPSession sharedSession].connectionState != SP_CONNECTION_STATE_UNDEFINED) {
