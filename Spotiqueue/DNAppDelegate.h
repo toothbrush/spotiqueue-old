@@ -7,10 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import "DNTrackTableDelegate.h"
 #import <CocoaLibSpotify/CocoaLibSpotify.h>
+#import "DNTrackTable.h"
 
-@interface DNAppDelegate : NSObject <NSApplicationDelegate, SPSessionDelegate, NSTableViewDelegate> {
+@interface DNAppDelegate : NSObject <NSApplicationDelegate,
+SPSessionDelegate, NSTableViewDelegate, DNTrackTableDelegate> {
 
 @private
 	NSWindow *__unsafe_unretained window;
@@ -29,7 +31,7 @@
 @property (weak) IBOutlet NSTextField *trackURLField;
 
 
-@property (weak)   IBOutlet NSTableView *searchResults;
+@property (weak)   IBOutlet DNTrackTable *searchResults;
 @property (strong) IBOutlet NSArrayController *arrayController;
 
 

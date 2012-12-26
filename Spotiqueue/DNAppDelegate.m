@@ -25,6 +25,14 @@
 @synthesize search;
 @synthesize arrayController;
 
+- (void) enqueueTracksBottom:(NSArray *)tracks {
+    NSLog(@"enqueue bottom: %@", tracks);    
+}
+
+- (void) enqueueTracks:(NSArray *)tracks {
+    NSLog(@"enqueue top: %@", tracks);
+}
+
 - (IBAction)searched:(id)sender{
  
     NSSearchField* searchField = sender;
@@ -63,6 +71,7 @@
 //    [self.searchResults setDataSource:self];
 //    [self.searchResults setDelegate:self];
     
+    [self.searchResults setTrackDelegate:self];
     
 //    self.arrayController = [NSArrayController new];
 }
