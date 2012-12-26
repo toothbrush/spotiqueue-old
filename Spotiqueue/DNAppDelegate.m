@@ -23,6 +23,7 @@
 @synthesize window;
 @synthesize playbackManager;
 @synthesize search;
+@synthesize arrayController;
 
 - (IBAction)searched:(id)sender{
  
@@ -34,11 +35,7 @@
     [self addObserver:self forKeyPath:@"search.tracks" options:0 context:nil];
     self.search = [SPSearch searchWithSearchQuery:[searchField stringValue] inSession:[SPSession sharedSession]];
     
-    
-}
-
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return self.search.tracks.count;
+        
 }
 
 
@@ -61,7 +58,13 @@
     
 	[self.window center];
 	[self.window orderFront:nil];
-    [self.searchResults setDataSource:self];
+    
+    //done in NIB:
+//    [self.searchResults setDataSource:self];
+//    [self.searchResults setDelegate:self];
+    
+    
+//    self.arrayController = [NSArrayController new];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -93,6 +96,22 @@
 		}
     } else if ([keyPath isEqualToString:@"search.tracks"]) {
         NSLog(@"Search found tracks: %@", self.search.tracks);
+        NSMutableDictionary *value;
+        
+        [[arrayController mutableArrayValueForKey:@"content"] removeAllObjects];
+        
+        for (SPTrack* t in self.search.tracks) {
+            value = [NSMutableDictionary new];
+            [value setObject:t.name forKey:@"name"];
+            [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
+            [value setObject:t.album.name forKey:@"album"];
+            [value setObject:t forKey:@"originalTrack"];
+            
+            NSLog(@"adding = %@", value);
+            [arrayController addObject:value];
+        }
+
+        [searchResults reloadData];
 
     }
     else

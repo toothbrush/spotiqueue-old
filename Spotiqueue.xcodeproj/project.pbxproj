@@ -17,7 +17,27 @@
 		DA6A9F56168667DC00A250ED /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F54168667DC00A250ED /* AudioUnit.framework */; };
 		DA6A9F57168667DC00A250ED /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F55168667DC00A250ED /* CoreAudio.framework */; };
 		DA6A9F6716866A9D00A250ED /* CocoaLibSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F6616866A9D00A250ED /* CocoaLibSpotify.framework */; };
+		DAA78C71168B5227000C8692 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1D168662BC00A250ED /* AppKit.framework */; };
+		DAA78C73168B5229000C8692 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1E168662BC00A250ED /* CoreData.framework */; };
+		DAA78C74168B522A000C8692 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1F168662BC00A250ED /* Foundation.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DAA78C7F168B52F9000C8692 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAA78C7A168B52F9000C8692 /* CocoaLibSpotify Mac Framework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 503D630F13258041007772CA;
+			remoteInfo = CocoaLibSpotify;
+		};
+		DAA78C81168B52F9000C8692 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAA78C7A168B52F9000C8692 /* CocoaLibSpotify Mac Framework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 504E4934155AA85400E1C0F7;
+			remoteInfo = CocoaLSTests;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DA6A9F16168662BC00A250ED /* Spotiqueue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotiqueue.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -37,6 +57,7 @@
 		DA6A9F54168667DC00A250ED /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		DA6A9F55168667DC00A250ED /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		DA6A9F6616866A9D00A250ED /* CocoaLibSpotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLibSpotify.framework; sourceTree = "<group>"; };
+		DAA78C7A168B52F9000C8692 /* CocoaLibSpotify Mac Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CocoaLibSpotify Mac Framework.xcodeproj"; path = "../../cocoalibspotify/Mac Framework/CocoaLibSpotify Mac Framework.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +66,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA6A9F56168667DC00A250ED /* AudioUnit.framework in Frameworks */,
+				DAA78C73168B5229000C8692 /* CoreData.framework in Frameworks */,
+				DAA78C71168B5227000C8692 /* AppKit.framework in Frameworks */,
 				DA6A9F57168667DC00A250ED /* CoreAudio.framework in Frameworks */,
+				DAA78C74168B522A000C8692 /* Foundation.framework in Frameworks */,
 				DA6A9F1B168662BC00A250ED /* Cocoa.framework in Frameworks */,
 				DA6A9F6716866A9D00A250ED /* CocoaLibSpotify.framework in Frameworks */,
 			);
@@ -57,6 +81,7 @@
 		DA6A9F0B168662BC00A250ED = {
 			isa = PBXGroup;
 			children = (
+				DAA78C7A168B52F9000C8692 /* CocoaLibSpotify Mac Framework.xcodeproj */,
 				DA6A9F54168667DC00A250ED /* AudioUnit.framework */,
 				DA6A9F55168667DC00A250ED /* CoreAudio.framework */,
 				DA6A9F20168662BC00A250ED /* Spotiqueue */,
@@ -117,6 +142,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		DAA78C7B168B52F9000C8692 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DAA78C80168B52F9000C8692 /* CocoaLibSpotify.framework */,
+				DAA78C82168B52F9000C8692 /* CocoaLSTests.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -157,12 +191,35 @@
 			mainGroup = DA6A9F0B168662BC00A250ED;
 			productRefGroup = DA6A9F17168662BC00A250ED /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = DAA78C7B168B52F9000C8692 /* Products */;
+					ProjectRef = DAA78C7A168B52F9000C8692 /* CocoaLibSpotify Mac Framework.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				DA6A9F15168662BC00A250ED /* Spotiqueue */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		DAA78C80168B52F9000C8692 /* CocoaLibSpotify.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CocoaLibSpotify.framework;
+			remoteRef = DAA78C7F168B52F9000C8692 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DAA78C82168B52F9000C8692 /* CocoaLSTests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = CocoaLSTests.app;
+			remoteRef = DAA78C81168B52F9000C8692 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		DA6A9F14168662BC00A250ED /* Resources */ = {

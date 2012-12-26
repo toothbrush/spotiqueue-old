@@ -10,7 +10,7 @@
 
 #import <CocoaLibSpotify/CocoaLibSpotify.h>
 
-@interface DNAppDelegate : NSObject <NSApplicationDelegate, SPSessionDelegate, NSTableViewDataSource> {
+@interface DNAppDelegate : NSObject <NSApplicationDelegate, SPSessionDelegate, NSTableViewDelegate> {
 
 @private
 	NSWindow *__unsafe_unretained window;
@@ -27,7 +27,13 @@
 
 @property (weak) IBOutlet NSSlider *playbackProgressSlider;
 @property (weak) IBOutlet NSTextField *trackURLField;
-@property (weak) IBOutlet NSTableView *searchResults;
+
+
+@property (weak)   IBOutlet NSTableView *searchResults;
+@property (strong) IBOutlet NSArrayController *arrayController;
+
+
+
 @property (weak) IBOutlet NSTextField *userNameField;
 @property (weak) IBOutlet NSSecureTextField *passwordField;
 @property (unsafe_unretained) IBOutlet NSPanel *loginSheet;
