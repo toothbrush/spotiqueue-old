@@ -1,0 +1,1 @@
+#define kServiceName @"SpotiqueueServiceName"

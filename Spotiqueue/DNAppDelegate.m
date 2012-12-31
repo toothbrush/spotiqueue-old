@@ -19,6 +19,8 @@
 @synthesize trackURLField;
 @synthesize userNameField;
 @synthesize passwordField;
+@synthesize loginProgress;
+@synthesize savePassword;
 @synthesize loginSheet;
 @synthesize window;
 @synthesize playbackManager;
@@ -66,14 +68,20 @@
     
 	[self.window center];
 	[self.window orderFront:nil];
-    
-    //done in NIB:
-//    [self.searchResults setDataSource:self];
-//    [self.searchResults setDelegate:self];
+   
     
     [self.searchResults setTrackDelegate:self];
     
-//    self.arrayController = [NSArrayController new];
+    
+    NSArray *accounts = [SSKeychain accountsForService:kServiceName];
+
+    if (accounts != nil) {
+        [passwordField setStringValue:[SSKeychain passwordForService:kServiceName account:[[accounts objectAtIndex:0] valueForKey:@"acct"]]];
+        [userNameField setStringValue:[[accounts objectAtIndex:0] valueForKey:@"acct"]];
+    }
+    
+    
+
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -81,6 +89,11 @@
 	
 	[self addObserver:self
 		   forKeyPath:@"playbackManager.trackPosition"
+			  options:0
+			  context:nil];
+    
+    [self addObserver:self
+		   forKeyPath:@"playbackManager.currentTrack"
 			  options:0
 			  context:nil];
 	
@@ -123,8 +136,11 @@
         [searchResults reloadData];
 
     }
-    else
-        {
+    else if([keyPath isEqualToString:@"playbackManager.currentTrack"]) {
+    
+        NSLog(@"currenttrack observed!");
+    }
+        else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
@@ -143,9 +159,17 @@
 	
 	if ([[userNameField stringValue] length] > 0 &&
 		[[passwordField stringValue] length] > 0) {
+        
+        [loginProgress startAnimation:self];
 		
 		[[SPSession sharedSession] attemptLoginWithUserName:[userNameField stringValue]
 												   password:[passwordField stringValue]];
+        if ([savePassword state] == NSOnState) {
+            [SSKeychain setPassword:[passwordField stringValue]
+                         forService:kServiceName
+                            account:[userNameField stringValue]];
+        }
+    
 	} else {
 		NSBeep();
 	}
@@ -159,13 +183,15 @@
 	// Invoked by SPSession after a successful login.
 	
 	[self.loginSheet orderOut:self];
+    [loginProgress stopAnimation:self];
 	[NSApp endSheet:self.loginSheet];
 }
 
 -(void)session:(SPSession *)aSession didFailToLoginWithError:(NSError *)error; {
     
 	// Invoked by SPSession after a failed login.
-	
+    [loginProgress stopAnimation:self];
+
     [NSApp presentError:error
          modalForWindow:self.loginSheet
                delegate:nil
@@ -180,6 +206,8 @@
 
 -(void)session:(SPSession *)aSession recievedMessageForUser:(NSString *)aMessage; {
     
+    [loginProgress stopAnimation:self];
+
 	[[NSAlert alertWithMessageText:aMessage
 					 defaultButton:@"OK"
 				   alternateButton:@""

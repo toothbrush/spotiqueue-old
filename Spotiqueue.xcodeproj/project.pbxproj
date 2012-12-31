@@ -21,6 +21,8 @@
 		DAA78C73168B5229000C8692 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1E168662BC00A250ED /* CoreData.framework */; };
 		DAA78C74168B522A000C8692 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1F168662BC00A250ED /* Foundation.framework */; };
 		DAA78C85168B6CDE000C8692 /* DNTrackTable.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA78C84168B6CDE000C8692 /* DNTrackTable.m */; };
+		DAA78C8916919C59000C8692 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA78C8816919C59000C8692 /* Security.framework */; };
+		DAA78C8F16919E63000C8692 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA78C8E16919E63000C8692 /* SSKeychain.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,10 @@
 		DAA78C83168B6CDE000C8692 /* DNTrackTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNTrackTable.h; sourceTree = "<group>"; };
 		DAA78C84168B6CDE000C8692 /* DNTrackTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNTrackTable.m; sourceTree = "<group>"; };
 		DAA78C87168B6EE8000C8692 /* DNTrackTableDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNTrackTableDelegate.h; sourceTree = "<group>"; };
+		DAA78C8816919C59000C8692 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		DAA78C8D16919E63000C8692 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
+		DAA78C8E16919E63000C8692 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
+		DAA78C9016919F11000C8692 /* SpotiqueueConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotiqueueConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAA78C8916919C59000C8692 /* Security.framework in Frameworks */,
 				DA6A9F56168667DC00A250ED /* AudioUnit.framework in Frameworks */,
 				DAA78C73168B5229000C8692 /* CoreData.framework in Frameworks */,
 				DAA78C71168B5227000C8692 /* AppKit.framework in Frameworks */,
@@ -86,8 +93,6 @@
 			isa = PBXGroup;
 			children = (
 				DAA78C7A168B52F9000C8692 /* CocoaLibSpotify Mac Framework.xcodeproj */,
-				DA6A9F54168667DC00A250ED /* AudioUnit.framework */,
-				DA6A9F55168667DC00A250ED /* CoreAudio.framework */,
 				DA6A9F20168662BC00A250ED /* Spotiqueue */,
 				DA6A9F19168662BC00A250ED /* Frameworks */,
 				DA6A9F17168662BC00A250ED /* Products */,
@@ -106,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				DA6A9F6616866A9D00A250ED /* CocoaLibSpotify.framework */,
-				DA6A9F1A168662BC00A250ED /* Cocoa.framework */,
 				DA6A9F1C168662BC00A250ED /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -115,6 +119,10 @@
 		DA6A9F1C168662BC00A250ED /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAA78C8816919C59000C8692 /* Security.framework */,
+				DA6A9F54168667DC00A250ED /* AudioUnit.framework */,
+				DA6A9F55168667DC00A250ED /* CoreAudio.framework */,
+				DA6A9F1A168662BC00A250ED /* Cocoa.framework */,
 				DA6A9F1D168662BC00A250ED /* AppKit.framework */,
 				DA6A9F1E168662BC00A250ED /* CoreData.framework */,
 				DA6A9F1F168662BC00A250ED /* Foundation.framework */,
@@ -162,6 +170,9 @@
 				DAA78C83168B6CDE000C8692 /* DNTrackTable.h */,
 				DAA78C84168B6CDE000C8692 /* DNTrackTable.m */,
 				DAA78C87168B6EE8000C8692 /* DNTrackTableDelegate.h */,
+				DAA78C8D16919E63000C8692 /* SSKeychain.h */,
+				DAA78C8E16919E63000C8692 /* SSKeychain.m */,
+				DAA78C9016919F11000C8692 /* SpotiqueueConstants.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -258,6 +269,7 @@
 				DA6A9F2E168662BC00A250ED /* DNAppDelegate.m in Sources */,
 				DA6A9F34168662BD00A250ED /* Spotiqueue.xcdatamodeld in Sources */,
 				DAA78C85168B6CDE000C8692 /* DNTrackTable.m in Sources */,
+				DAA78C8F16919E63000C8692 /* SSKeychain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

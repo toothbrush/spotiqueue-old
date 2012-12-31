@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "DNTrackTableDelegate.h"
+#import "SSKeychain.h"
 #import <CocoaLibSpotify/CocoaLibSpotify.h>
 #import "DNTrackTable.h"
 
@@ -37,6 +38,8 @@ SPSessionDelegate, NSTableViewDelegate, DNTrackTableDelegate> {
 
 
 @property (weak) IBOutlet NSTextField *userNameField;
+@property (weak) IBOutlet NSProgressIndicator *loginProgress;
+@property (weak) IBOutlet NSButton *savePassword;
 @property (weak) IBOutlet NSSecureTextField *passwordField;
 @property (unsafe_unretained) IBOutlet NSPanel *loginSheet;
 @property (assign) IBOutlet NSWindow *window;
