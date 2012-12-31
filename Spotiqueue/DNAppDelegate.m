@@ -156,7 +156,8 @@
             [value setObject:t forKey:@"originalTrack"];
             
             NSLog(@"adding = %@", value);
-            [arrayController addObject:value];
+//            [arrayController addObject:value];
+            [arrayController insertObject:value atArrangedObjectIndex:0];
         }
 
         [searchResults reloadData];

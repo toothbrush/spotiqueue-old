@@ -13,7 +13,7 @@
 #import "DNTrackTable.h"
 
 @interface DNAppDelegate : NSObject <NSApplicationDelegate,
-SPSessionDelegate, NSTableViewDelegate, DNTrackTableDelegate> {
+SPSessionDelegate, DNTrackTableDelegate> {
 
 @private
 	NSWindow *__unsafe_unretained window;
