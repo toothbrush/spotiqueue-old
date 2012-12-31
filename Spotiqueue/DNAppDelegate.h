@@ -33,7 +33,9 @@ SPSessionDelegate, NSTableViewDelegate, DNTrackTableDelegate> {
 
 
 @property (weak)   IBOutlet DNTrackTable *searchResults;
+@property (weak)   IBOutlet DNTrackTable *queueTable;
 @property (strong) IBOutlet NSArrayController *arrayController;
+@property (strong) IBOutlet NSArrayController *queueArrayCtrl;
 
 
 

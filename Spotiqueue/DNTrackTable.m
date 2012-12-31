@@ -11,6 +11,7 @@
 @implementation DNTrackTable
 
 @synthesize trackDelegate;
+@synthesize relatedArrayController;
 
 - (id)initWithFrame:(NSRect)frame
 {
@@ -20,6 +21,16 @@
     }
     
     return self;
+}
+
+- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)flag {
+    if (flag) {
+        return NSDragOperationMove;
+
+    } else {
+        // operation is from outside my app
+        return NSDragOperationNone;
+    }
 }
 
 - (NSArray*) selectedTracks {
@@ -35,18 +46,29 @@
 
 - (void) keyDown:(NSEvent *)theEvent {
 
+   
     NSUInteger flags = [theEvent modifierFlags] & NSCommandKeyMask;
+    unichar key = [[theEvent charactersIgnoringModifiers] characterAtIndex:0];
     if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"e"] && flags == NSCommandKeyMask) {
         // command-e was pressed
 
-        [trackDelegate enqueueTracks:[self selectedTracks]];
+        [trackDelegate enqueueTracksBottom:[self selectedTracks]];
         
         
         return;
     } else if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"E"] && flags == NSCommandKeyMask) {
         // command-shift-e pressed
         
-        [trackDelegate enqueueTracksBottom:[self selectedTracks]];
+        [trackDelegate enqueueTracks:[self selectedTracks]];
+        return;
+    } else if (key == NSDeleteCharacter) {
+        NSLog(@"delete pressed. source = %@", self.dataSource);
+        if([self selectedRow] == -1)
+        {
+            NSBeep();
+        }
+        [self.relatedArrayController remove:nil];
+        
         return;
     }
     

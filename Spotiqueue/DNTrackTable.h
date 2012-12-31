@@ -9,13 +9,13 @@
 #import <Cocoa/Cocoa.h>
 #import "DNTrackTableDelegate.h"
 
-@interface DNTrackTable : NSTableView
+@interface DNTrackTable : NSTableView <NSDraggingDestination, NSDraggingSource>
 
 
 
 - (NSArray*) selectedTracks;
 
-
+@property (assign) NSArrayController * relatedArrayController;
 @property (assign) id<DNTrackTableDelegate> trackDelegate;
 
 @end

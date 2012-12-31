@@ -25,14 +25,39 @@
 @synthesize window;
 @synthesize playbackManager;
 @synthesize search;
-@synthesize arrayController;
+@synthesize queueTable;
+@synthesize arrayController, queueArrayCtrl;
 
 - (void) enqueueTracksBottom:(NSArray *)tracks {
-    NSLog(@"enqueue bottom: %@", tracks);    
+    NSLog(@"enqueue bottom: %@", tracks);
+    
+    NSMutableDictionary* value;
+    for (SPTrack* t in tracks) {
+        value = [NSMutableDictionary new];
+        [value setObject:t.name forKey:@"name"];
+        [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
+        [value setObject:t.album.name forKey:@"album"];
+        [value setObject:t forKey:@"originalTrack"];
+        
+        [queueArrayCtrl addObject:value];
+    }
 }
 
 - (void) enqueueTracks:(NSArray *)tracks {
     NSLog(@"enqueue top: %@", tracks);
+    
+    NSMutableDictionary* value;
+    NSEnumerator *enumerator = [tracks reverseObjectEnumerator];
+    for (SPTrack* t in enumerator) {
+        value = [NSMutableDictionary new];
+        [value setObject:t.name forKey:@"name"];
+        [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
+        [value setObject:t.album.name forKey:@"album"];
+        [value setObject:t forKey:@"originalTrack"];
+        
+        [queueArrayCtrl insertObject:value atArrangedObjectIndex:0];
+    }
+
 }
 
 - (IBAction)searched:(id)sender{
@@ -69,7 +94,8 @@
 	[self.window center];
 	[self.window orderFront:nil];
    
-    
+    [self.searchResults setRelatedArrayController:self.arrayController];
+    [self.queueTable setRelatedArrayController:self.queueArrayCtrl];
     [self.searchResults setTrackDelegate:self];
     
     
