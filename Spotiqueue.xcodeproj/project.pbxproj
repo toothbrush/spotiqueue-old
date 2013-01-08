@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA5754F5169C4E2A00B4241E /* RSRTVArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5754F4169C4BFF00B4241E /* RSRTVArrayController.m */; };
 		DA6A9F1B168662BC00A250ED /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1A168662BC00A250ED /* Cocoa.framework */; };
 		DA6A9F25168662BC00A250ED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6A9F23168662BC00A250ED /* InfoPlist.strings */; };
 		DA6A9F27168662BC00A250ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6A9F26168662BC00A250ED /* main.m */; };
@@ -43,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA5754F3169C4BFF00B4241E /* RSRTVArrayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSRTVArrayController.h; sourceTree = "<group>"; };
+		DA5754F4169C4BFF00B4241E /* RSRTVArrayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSRTVArrayController.m; sourceTree = "<group>"; };
 		DA6A9F16168662BC00A250ED /* Spotiqueue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotiqueue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6A9F1A168662BC00A250ED /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		DA6A9F1D168662BC00A250ED /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -165,6 +168,8 @@
 		DAA78C86168B6D48000C8692 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				DA5754F3169C4BFF00B4241E /* RSRTVArrayController.h */,
+				DA5754F4169C4BFF00B4241E /* RSRTVArrayController.m */,
 				DA6A9F2C168662BC00A250ED /* DNAppDelegate.h */,
 				DA6A9F2D168662BC00A250ED /* DNAppDelegate.m */,
 				DAA78C83168B6CDE000C8692 /* DNTrackTable.h */,
@@ -265,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA5754F5169C4E2A00B4241E /* RSRTVArrayController.m in Sources */,
 				DA6A9F27168662BC00A250ED /* main.m in Sources */,
 				DA6A9F2E168662BC00A250ED /* DNAppDelegate.m in Sources */,
 				DA6A9F34168662BD00A250ED /* Spotiqueue.xcdatamodeld in Sources */,

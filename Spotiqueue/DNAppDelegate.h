@@ -12,8 +12,10 @@
 #import <CocoaLibSpotify/CocoaLibSpotify.h>
 #import "DNTrackTable.h"
 
+#import "RSRTVArrayController.h"
+
 @interface DNAppDelegate : NSObject <NSApplicationDelegate,
-SPSessionDelegate, DNTrackTableDelegate> {
+SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 
 @private
 	NSWindow *__unsafe_unretained window;
@@ -34,8 +36,10 @@ SPSessionDelegate, DNTrackTableDelegate> {
 
 @property (weak)   IBOutlet DNTrackTable *searchResults;
 @property (weak)   IBOutlet DNTrackTable *queueTable;
-@property (strong) IBOutlet NSArrayController *arrayController;
-@property (strong) IBOutlet NSArrayController *queueArrayCtrl;
+@property (strong) IBOutlet RSRTVArrayController *arrayController;
+@property (strong) IBOutlet RSRTVArrayController *queueArrayCtrl;
+//@property (strong) IBOutlet NSArrayController *arrayController;
+//@property (strong) IBOutlet NSArrayController *queueArrayCtrl;
 
 
 

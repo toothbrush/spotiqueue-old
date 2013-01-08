@@ -10,9 +10,9 @@
 
 @implementation DNAppDelegate
 
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize managedObjectContext = _managedObjectContext;
+@synthesize persistentStoreCoordinator    = _persistentStoreCoordinator;
+@synthesize managedObjectModel            = _managedObjectModel;
+@synthesize managedObjectContext          = _managedObjectContext;
 
 @synthesize playbackProgressSlider;
 @synthesize searchResults;
@@ -28,8 +28,13 @@
 @synthesize queueTable;
 @synthesize arrayController, queueArrayCtrl;
 
+
+
+- (IBAction)tableDoubleclick:(NSMutableDictionary*)sender {
+    NSLog(@"double click! obj = %@", sender);
+}
+
 - (void) enqueueTracksBottom:(NSArray *)tracks {
-    NSLog(@"enqueue bottom: %@", tracks);
     
     NSMutableDictionary* value;
     for (SPTrack* t in tracks) {
@@ -44,7 +49,6 @@
 }
 
 - (void) enqueueTracks:(NSArray *)tracks {
-    NSLog(@"enqueue top: %@", tracks);
     
     NSMutableDictionary* value;
     NSEnumerator *enumerator = [tracks reverseObjectEnumerator];
@@ -63,9 +67,6 @@
 - (IBAction)searched:(id)sender{
  
     NSSearchField* searchField = sender;
-    
-    
-    NSLog(@"searched for %@", [searchField stringValue]);
     
     [self addObserver:self forKeyPath:@"search.tracks" options:0 context:nil];
     self.search = [SPSearch searchWithSearchQuery:[searchField stringValue] inSession:[SPSession sharedSession]];
@@ -128,6 +129,7 @@
 		modalDelegate:nil
 	   didEndSelector:nil
 		  contextInfo:nil];
+    
 }
 
 
@@ -156,8 +158,8 @@
             [value setObject:t forKey:@"originalTrack"];
             
             NSLog(@"adding = %@", value);
-//            [arrayController addObject:value];
-            [arrayController insertObject:value atArrangedObjectIndex:0];
+            [arrayController addObject:value];
+
         }
 
         [searchResults reloadData];

@@ -23,7 +23,14 @@
     return self;
 }
 
+
+
 - (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)flag {
+    
+    if (!self.relatedArrayController.isEditable) {
+        return NSDragOperationNone;
+    }
+    
     if (flag) {
         return NSDragOperationMove;
 
@@ -47,6 +54,7 @@
 - (void) keyDown:(NSEvent *)theEvent {
 
    
+    NSLog(@"key event = %@", theEvent);
     NSUInteger flags = [theEvent modifierFlags] & NSCommandKeyMask;
     unichar key = [[theEvent charactersIgnoringModifiers] characterAtIndex:0];
     if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"e"] && flags == NSCommandKeyMask) {
@@ -62,7 +70,7 @@
         [trackDelegate enqueueTracks:[self selectedTracks]];
         return;
     } else if (key == NSDeleteCharacter) {
-        NSLog(@"delete pressed. source = %@", self.dataSource);
+
         if([self selectedRow] == -1)
         {
             NSBeep();
@@ -70,6 +78,18 @@
         [self.relatedArrayController remove:nil];
         
         return;
+    } else if ([theEvent keyCode] == 36) {
+        // lets fire the doubleclick action here.
+        NSLog(@"enter pressed. obj = %@", self.selectedTracks);
+        
+        if(self.selectedTracks != nil) {
+            if ([self.selectedTracks objectAtIndex:0] != nil) {
+                [self.trackDelegate tableDoubleclick:[NSMutableDictionary dictionaryWithObject:[self.selectedTracks objectAtIndex:0] forKey:@"payload"]];
+//                [self performSelector:self.doubleAction withObject:[NSMutableDictionary dictionaryWithObject:[self.selectedTracks objectAtIndex:0] forKey:@"payload"]];
+
+            }
+        }
+    
     }
     
     [super keyDown:theEvent];
