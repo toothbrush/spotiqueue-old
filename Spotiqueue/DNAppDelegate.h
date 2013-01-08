@@ -44,6 +44,7 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 
 
 @property (weak) IBOutlet NSTextField *userNameField;
+@property (weak) IBOutlet NSSearchField *searchField;
 @property (weak) IBOutlet NSProgressIndicator *loginProgress;
 @property (weak) IBOutlet NSButton *savePassword;
 @property (weak) IBOutlet NSSecureTextField *passwordField;
@@ -72,6 +73,7 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 
 - (IBAction)playTrack:(id)sender;
 - (IBAction)seekToPosition:(id)sender;
+- (IBAction)focusOnSearch:(id)sender;
 - (IBAction)playNextTrack:(id)sender;
 
 - (void) playSPTrack:(SPTrack*) t;

@@ -55,7 +55,7 @@
 - (void) keyDown:(NSEvent *)theEvent {
 
    
-    NSLog(@"key event = %@", theEvent);
+//    NSLog(@"key event = %@", theEvent);
     NSUInteger flags = [theEvent modifierFlags] & NSCommandKeyMask;
 
     if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"e"] && flags == NSCommandKeyMask) {

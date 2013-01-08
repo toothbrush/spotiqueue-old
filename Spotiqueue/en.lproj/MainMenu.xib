@@ -1392,7 +1392,6 @@
 							<string key="NSFrame">{{157, 16}, {436, 21}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSliderCell" key="NSCell" id="789665621">
 								<int key="NSCellFlags">-2080244224</int>
@@ -1548,7 +1547,7 @@
 											<string key="NSFrameSize">{395, 190}</string>
 											<reference key="NSSuperview" ref="48710806"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="110054257"/>
+											<reference key="NSNextKeyView" ref="201742925"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="764507664">
@@ -1738,7 +1737,7 @@
 							<string key="NSFrame">{{193, 182}, {397, 208}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="201742925"/>
+							<reference key="NSNextKeyView" ref="48710806"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133682</int>
 							<reference key="NSVScroller" ref="110054257"/>
@@ -1882,7 +1881,7 @@
 											<string key="NSFrameSize">{162, 205}</string>
 											<reference key="NSSuperview" ref="890426094"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="1031773166"/>
+											<reference key="NSNextKeyView" ref="12005055"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="1068634593">
@@ -2028,7 +2027,7 @@
 							<string key="NSFrame">{{12, 188}, {146, 223}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="12005055"/>
+							<reference key="NSNextKeyView" ref="890426094"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133810</int>
 							<reference key="NSVScroller" ref="1031773166"/>
@@ -2168,7 +2167,6 @@
 							<string key="NSFrame">{{321, 12}, {96, 32}}</string>
 							<reference key="NSSuperview" ref="450090410"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="916339962">
 								<int key="NSCellFlags">67239424</int>
@@ -2316,11 +2314,9 @@
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 			<object class="NSButton" id="277547574">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<string key="NSFrameSize">{82, 32}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<bool key="NSEnabled">YES</bool>
 				<object class="NSButtonCell" key="NSCell" id="199115659">
@@ -2516,14 +2512,6 @@
 						<reference key="destination" ref="575023229"/>
 					</object>
 					<int key="connectionID">240</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">performFindPanelAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="447796847"/>
-					</object>
-					<int key="connectionID">241</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -3156,6 +3144,22 @@
 						<reference key="destination" ref="441851600"/>
 					</object>
 					<int key="connectionID">879</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">focusOnSearch:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="447796847"/>
+					</object>
+					<int key="connectionID">880</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">searchField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="485589794"/>
+					</object>
+					<int key="connectionID">881</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -6861,7 +6865,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">879</int>
+			<int key="maxID">881</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6869,6 +6873,7 @@
 					<string key="className">DNAppDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="focusOnSearch:">id</string>
 						<string key="login:">id</string>
 						<string key="playNextTrack:">id</string>
 						<string key="playTrack:">id</string>
@@ -6878,6 +6883,10 @@
 						<string key="seekToPosition:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="focusOnSearch:">
+							<string key="name">focusOnSearch:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="login:">
 							<string key="name">login:</string>
 							<string key="candidateClassName">id</string>
@@ -6916,6 +6925,7 @@
 						<string key="queueArrayCtrl">RSRTVArrayController</string>
 						<string key="queueTable">DNTrackTable</string>
 						<string key="savePassword">NSButton</string>
+						<string key="searchField">NSSearchField</string>
 						<string key="searchResults">DNTrackTable</string>
 						<string key="trackURLField">NSTextField</string>
 						<string key="userNameField">NSTextField</string>
@@ -6953,6 +6963,10 @@
 						<object class="IBToOneOutletInfo" key="savePassword">
 							<string key="name">savePassword</string>
 							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="searchField">
+							<string key="name">searchField</string>
+							<string key="candidateClassName">NSSearchField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="searchResults">
 							<string key="name">searchResults</string>

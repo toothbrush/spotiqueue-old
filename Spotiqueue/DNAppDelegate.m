@@ -21,7 +21,7 @@
 @synthesize passwordField;
 @synthesize loginProgress;
 @synthesize savePassword;
-@synthesize loginSheet;
+@synthesize loginSheet, searchField;
 @synthesize window;
 @synthesize playbackManager;
 @synthesize search;
@@ -35,7 +35,7 @@
 //    NSLog(@"tbldblclk %@", sender);
 
     if ([sender isKindOfClass:[NSArray class]]) {
-        if ([sender count] > 0) {
+        if ([sender count] == 1) {
             if ([[sender objectAtIndex:0] isKindOfClass:[SPTrack class]]) {
                 // we have a track...
                 NSLog(@"a track = %@", [sender objectAtIndex:0]);
@@ -54,6 +54,14 @@
                 }
             }
 //            NSLog(@"item 0 = %@", [sender objectAtIndex:0]);
+        } else if ([sender count] > 1) {
+            // the user pressed enter on a whole bunch of tracks.
+            if ([self.queueArrayCtrl.content count] == 0) {
+                // the queue is empty now, so we assume the user means to play the whole lot
+                
+                [self enqueueTracksBottom:sender];
+                [self playNextTrack:nil];
+            }
         }
     }
 }
@@ -89,11 +97,9 @@
 }
 
 - (IBAction)searched:(id)sender{
- 
-    NSSearchField* searchField = sender;
     
     [self addObserver:self forKeyPath:@"search.tracks" options:0 context:nil];
-    self.search = [SPSearch searchWithSearchQuery:[searchField stringValue] inSession:[SPSession sharedSession]];
+    self.search = [SPSearch searchWithSearchQuery:[self.searchField stringValue] inSession:[SPSession sharedSession]];
     
         
 }
@@ -440,6 +446,10 @@
     if (![[self managedObjectContext] save:&error]) {
         [[NSApplication sharedApplication] presentError:error];
     }
+}
+
+- (IBAction)focusOnSearch:(id)sender {
+    [self.searchField becomeFirstResponder];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
