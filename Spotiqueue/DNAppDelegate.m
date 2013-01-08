@@ -30,8 +30,32 @@
 
 
 
-- (IBAction)tableDoubleclick:(NSMutableDictionary*)sender {
-    NSLog(@"double click! obj = %@", sender);
+- (IBAction)tableDoubleclick:(id)sender {
+    
+//    NSLog(@"tbldblclk %@", sender);
+
+    if ([sender isKindOfClass:[NSArray class]]) {
+        if ([sender count] > 0) {
+            if ([[sender objectAtIndex:0] isKindOfClass:[SPTrack class]]) {
+                // we have a track...
+                NSLog(@"a track = %@", [sender objectAtIndex:0]);
+                [self playSPTrack:[sender objectAtIndex:0]];
+            } else {
+                // not a track, try extracting from dictionary
+                if ([[sender objectAtIndex:0] isKindOfClass:[NSMutableDictionary class]]) {
+                    id item = [[sender objectAtIndex:0] objectForKey:@"originalTrack"];
+                    if (item) {
+                        if ([item isKindOfClass:[SPTrack class]]) {
+                            // here we have a track again
+                            NSLog(@"(2) a track = %@", item);
+                            [self playSPTrack:item];
+                        }
+                    }
+                }
+            }
+//            NSLog(@"item 0 = %@", [sender objectAtIndex:0]);
+        }
+    }
 }
 
 - (void) enqueueTracksBottom:(NSArray *)tracks {
@@ -98,6 +122,7 @@
     [self.searchResults setRelatedArrayController:self.arrayController];
     [self.queueTable setRelatedArrayController:self.queueArrayCtrl];
     [self.searchResults setTrackDelegate:self];
+    [self.queueTable setTrackDelegate:self];
     
     
     NSArray *accounts = [SSKeychain accountsForService:kServiceName];
@@ -168,10 +193,25 @@
     }
     else if([keyPath isEqualToString:@"playbackManager.currentTrack"]) {
     
-        NSLog(@"currenttrack observed!");
+
+        if (self.playbackManager.currentTrack == nil) {
+            [self playNextTrack:nil];
+        }
     }
         else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+- (IBAction)playNextTrack:(id)sender {
+    // we seem to have stopped. grab next track off queue and continue.
+    if ([self.queueArrayCtrl.content count] > 0) {
+        
+        id t = [self.queueArrayCtrl.content objectAtIndex:0];
+        t = [t objectForKey:@"originalTrack"];
+//        NSLog(@"next track should be %@" , t);
+        [self.queueArrayCtrl removeObjectAtArrangedObjectIndex:0];
+        [self playSPTrack:t];
     }
 }
 
@@ -248,6 +288,17 @@
 #pragma mark -
 #pragma mark Playback
 
+- (void) playSPTrack:(SPTrack *)t {
+    [SPAsyncLoading waitUntilLoaded:t timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *tracks, NSArray *notLoadedTracks) {
+        [self.playbackManager playTrack:t callback:^(NSError *error) {
+            if (error)
+                [self.window presentError:error];
+            
+        }];
+    }];
+
+}
+
 - (IBAction)playTrack:(id)sender {
 	
 	// Invoked by clicking the "Play" button in the UI.
@@ -258,13 +309,7 @@
 		[[SPSession sharedSession] trackForURL:trackURL callback:^(SPTrack *track) {
 			if (track != nil) {
 				
-				[SPAsyncLoading waitUntilLoaded:track timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *tracks, NSArray *notLoadedTracks) {
-					[self.playbackManager playTrack:track callback:^(NSError *error) {
-						if (error)
-							[self.window presentError:error];
-                        
-					}];
-				}];
+				[self playSPTrack:track];
 			}
 		}];
 		return;

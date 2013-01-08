@@ -11,9 +11,7 @@
 @protocol DNTrackTableDelegate <NSObject>
 
 - (void) enqueueTracks: (NSArray*) tracks;
-- (IBAction)tableDoubleclick:(NSMutableDictionary*)sender;
+- (IBAction)tableDoubleclick:(NSArray*)sender;
 - (void) enqueueTracksBottom: (NSArray*) tracks;
-
-- (NSArrayController*) arrayController;
 
 @end

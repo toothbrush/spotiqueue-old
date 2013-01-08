@@ -72,6 +72,9 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 
 - (IBAction)playTrack:(id)sender;
 - (IBAction)seekToPosition:(id)sender;
+- (IBAction)playNextTrack:(id)sender;
+
+- (void) playSPTrack:(SPTrack*) t;
 
 @end
 

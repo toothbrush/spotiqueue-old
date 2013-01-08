@@ -42,8 +42,9 @@
 
 - (NSArray*) selectedTracks {
     
-    NSMutableArray* res = [NSMutableArray new];
-    for (NSDictionary* d in [[trackDelegate arrayController] selectedObjects]) {
+//    NSLog(@"pfff. asking for selected tracks. %@", relatedArrayController);
+    __strong NSMutableArray* res = [NSMutableArray new];
+    for (id d in [relatedArrayController selectedObjects]) {
         [res addObject:[d valueForKey:@"originalTrack"]];
     }
     
@@ -56,7 +57,7 @@
    
     NSLog(@"key event = %@", theEvent);
     NSUInteger flags = [theEvent modifierFlags] & NSCommandKeyMask;
-    unichar key = [[theEvent charactersIgnoringModifiers] characterAtIndex:0];
+
     if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"e"] && flags == NSCommandKeyMask) {
         // command-e was pressed
 
@@ -69,28 +70,31 @@
         
         [trackDelegate enqueueTracks:[self selectedTracks]];
         return;
-    } else if (key == NSDeleteCharacter) {
+    } else if ([theEvent keyCode] == 117 || [theEvent keyCode] == 51) {
+
+        // delete or backspace
 
         if([self selectedRow] == -1)
         {
             NSBeep();
         }
-        [self.relatedArrayController remove:nil];
+        if (self.relatedArrayController.isEditable) {
+            [self.relatedArrayController removeObjects:self.relatedArrayController.selectedObjects];
+
+        }
         
         return;
     } else if ([theEvent keyCode] == 36) {
         // lets fire the doubleclick action here.
-        NSLog(@"enter pressed. obj = %@", self.selectedTracks);
-        
-        if(self.selectedTracks != nil) {
-            if ([self.selectedTracks objectAtIndex:0] != nil) {
-                [self.trackDelegate tableDoubleclick:[NSMutableDictionary dictionaryWithObject:[self.selectedTracks objectAtIndex:0] forKey:@"payload"]];
-//                [self performSelector:self.doubleAction withObject:[NSMutableDictionary dictionaryWithObject:[self.selectedTracks objectAtIndex:0] forKey:@"payload"]];
 
-            }
+        if(self.selectedTracks != nil) {
+
+            [self.trackDelegate tableDoubleclick: self.selectedTracks];
+
         }
+        return;
     
-    }
+    } 
     
     [super keyDown:theEvent];
 }
