@@ -12,6 +12,7 @@
 #import <CocoaLibSpotify/CocoaLibSpotify.h>
 #import "DNTrackTable.h"
 
+#import "LPEasyScrobble.h"
 #import "RSRTVArrayController.h"
 
 @interface DNAppDelegate : NSObject <NSApplicationDelegate,
@@ -23,6 +24,8 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 	NSTextField *__weak userNameField;
 	NSSecureTextField *__weak passwordField;
 	NSTimeInterval currentTrackPosition;
+    
+    LPEasyScrobble * easyScrobble;
 	
 	SPPlaybackManager *playbackManager;
 
@@ -38,16 +41,19 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 @property (weak)   IBOutlet DNTrackTable *queueTable;
 @property (strong) IBOutlet RSRTVArrayController *arrayController;
 @property (strong) IBOutlet RSRTVArrayController *queueArrayCtrl;
-//@property (strong) IBOutlet NSArrayController *arrayController;
-//@property (strong) IBOutlet NSArrayController *queueArrayCtrl;
+
+
+
 
 
 
 @property (weak) IBOutlet NSTextField *userNameField;
+@property (weak) IBOutlet NSTextField *lfmUserNameField;
 @property (weak) IBOutlet NSSearchField *searchField;
 @property (weak) IBOutlet NSProgressIndicator *loginProgress;
 @property (weak) IBOutlet NSButton *savePassword;
 @property (weak) IBOutlet NSSecureTextField *passwordField;
+@property (weak) IBOutlet NSSecureTextField *lfmPasswordField;
 @property (unsafe_unretained) IBOutlet NSPanel *loginSheet;
 @property (assign) IBOutlet NSWindow *window;
 @property (strong)     SPSearch * search;
@@ -64,7 +70,7 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 
 - (IBAction)saveAction:(id)sender;
 
-
+- (NSArray *)tracksSortDescriptors;
 - (IBAction)quitFromLoginSheet:(id)sender;
 
 #pragma mark -
@@ -73,6 +79,7 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 
 - (IBAction)playTrack:(id)sender;
 - (IBAction)seekToPosition:(id)sender;
+- (IBAction)toggleFullScreen:(id)sender;
 - (IBAction)focusOnSearch:(id)sender;
 - (IBAction)playNextTrack:(id)sender;
 

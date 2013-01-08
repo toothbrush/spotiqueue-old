@@ -19,6 +19,7 @@
 @synthesize trackURLField;
 @synthesize userNameField;
 @synthesize passwordField;
+@synthesize lfmPasswordField, lfmUserNameField;
 @synthesize loginProgress;
 @synthesize savePassword;
 @synthesize loginSheet, searchField;
@@ -101,7 +102,7 @@
     [self addObserver:self forKeyPath:@"search.tracks" options:0 context:nil];
     self.search = [SPSearch searchWithSearchQuery:[self.searchField stringValue] inSession:[SPSession sharedSession]];
     
-        
+    [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
 }
 
 
@@ -132,14 +133,35 @@
     
     
     NSArray *accounts = [SSKeychain accountsForService:kServiceName];
+    NSArray *accountsLFM = [SSKeychain accountsForService:kServiceNameLFM];
 
     if (accounts != nil) {
         [passwordField setStringValue:[SSKeychain passwordForService:kServiceName account:[[accounts objectAtIndex:0] valueForKey:@"acct"]]];
         [userNameField setStringValue:[[accounts objectAtIndex:0] valueForKey:@"acct"]];
     }
+    if (accountsLFM != nil) {
+        [lfmPasswordField setStringValue:[SSKeychain passwordForService:kServiceNameLFM account:[[accountsLFM objectAtIndex:0] valueForKey:@"acct"]]];
+        [lfmUserNameField setStringValue:[[accountsLFM objectAtIndex:0] valueForKey:@"acct"]];
+
+    }
     
     
 
+}
+
+- (NSArray *)tracksSortDescriptors {
+    return [NSArray arrayWithObjects:
+            [NSSortDescriptor sortDescriptorWithKey:@"artist"
+                                          ascending:YES],
+            [NSSortDescriptor sortDescriptorWithKey:@"album"
+                                          ascending:YES],
+            [NSSortDescriptor sortDescriptorWithKey:@"originalTrack.trackNumber"
+                                          ascending:YES],
+            nil];
+}
+
+- (IBAction)toggleFullScreen:(id)sender {
+    [self.window toggleFullScreen:nil];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -162,6 +184,10 @@
 		  contextInfo:nil];
     
     [self.arrayController setDraggingEnabled:NO];
+    easyScrobble = [LPEasyScrobble new];
+    
+    [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
+    [self.window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
 }
 
 
@@ -177,7 +203,7 @@
 			[self.playbackProgressSlider setDoubleValue:self.playbackManager.trackPosition];
 		}
     } else if ([keyPath isEqualToString:@"search.tracks"]) {
-        NSLog(@"Search found tracks: %@", self.search.tracks);
+//        NSLog(@"Search found tracks: %@", self.search.tracks);
         NSMutableDictionary *value;
         
         [[arrayController mutableArrayValueForKey:@"content"] removeAllObjects];
@@ -189,7 +215,7 @@
             [value setObject:t.album.name forKey:@"album"];
             [value setObject:t forKey:@"originalTrack"];
             
-            NSLog(@"adding = %@", value);
+//            NSLog(@"adding = %@", value);
             [arrayController addObject:value];
 
         }
@@ -237,6 +263,10 @@
 		[[passwordField stringValue] length] > 0) {
         
         [loginProgress startAnimation:self];
+        [self.userNameField setEnabled:NO];
+        [self.lfmUserNameField setEnabled:NO];
+        [self.passwordField setEnabled:NO];
+        [self.lfmPasswordField setEnabled:NO];
 		
 		[[SPSession sharedSession] attemptLoginWithUserName:[userNameField stringValue]
 												   password:[passwordField stringValue]];
@@ -244,11 +274,51 @@
             [SSKeychain setPassword:[passwordField stringValue]
                          forService:kServiceName
                             account:[userNameField stringValue]];
+            [SSKeychain setPassword:[lfmPasswordField stringValue]
+                         forService:kServiceNameLFM
+                            account:[lfmUserNameField stringValue]];
+        }
+        
+        if ([[lfmPasswordField stringValue] length] > 0 &&
+            [[lfmUserNameField stringValue] length] > 0) {
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+            dispatch_async(queue, ^{
+                BOOL retVal = [easyScrobble setUsername:[lfmUserNameField stringValue]
+                                            andPassword:[lfmPasswordField stringValue]];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+       		  		if ( retVal == TRUE ) {
+       		  			//Take action on success
+                        NSLog(@"logged in okay");
+       		  		}
+       		  		if ( retVal == FALSE ) {
+       		  			//Take action on failure
+                        NSLog(@"lastfm login problem");
+       		  		}
+                });
+            });
         }
     
 	} else {
 		NSBeep();
 	}
+}
+
+- (void) scrobbleATrack:(SPTrack*)track {
+    dispatch_queue_t queue =
+	dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        BOOL retVal = [easyScrobble scrobbleTrack:track];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if ( retVal == TRUE ) {
+                //Take action on success
+                NSLog(@"scrobbled %@ successfully", track);
+            }
+            if ( retVal == FALSE ) {
+                //Take action on failure
+                NSLog(@"scrobbling failed");
+            }
+        });
+    });
 }
 
 #pragma mark -
@@ -261,6 +331,9 @@
 	[self.loginSheet orderOut:self];
     [loginProgress stopAnimation:self];
 	[NSApp endSheet:self.loginSheet];
+    
+    
+    
 }
 
 -(void)session:(SPSession *)aSession didFailToLoginWithError:(NSError *)error; {
@@ -296,6 +369,7 @@
 
 - (void) playSPTrack:(SPTrack *)t {
     [SPAsyncLoading waitUntilLoaded:t timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *tracks, NSArray *notLoadedTracks) {
+        [self scrobbleATrack:t];
         [self.playbackManager playTrack:t callback:^(NSError *error) {
             if (error)
                 [self.window presentError:error];

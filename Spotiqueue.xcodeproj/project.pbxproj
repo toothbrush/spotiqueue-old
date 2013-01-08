@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DA5754F5169C4E2A00B4241E /* RSRTVArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5754F4169C4BFF00B4241E /* RSRTVArrayController.m */; };
+		DA5754F8169C879000B4241E /* lastfm_red_small.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA5754F6169C879000B4241E /* lastfm_red_small.gif */; };
+		DA5754F9169C879000B4241E /* spotify-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA5754F7169C879000B4241E /* spotify-logo.jpg */; };
+		DA5754FC169C897000B4241E /* LPEasyScrobble.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5754FB169C897000B4241E /* LPEasyScrobble.m */; };
 		DA6A9F1B168662BC00A250ED /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1A168662BC00A250ED /* Cocoa.framework */; };
 		DA6A9F25168662BC00A250ED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6A9F23168662BC00A250ED /* InfoPlist.strings */; };
 		DA6A9F27168662BC00A250ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6A9F26168662BC00A250ED /* main.m */; };
@@ -46,6 +49,10 @@
 /* Begin PBXFileReference section */
 		DA5754F3169C4BFF00B4241E /* RSRTVArrayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSRTVArrayController.h; sourceTree = "<group>"; };
 		DA5754F4169C4BFF00B4241E /* RSRTVArrayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSRTVArrayController.m; sourceTree = "<group>"; };
+		DA5754F6169C879000B4241E /* lastfm_red_small.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lastfm_red_small.gif; sourceTree = "<group>"; };
+		DA5754F7169C879000B4241E /* spotify-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "spotify-logo.jpg"; sourceTree = "<group>"; };
+		DA5754FA169C897000B4241E /* LPEasyScrobble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPEasyScrobble.h; sourceTree = "<group>"; };
+		DA5754FB169C897000B4241E /* LPEasyScrobble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPEasyScrobble.m; sourceTree = "<group>"; };
 		DA6A9F16168662BC00A250ED /* Spotiqueue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotiqueue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6A9F1A168662BC00A250ED /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		DA6A9F1D168662BC00A250ED /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -138,6 +145,8 @@
 			children = (
 				DAA78C86168B6D48000C8692 /* Classes */,
 				DA6A9F2F168662BD00A250ED /* MainMenu.xib */,
+				DA5754F6169C879000B4241E /* lastfm_red_small.gif */,
+				DA5754F7169C879000B4241E /* spotify-logo.jpg */,
 				DA6A9F32168662BD00A250ED /* Spotiqueue.xcdatamodeld */,
 				DA6A9F21168662BC00A250ED /* Supporting Files */,
 			);
@@ -178,6 +187,8 @@
 				DAA78C8D16919E63000C8692 /* SSKeychain.h */,
 				DAA78C8E16919E63000C8692 /* SSKeychain.m */,
 				DAA78C9016919F11000C8692 /* SpotiqueueConstants.h */,
+				DA5754FA169C897000B4241E /* LPEasyScrobble.h */,
+				DA5754FB169C897000B4241E /* LPEasyScrobble.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -260,6 +271,8 @@
 				DA6A9F25168662BC00A250ED /* InfoPlist.strings in Resources */,
 				DA6A9F2B168662BC00A250ED /* Credits.rtf in Resources */,
 				DA6A9F31168662BD00A250ED /* MainMenu.xib in Resources */,
+				DA5754F8169C879000B4241E /* lastfm_red_small.gif in Resources */,
+				DA5754F9169C879000B4241E /* spotify-logo.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +289,7 @@
 				DA6A9F34168662BD00A250ED /* Spotiqueue.xcdatamodeld in Sources */,
 				DAA78C85168B6CDE000C8692 /* DNTrackTable.m in Sources */,
 				DAA78C8F16919E63000C8692 /* SSKeychain.m in Sources */,
+				DA5754FC169C897000B4241E /* LPEasyScrobble.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
