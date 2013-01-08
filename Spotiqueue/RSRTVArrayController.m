@@ -51,7 +51,9 @@ NSString *kRSRTVMovedRowsType = @"com.red-sweater.RSRTVArrayController";
 
 - (BOOL) tableObjectsSupportCopying
 {
-	return [[[self arrangedObjects] objectAtIndex:0] conformsToProtocol:@protocol(NSCopying)];
+    
+    return NO;
+//	return [[[self arrangedObjects] objectAtIndex:0] conformsToProtocol:@protocol(NSCopying)];
 }
 
 - (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)op

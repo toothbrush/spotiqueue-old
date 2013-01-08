@@ -130,6 +130,7 @@
 	   didEndSelector:nil
 		  contextInfo:nil];
     
+    [self.arrayController setDraggingEnabled:NO];
 }
 
 
