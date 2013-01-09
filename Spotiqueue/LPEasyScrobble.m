@@ -10,6 +10,7 @@
 
 #import "LPEasyScrobble.h"
 
+
 @implementation LPEasyScrobble
 
 @synthesize username;
@@ -22,10 +23,8 @@
 - (BOOL) setUsername: (NSString*) userNameArg andPassword: (NSString *) passwordArg {
     //Get the information required to log into Last.FM
     
-    //Dev API Key and Secret
-    //Add yours here
-    [self setAPIKey:@"35af9b71263825917eb8dd3087a850bd"];
-    [self setAPISecret:@"046d3d5a4c120848db67d359db073797"];
+    [self setAPIKey:   LFMAPIKey];
+    [self setAPISecret:LFMAPISecret];
     
     //Username and Password
     [self setUsername:userNameArg];
@@ -44,7 +43,7 @@
 - ( NSString *) scrubString: (NSString *) string{
     //We need to scrub out escaped characters
     
-    //Varients of this solution have been posted on so many blogs and StackOverflow answers
+    //Variants of this solution have been posted on so many blogs and StackOverflow answers
     //that I don't know who to give credit to for originating it.
     //Simon Woodside: http://simonwoodside.com/weblog/2009/4/22/how_to_really_url_encode/
     //Darron Schall: http://stackoverflow.com/questions/4814558/how-to-encode-an-url

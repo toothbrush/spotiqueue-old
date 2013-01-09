@@ -89,7 +89,7 @@
 
         if(self.selectedTracks != nil) {
 
-            [self.trackDelegate tableDoubleclick: self.selectedTracks];
+            [self.trackDelegate tableDoubleclick:self tracks: self.selectedTracks];
 
         }
         return;

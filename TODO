@@ -1,10 +1,7 @@
 * drag-to-queue
-* sort by album id, not album title (see Weezer)
-* love track button
+* solve >1CD album problem (see Weezer again)
 * browse artist
 * hotkey to enqueue album?
 
-* make enter enqueue-and-play or just enqueue depending on current queue and play state.
-* scrobble tracks once they finish playing, not on start.
-* re-enable user/pass fields after failed login
-* check last.fm user/pass as well as spotify
+
+* love track button

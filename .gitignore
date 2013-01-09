@@ -1,2 +1,4 @@
 *.xcworkspace
 xcuserdata
+Spotiqueue/SpotifySecrets.h
+Spotiqueue/LFMSecrets.h

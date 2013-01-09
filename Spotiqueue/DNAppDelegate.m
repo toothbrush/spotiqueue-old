@@ -31,37 +31,50 @@
 
 
 
-- (IBAction)tableDoubleclick:(id)sender {
+- (IBAction)tableDoubleclick:(id)sender tracks:(NSArray*)tracks {
     
-//    NSLog(@"tbldblclk %@", sender);
-
-    if ([sender isKindOfClass:[NSArray class]]) {
-        if ([sender count] == 1) {
-            if ([[sender objectAtIndex:0] isKindOfClass:[SPTrack class]]) {
+    if ([tracks isKindOfClass:[NSArray class]]) {
+        if ([tracks count] == 1) {
+            id played = nil;
+            if ([[tracks objectAtIndex:0] isKindOfClass:[SPTrack class]]) {
                 // we have a track...
-                NSLog(@"a track = %@", [sender objectAtIndex:0]);
-                [self playSPTrack:[sender objectAtIndex:0]];
+                played = [tracks objectAtIndex:0];
+                [self playSPTrack: played];
             } else {
                 // not a track, try extracting from dictionary
-                if ([[sender objectAtIndex:0] isKindOfClass:[NSMutableDictionary class]]) {
-                    id item = [[sender objectAtIndex:0] objectForKey:@"originalTrack"];
+                if ([[tracks objectAtIndex:0] isKindOfClass:[NSMutableDictionary class]]) {
+                    id item = [[tracks objectAtIndex:0] objectForKey:@"originalTrack"];
                     if (item) {
                         if ([item isKindOfClass:[SPTrack class]]) {
                             // here we have a track again
-                            NSLog(@"(2) a track = %@", item);
-                            [self playSPTrack:item];
+                            played = item;
+                            [self playSPTrack:played];
                         }
                     }
                 }
             }
-//            NSLog(@"item 0 = %@", [sender objectAtIndex:0]);
-        } else if ([sender count] > 1) {
+            if (sender == self.queueTable) {
+                // we should remove stuff above this entry.
+                
+                while (![[[self.queueArrayCtrl.content objectAtIndex:0] objectForKey:@"originalTrack"] isEqual: played]) {
+                    [self.queueArrayCtrl.content removeObjectAtIndex:0];
+                }
+                // finally remove the clicked track:
+                [self.queueArrayCtrl.content removeObjectAtIndex:0];
+                [self.queueTable deselectAll:nil];
+                [self.queueTable reloadData];
+            }
+        } else if ([tracks count] > 1) {
             // the user pressed enter on a whole bunch of tracks.
             if ([self.queueArrayCtrl.content count] == 0) {
                 // the queue is empty now, so we assume the user means to play the whole lot
                 
-                [self enqueueTracksBottom:sender];
-                [self playNextTrack:nil];
+                [self enqueueTracksBottom:tracks];
+                
+                if (playbackManager.currentTrack == nil) {
+                    [self playNextTrack:nil];
+                }
+
             }
         }
     }
@@ -109,6 +122,8 @@
 
 -(void)applicationWillFinishLaunching:(NSNotification *)notification {
     
+#include "SpotifySecrets.h"
+    
 	NSError *error = nil;
 	[SPSession initializeSharedSessionWithApplicationKey:[NSData dataWithBytes:&g_appkey length:sizeof(g_appkey)]
 											   userAgent:@"com.spotify.SimplePlayer"
@@ -151,9 +166,11 @@
 
 - (NSArray *)tracksSortDescriptors {
     return [NSArray arrayWithObjects:
+            [NSSortDescriptor sortDescriptorWithKey:@"originalTrack.discNumber"
+                                          ascending:YES],
             [NSSortDescriptor sortDescriptorWithKey:@"artist"
                                           ascending:YES],
-            [NSSortDescriptor sortDescriptorWithKey:@"album"
+            [NSSortDescriptor sortDescriptorWithKey:@"albumURL"
                                           ascending:YES],
             [NSSortDescriptor sortDescriptorWithKey:@"originalTrack.trackNumber"
                                           ascending:YES],
@@ -213,9 +230,9 @@
             [value setObject:t.name forKey:@"name"];
             [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
             [value setObject:t.album.name forKey:@"album"];
+            [value setObject:[t.album.spotifyURL absoluteString] forKey:@"albumURL"];
             [value setObject:t forKey:@"originalTrack"];
             
-//            NSLog(@"adding = %@", value);
             [arrayController addObject:value];
 
         }
@@ -244,6 +261,9 @@
 //        NSLog(@"next track should be %@" , t);
         [self.queueArrayCtrl removeObjectAtArrangedObjectIndex:0];
         [self playSPTrack:t];
+    } else {
+        // the queue is empty, so we stop.
+        previousSong = nil; // don't scrobble stuff twice.
     }
 }
 
@@ -268,9 +288,7 @@
         [self.passwordField setEnabled:NO];
         [self.lfmPasswordField setEnabled:NO];
 		
-		[[SPSession sharedSession] attemptLoginWithUserName:[userNameField stringValue]
-												   password:[passwordField stringValue]];
-        if ([savePassword state] == NSOnState) {
+	   if ([savePassword state] == NSOnState) {
             [SSKeychain setPassword:[passwordField stringValue]
                          forService:kServiceName
                             account:[userNameField stringValue]];
@@ -288,11 +306,30 @@
                 dispatch_sync(dispatch_get_main_queue(), ^{
        		  		if ( retVal == TRUE ) {
        		  			//Take action on success
-                        NSLog(@"logged in okay");
+                        NSLog(@"last.fm logged in okay");
+                        [[SPSession sharedSession] attemptLoginWithUserName:[userNameField stringValue]
+                                                                   password:[passwordField stringValue]];
+                        
        		  		}
        		  		if ( retVal == FALSE ) {
        		  			//Take action on failure
                         NSLog(@"lastfm login problem");
+                        [loginProgress stopAnimation:self];
+                        
+                        NSMutableDictionary *err = [NSMutableDictionary dictionary];
+
+                        [err setValue:@"Failed to login to Last.fm" forKey:NSLocalizedDescriptionKey];
+                        [NSApp presentError:[NSError errorWithDomain:@"Spotiqueue" code:0 userInfo:err]
+                             modalForWindow:self.loginSheet
+                                   delegate:nil
+                         didPresentSelector:nil
+                                contextInfo:nil];
+                        [self.userNameField setEnabled:YES];
+                        [self.lfmUserNameField setEnabled:YES];
+                        [self.passwordField setEnabled:YES];
+                        [self.lfmPasswordField setEnabled:YES];
+
+
        		  		}
                 });
             });
@@ -304,6 +341,11 @@
 }
 
 - (void) scrobbleATrack:(SPTrack*)track {
+    
+    if (track == nil) {
+        return;
+    }
+    
     dispatch_queue_t queue =
 	dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
@@ -346,6 +388,10 @@
                delegate:nil
      didPresentSelector:nil
             contextInfo:nil];
+    [self.userNameField setEnabled:YES];
+    [self.lfmUserNameField setEnabled:YES];
+    [self.passwordField setEnabled:YES];
+    [self.lfmPasswordField setEnabled:YES];
 }
 
 -(void)sessionDidLogOut:(SPSession *)aSession; {}
@@ -369,12 +415,16 @@
 
 - (void) playSPTrack:(SPTrack *)t {
     [SPAsyncLoading waitUntilLoaded:t timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *tracks, NSArray *notLoadedTracks) {
-        [self scrobbleATrack:t];
+        
+        if(self.playbackManager.currentTrack == nil) // this means the track was finished.
+            [self scrobbleATrack:previousSong];
+        
         [self.playbackManager playTrack:t callback:^(NSError *error) {
             if (error)
                 [self.window presentError:error];
             
         }];
+        previousSong = t;
     }];
 
 }

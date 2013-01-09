@@ -74,6 +74,8 @@
 		DAA78C8D16919E63000C8692 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		DAA78C8E16919E63000C8692 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		DAA78C9016919F11000C8692 /* SpotiqueueConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotiqueueConstants.h; sourceTree = "<group>"; };
+		DABF28F4169DAECD00003A11 /* LFMSecrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFMSecrets.h; path = Spotiqueue/LFMSecrets.h; sourceTree = "<group>"; };
+		DABF28F5169DAECD00003A11 /* SpotifySecrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpotifySecrets.h; path = Spotiqueue/SpotifySecrets.h; sourceTree = "<group>"; };
 		DAE7B562169D8341009ABCE9 /* CocoaLibSpotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLibSpotify.framework; sourceTree = "<group>"; };
 		DAFDC61C169D8C4100A553E6 /* Spotiqueue.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Spotiqueue.iconset; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,6 +102,8 @@
 		DA6A9F0B168662BC00A250ED = {
 			isa = PBXGroup;
 			children = (
+				DABF28F4169DAECD00003A11 /* LFMSecrets.h */,
+				DABF28F5169DAECD00003A11 /* SpotifySecrets.h */,
 				DA6A9F20168662BC00A250ED /* Spotiqueue */,
 				DA6A9F19168662BC00A250ED /* Frameworks */,
 				DA6A9F17168662BC00A250ED /* Products */,
