@@ -30,7 +30,7 @@
 
 - (BOOL) scrobbleTrack:(SPTrack *) track ;
 
-- (BOOL) loveTrack:(SPTrack *) track ;
+//- (BOOL) loveTrack:(SPTrack *) track ;
 
 - (BOOL) startSession;
 
