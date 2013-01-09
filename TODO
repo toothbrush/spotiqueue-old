@@ -4,3 +4,5 @@
 * browse artist
 * hotkey to enqueue album?
 * make portable (include framework somehow)
+
+* make enter enqueue-and-play or just enqueue depending on current queue and play state.

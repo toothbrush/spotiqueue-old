@@ -13,5 +13,5 @@ Keyboard shortcuts
 * Pressing ⏎ (Return) on a single item plays it immediately.
 * Pressing ⏎ with multiple songs selected enqueues them and starts playing.
 * `⌘E` enqueues, `⌘⇧E` adds tracks to top of queue.
-* ⌘N jumps to the next track. Also useful for starting playback.
+* `⌘N` jumps to the next track. Also useful for starting playback.
 
