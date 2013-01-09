@@ -26,9 +26,9 @@
 		DAA78C85168B6CDE000C8692 /* DNTrackTable.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA78C84168B6CDE000C8692 /* DNTrackTable.m */; };
 		DAA78C8916919C59000C8692 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA78C8816919C59000C8692 /* Security.framework */; };
 		DAA78C8F16919E63000C8692 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA78C8E16919E63000C8692 /* SSKeychain.m */; };
+		DABF28F2169D8DB100003A11 /* Spotiqueue.iconset in Resources */ = {isa = PBXBuildFile; fileRef = DAFDC61C169D8C4100A553E6 /* Spotiqueue.iconset */; };
 		DAE7B563169D8341009ABCE9 /* CocoaLibSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE7B562169D8341009ABCE9 /* CocoaLibSpotify.framework */; };
 		DAE7B565169D8414009ABCE9 /* CocoaLibSpotify.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAE7B562169D8341009ABCE9 /* CocoaLibSpotify.framework */; };
-		DAFDC61D169D8C4100A553E6 /* Spotiqueue.iconset in Resources */ = {isa = PBXBuildFile; fileRef = DAFDC61C169D8C4100A553E6 /* Spotiqueue.iconset */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -237,10 +237,10 @@
 			files = (
 				DA6A9F25168662BC00A250ED /* InfoPlist.strings in Resources */,
 				DA6A9F2B168662BC00A250ED /* Credits.rtf in Resources */,
+				DABF28F2169D8DB100003A11 /* Spotiqueue.iconset in Resources */,
 				DA6A9F31168662BD00A250ED /* MainMenu.xib in Resources */,
 				DA5754F8169C879000B4241E /* lastfm_red_small.gif in Resources */,
 				DA5754F9169C879000B4241E /* spotify-logo.jpg in Resources */,
-				DAFDC61D169D8C4100A553E6 /* Spotiqueue.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
