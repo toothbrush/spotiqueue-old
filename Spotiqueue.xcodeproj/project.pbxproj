@@ -28,6 +28,7 @@
 		DAA78C8F16919E63000C8692 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA78C8E16919E63000C8692 /* SSKeychain.m */; };
 		DAE7B563169D8341009ABCE9 /* CocoaLibSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE7B562169D8341009ABCE9 /* CocoaLibSpotify.framework */; };
 		DAE7B565169D8414009ABCE9 /* CocoaLibSpotify.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAE7B562169D8341009ABCE9 /* CocoaLibSpotify.framework */; };
+		DAFDC61D169D8C4100A553E6 /* Spotiqueue.iconset in Resources */ = {isa = PBXBuildFile; fileRef = DAFDC61C169D8C4100A553E6 /* Spotiqueue.iconset */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -74,6 +75,7 @@
 		DAA78C8E16919E63000C8692 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		DAA78C9016919F11000C8692 /* SpotiqueueConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotiqueueConstants.h; sourceTree = "<group>"; };
 		DAE7B562169D8341009ABCE9 /* CocoaLibSpotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLibSpotify.framework; sourceTree = "<group>"; };
+		DAFDC61C169D8C4100A553E6 /* Spotiqueue.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Spotiqueue.iconset; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 		DA6A9F21168662BC00A250ED /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DAFDC61C169D8C4100A553E6 /* Spotiqueue.iconset */,
 				DA6A9F22168662BC00A250ED /* Spotiqueue-Info.plist */,
 				DA6A9F23168662BC00A250ED /* InfoPlist.strings */,
 				DA6A9F26168662BC00A250ED /* main.m */,
@@ -237,6 +240,7 @@
 				DA6A9F31168662BD00A250ED /* MainMenu.xib in Resources */,
 				DA5754F8169C879000B4241E /* lastfm_red_small.gif in Resources */,
 				DA5754F9169C879000B4241E /* spotify-logo.jpg in Resources */,
+				DAFDC61D169D8C4100A553E6 /* Spotiqueue.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
