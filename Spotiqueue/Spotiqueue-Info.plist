@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string>Spotiqueue</string>
+	<string>Spotiqueue-ng</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.denknerd.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
