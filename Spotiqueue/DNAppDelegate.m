@@ -339,6 +339,11 @@
        		  		}
                 });
             });
+        } else {
+            // no last fm filled in, login directly.
+            [[SPSession sharedSession] attemptLoginWithUserName:[userNameField stringValue]
+                                                       password:[passwordField stringValue]];
+
         }
     
 	} else {
