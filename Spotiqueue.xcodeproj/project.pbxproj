@@ -29,8 +29,8 @@
 		DAA78C8916919C59000C8692 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA78C8816919C59000C8692 /* Security.framework */; };
 		DAA78C8F16919E63000C8692 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA78C8E16919E63000C8692 /* SSKeychain.m */; };
 		DABF28F2169D8DB100003A11 /* Spotiqueue.iconset in Resources */ = {isa = PBXBuildFile; fileRef = DAFDC61C169D8C4100A553E6 /* Spotiqueue.iconset */; };
-		DAE7B563169D8341009ABCE9 /* CocoaLibSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE7B562169D8341009ABCE9 /* CocoaLibSpotify.framework */; };
-		DAE7B565169D8414009ABCE9 /* CocoaLibSpotify.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAE7B562169D8341009ABCE9 /* CocoaLibSpotify.framework */; };
+		DAC626C2169ED42E00A74B02 /* CocoaLibSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC626C1169ED42E00A74B02 /* CocoaLibSpotify.framework */; };
+		DAC626C3169ED43800A74B02 /* CocoaLibSpotify.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAC626C1169ED42E00A74B02 /* CocoaLibSpotify.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,8 +40,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DAE7B565169D8414009ABCE9 /* CocoaLibSpotify.framework in CopyFiles */,
 				DA99E490169DCC9E00968DE9 /* Sparkle.framework in CopyFiles */,
+				DAC626C3169ED43800A74B02 /* CocoaLibSpotify.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +80,7 @@
 		DAA78C9016919F11000C8692 /* SpotiqueueConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotiqueueConstants.h; sourceTree = "<group>"; };
 		DABF28F4169DAECD00003A11 /* LFMSecrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFMSecrets.h; path = Spotiqueue/LFMSecrets.h; sourceTree = "<group>"; };
 		DABF28F5169DAECD00003A11 /* SpotifySecrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpotifySecrets.h; path = Spotiqueue/SpotifySecrets.h; sourceTree = "<group>"; };
-		DAE7B562169D8341009ABCE9 /* CocoaLibSpotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLibSpotify.framework; sourceTree = "<group>"; };
+		DAC626C1169ED42E00A74B02 /* CocoaLibSpotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLibSpotify.framework; sourceTree = "<group>"; };
 		DAFDC61C169D8C4100A553E6 /* Spotiqueue.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Spotiqueue.iconset; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,8 +96,8 @@
 				DA6A9F57168667DC00A250ED /* CoreAudio.framework in Frameworks */,
 				DAA78C74168B522A000C8692 /* Foundation.framework in Frameworks */,
 				DA6A9F1B168662BC00A250ED /* Cocoa.framework in Frameworks */,
-				DAE7B563169D8341009ABCE9 /* CocoaLibSpotify.framework in Frameworks */,
 				DA99E48E169DCC7B00968DE9 /* Sparkle.framework in Frameworks */,
+				DAC626C2169ED42E00A74B02 /* CocoaLibSpotify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,8 +126,8 @@
 		DA6A9F19168662BC00A250ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAC626C1169ED42E00A74B02 /* CocoaLibSpotify.framework */,
 				DA99E48D169DCC7B00968DE9 /* Sparkle.framework */,
-				DAE7B562169D8341009ABCE9 /* CocoaLibSpotify.framework */,
 				DA6A9F1C168662BC00A250ED /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -308,7 +308,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Paul van der Walt";
@@ -340,7 +340,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Paul van der Walt";
@@ -371,7 +371,7 @@
 				GCC_PREFIX_HEADER = "Spotiqueue/Spotiqueue-Prefix.pch";
 				INFOPLIST_FILE = "Spotiqueue/Spotiqueue-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -391,7 +391,7 @@
 				GCC_PREFIX_HEADER = "Spotiqueue/Spotiqueue-Prefix.pch";
 				INFOPLIST_FILE = "Spotiqueue/Spotiqueue-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
