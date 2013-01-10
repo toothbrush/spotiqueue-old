@@ -21,24 +21,24 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 @private
 	NSWindow *__unsafe_unretained window;
 	NSPanel *__unsafe_unretained loginSheet;
-	NSTextField *__weak userNameField;
-	NSSecureTextField *__weak passwordField;
+	NSTextField * __unsafe_unretained userNameField;
+	NSSecureTextField *__unsafe_unretained passwordField;
 	NSTimeInterval currentTrackPosition;
     
     LPEasyScrobble * easyScrobble;
 	SPTrack* previousSong;
 	SPPlaybackManager *playbackManager;
 
-	NSTextField *__weak trackURLField;
-	NSSlider *__weak playbackProgressSlider;
+	NSTextField *__unsafe_unretained trackURLField;
+	NSSlider *__unsafe_unretained playbackProgressSlider;
 }
 
-@property (weak) IBOutlet NSSlider *playbackProgressSlider;
-@property (weak) IBOutlet NSTextField *trackURLField;
+@property (assign) IBOutlet NSSlider *playbackProgressSlider;
+@property (assign) IBOutlet NSTextField *trackURLField;
 
 
-@property (weak)   IBOutlet DNTrackTable *searchResults;
-@property (weak)   IBOutlet DNTrackTable *queueTable;
+@property (assign)   IBOutlet DNTrackTable *searchResults;
+@property (assign)   IBOutlet DNTrackTable *queueTable;
 @property (strong) IBOutlet RSRTVArrayController *arrayController;
 @property (strong) IBOutlet RSRTVArrayController *queueArrayCtrl;
 
@@ -47,13 +47,13 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 
 
 
-@property (weak) IBOutlet NSTextField *userNameField;
-@property (weak) IBOutlet NSTextField *lfmUserNameField;
-@property (weak) IBOutlet NSSearchField *searchField;
-@property (weak) IBOutlet NSProgressIndicator *loginProgress;
-@property (weak) IBOutlet NSButton *savePassword;
-@property (weak) IBOutlet NSSecureTextField *passwordField;
-@property (weak) IBOutlet NSSecureTextField *lfmPasswordField;
+@property (assign) IBOutlet NSTextField *userNameField;
+@property (assign) IBOutlet NSTextField *lfmUserNameField;
+@property (assign) IBOutlet NSSearchField *searchField;
+@property (assign) IBOutlet NSProgressIndicator *loginProgress;
+@property (assign) IBOutlet NSButton *savePassword;
+@property (assign) IBOutlet NSSecureTextField *passwordField;
+@property (assign) IBOutlet NSSecureTextField *lfmPasswordField;
 @property (unsafe_unretained) IBOutlet NSPanel *loginSheet;
 @property (assign) IBOutlet NSWindow *window;
 @property (strong)     SPSearch * search;
