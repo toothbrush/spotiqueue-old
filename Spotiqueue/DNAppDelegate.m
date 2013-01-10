@@ -178,7 +178,9 @@
 }
 
 - (IBAction)toggleFullScreen:(id)sender {
-    [self.window toggleFullScreen:nil];
+    if ([self.window respondsToSelector:@selector(toggleFullScreen:)]) {
+        [self.window toggleFullScreen:nil];
+    }
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -204,7 +206,7 @@
     easyScrobble = [LPEasyScrobble new];
     
     [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
-    [self.window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
+    
 }
 
 
