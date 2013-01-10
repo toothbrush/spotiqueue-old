@@ -151,12 +151,12 @@
     NSArray *accountsLFM = [SSKeychain accountsForService:kServiceNameLFM];
 
     if (accounts != nil) {
-        [passwordField setStringValue:[SSKeychain passwordForService:kServiceName account:[[accounts objectAtIndex:0] valueForKey:@"acct"]]];
-        [userNameField setStringValue:[[accounts objectAtIndex:0] valueForKey:@"acct"]];
+        [passwordField setStringValue:[SSKeychain passwordForService:kServiceName account:[[accounts objectAtIndex:[accounts count]-1] valueForKey:@"acct"]]];
+        [userNameField setStringValue:[[accounts objectAtIndex:[accounts count]-1] valueForKey:@"acct"]];
     }
     if (accountsLFM != nil) {
-        [lfmPasswordField setStringValue:[SSKeychain passwordForService:kServiceNameLFM account:[[accountsLFM objectAtIndex:0] valueForKey:@"acct"]]];
-        [lfmUserNameField setStringValue:[[accountsLFM objectAtIndex:0] valueForKey:@"acct"]];
+        [lfmPasswordField setStringValue:[SSKeychain passwordForService:kServiceNameLFM account:[[accountsLFM objectAtIndex:[accountsLFM count]-1] valueForKey:@"acct"]]];
+        [lfmUserNameField setStringValue:[[accountsLFM objectAtIndex:[accountsLFM count]-1] valueForKey:@"acct"]];
 
     }
     
@@ -289,12 +289,16 @@
         [self.lfmPasswordField setEnabled:NO];
 		
 	   if ([savePassword state] == NSOnState) {
-            [SSKeychain setPassword:[passwordField stringValue]
-                         forService:kServiceName
-                            account:[userNameField stringValue]];
-            [SSKeychain setPassword:[lfmPasswordField stringValue]
-                         forService:kServiceNameLFM
-                            account:[lfmUserNameField stringValue]];
+           [SSKeychain setPassword:[passwordField stringValue]
+                        forService:kServiceName
+                           account:[userNameField stringValue]];
+           if ([[lfmPasswordField stringValue] length] > 0 &&
+               [[lfmUserNameField stringValue] length] > 0) {
+               
+               [SSKeychain setPassword:[lfmPasswordField stringValue]
+                            forService:kServiceNameLFM
+                               account:[lfmUserNameField stringValue]];
+           }
         }
         
         if ([[lfmPasswordField stringValue] length] > 0 &&
