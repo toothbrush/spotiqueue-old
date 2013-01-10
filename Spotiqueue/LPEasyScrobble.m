@@ -50,7 +50,7 @@
     //Search the web for CFURLCreateStringByAddingPercentEscapes and URL and you'll see hundreds of
     //results... so, whoever came up with this, thanks.
     
-    NSString * encodedString = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)string, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]",kCFStringEncodingUTF8 );
+    NSString * encodedString = ( NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, ( CFStringRef)string, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]",kCFStringEncodingUTF8 );
     return encodedString;
     
 }
@@ -260,7 +260,7 @@
     
     NSData* inputData = [inputStr dataUsingEncoding:NSUTF8StringEncoding];
 	unsigned char outputData[CC_MD5_DIGEST_LENGTH];
-	CC_MD5([inputData bytes], [inputData length], outputData);
+	CC_MD5([inputData bytes], (unsigned int)[inputData length], outputData);
     
 	NSMutableString* hashStr = [NSMutableString string];
 	int i = 0;
