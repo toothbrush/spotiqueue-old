@@ -1,3 +1,3 @@
-#define kServiceName @"Spotiqueue"
-#define kServiceNameLFM @"Spotiqueue-LastFM"
+#define kServiceName @"org.denknerd.Spotify"
+#define kServiceNameLFM @"org.denknerd.LastFM"
 #define BasicTableViewDragAndDropDataType @"BasicTableViewDragAndDropDataType"
