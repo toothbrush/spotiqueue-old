@@ -7,6 +7,7 @@
 //
 
 #import "DNTrackTable.h"
+#import <CocoaLibSpotify/CocoaLibSpotify.h>
 
 @implementation DNTrackTable
 
@@ -52,6 +53,63 @@
     
 }
 
+- (void) appleE: (id) sender {
+    [trackDelegate enqueueTracksBottom:[self selectedTracks]];
+}
+
+- (void) appleShiftE: (id) sender {
+    [trackDelegate enqueueTracks:[self selectedTracks]];
+}
+
+- (void) enqueueAlbum: (id) sender {
+    if ([self.selectedTracks count] > 0) {
+        
+        SPTrack* t = [self.selectedTracks objectAtIndex:0];
+        SPAlbumBrowse* ab = [[SPAlbumBrowse alloc] initWithAlbum:t.album inSession:[SPSession sharedSession]];
+        
+        
+        [trackDelegate enqueueTracksBottom:ab.tracks];
+        
+
+    }
+    
+}
+- (void) enqueueAlbumTop: (id) sender {
+    if ([self.selectedTracks count] > 0) {
+        
+        SPTrack* t = [self.selectedTracks objectAtIndex:0];
+        SPAlbumBrowse* ab = [[SPAlbumBrowse alloc] initWithAlbum:t.album inSession:[SPSession sharedSession]];
+        
+        
+        [trackDelegate enqueueTracks:ab.tracks];
+        
+        
+    }
+}
+
+- (void) deleteOrBackspace: (id) sender {
+    
+    if([self selectedRow] == -1)
+    {
+        NSBeep();
+    }
+    if (self.relatedArrayController.isEditable) {
+        [self.relatedArrayController removeObjects:self.relatedArrayController.selectedObjects];
+        
+    }
+
+}
+
+- (void) enter: (id) sender {
+    
+    if(self.selectedTracks != nil) {
+        
+        [self.trackDelegate tableDoubleclick:self tracks: self.selectedTracks];
+        
+    }
+
+}
+
 - (void) keyDown:(NSEvent *)theEvent {
 
    
@@ -60,38 +118,27 @@
 
     if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"e"] && flags == NSCommandKeyMask) {
         // command-e was pressed
-
-        [trackDelegate enqueueTracksBottom:[self selectedTracks]];
-        
-        
+        [self appleE:nil];
         return;
     } else if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"E"] && flags == NSCommandKeyMask) {
         // command-shift-e pressed
-        
-        [trackDelegate enqueueTracks:[self selectedTracks]];
+        [self appleShiftE:nil];
         return;
-    } else if ([theEvent keyCode] == 117 || [theEvent keyCode] == 51) {
-
+    }
+    /* else if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"s"] && flags == NSCommandKeyMask) {
+        [self enqueueAlbum:nil];
+        return;
+    } else if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"S"] && flags == NSCommandKeyMask) {
+        [self enqueueAlbumTop:nil];
+        return;
+    } */
+    else if ([theEvent keyCode] == 117 || [theEvent keyCode] == 51) {
         // delete or backspace
-
-        if([self selectedRow] == -1)
-        {
-            NSBeep();
-        }
-        if (self.relatedArrayController.isEditable) {
-            [self.relatedArrayController removeObjects:self.relatedArrayController.selectedObjects];
-
-        }
-        
+        [self deleteOrBackspace:nil];
         return;
     } else if ([theEvent keyCode] == 36) {
         // lets fire the doubleclick action here.
-
-        if(self.selectedTracks != nil) {
-
-            [self.trackDelegate tableDoubleclick:self tracks: self.selectedTracks];
-
-        }
+        [self enter:nil];
         return;
     
     } 

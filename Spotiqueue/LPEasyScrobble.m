@@ -250,6 +250,94 @@
     
 }
 
+- (BOOL) loveTrack:(SPTrack *) track {
+    //Loves a track
+    
+    
+    [self debugLog:@"Entered scrobbleTrack"];
+    
+    //Get the Artist Name
+    NSString *artist = track.consolidatedArtists;
+    
+    //Get the Song Name
+    NSString *song = track.name;
+    
+    //Build auth.getMobileSession SIG
+    NSMutableString *api_sig = [NSMutableString string];
+    [api_sig appendString:@"api_key"];
+    [api_sig appendString:self.APIKey];
+    [api_sig appendString:@"artist"];
+    [api_sig appendString:artist];
+    [api_sig appendString:@"methodtrack.love"];
+    [api_sig appendString:@"sk"];
+    [api_sig appendString:self.sessionKey];
+    [api_sig appendString:@"track"];
+    [api_sig appendString:song];
+    [api_sig appendString:self.APISecret];
+    
+    [self debugLog:@"API Sig (Raw):"];
+    [self debugLog:api_sig];
+    
+    NSString *api_sig_hashed = [self MD5StringOfString:api_sig];
+    
+    [self debugLog:@"API Sig (Hashed):"];
+    [self debugLog:api_sig_hashed];
+    
+    //Build auth.getMobileSession SIG
+    NSMutableString *api_request = [NSMutableString string];
+    [api_request appendString:@"api_key="];
+    [api_request appendString:self.APIKey];
+    [api_request appendString:@"&artist="];
+    [api_request appendString:[self scrubString:artist]];
+    [api_request appendString:@"&method=track.love"];
+    [api_request appendString:@"&sk="];
+    [api_request appendString:self.sessionKey];
+    [api_request appendString:@"&track="];
+    [api_request appendString:[self scrubString:song]];
+    [api_request appendString:@"&api_sig="];
+    [api_request appendString:api_sig_hashed];
+    
+    [self debugLog:@"API Request:"];
+    [self debugLog:api_request];
+    
+    
+    //Set the URL
+    NSURL *apiURL = [NSURL URLWithString:@"https://ws.audioscrobbler.com/2.0/"];
+    
+    //Create a URL request for the URL. We want it to be a POST with the conent of the request string and in the right
+    //content type
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: apiURL];
+    [request setHTTPMethod: @"POST"];
+    [request setHTTPBody: [NSData dataWithBytes:[api_request UTF8String] length:[api_request length]]];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+    
+    //Get the response from the server
+    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    
+    //Convert the response to a string
+    NSString *responseString = [[NSString alloc] initWithData:response encoding:NSASCIIStringEncoding];
+    
+    [self debugLog:responseString];
+    
+    //We want to see if this Love call failed or succeeded
+    NSRange startRange = [responseString rangeOfString:@"<lfm status=\"ok\">"];
+    
+    if (startRange.length > 0) {
+        
+        [self debugLog:@"Call suceeded"];
+        
+        return TRUE;
+        
+    } else {
+        
+        [self debugLog:@"Call failed"];
+        
+        
+        return FALSE;
+        
+    }
+}
+
 - (NSString*) MD5StringOfString:(NSString*) inputStr;
 {
 	//I lifted this from Tom Dalling:

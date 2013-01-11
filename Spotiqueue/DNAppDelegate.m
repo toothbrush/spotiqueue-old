@@ -13,7 +13,7 @@
 @synthesize persistentStoreCoordinator    = _persistentStoreCoordinator;
 @synthesize managedObjectModel            = _managedObjectModel;
 @synthesize managedObjectContext          = _managedObjectContext;
-
+@synthesize nextButton;
 @synthesize playbackProgressSlider;
 @synthesize searchResults;
 @synthesize trackURLField;
@@ -25,7 +25,7 @@
 @synthesize loginSheet, searchField;
 @synthesize window;
 @synthesize playbackManager;
-@synthesize search;
+@synthesize search, trackDurationLabel;
 @synthesize queueTable;
 @synthesize arrayController, queueArrayCtrl;
 
@@ -80,6 +80,23 @@
     }
 }
 
+- (NSString *)trackDuration {
+    
+    if (self.playbackManager.currentTrack == nil) {
+        return nil;
+    }
+    
+    NSTimeInterval t = self.playbackManager.currentTrack.duration;
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:t];
+
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"mm:ss"];
+    NSString *formattedDate = [dateFormatter stringFromDate:date];
+
+    return formattedDate;
+}
+
 - (void) enqueueTracksBottom:(NSArray *)tracks {
     
     NSMutableDictionary* value;
@@ -89,6 +106,8 @@
         [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
         [value setObject:t.album.name forKey:@"album"];
         [value setObject:t forKey:@"originalTrack"];
+        
+        [value setObject:[NSNumber numberWithDouble: [[NSDate date] timeIntervalSince1970]] forKey:@"whenAdded"];
         
         [queueArrayCtrl addObject:value];
     }
@@ -105,6 +124,8 @@
         [value setObject:t.album.name forKey:@"album"];
         [value setObject:t forKey:@"originalTrack"];
         
+        [value setObject:[NSNumber numberWithDouble: [[NSDate date] timeIntervalSince1970]] forKey:@"whenAdded"];
+        
         [queueArrayCtrl insertObject:value atArrangedObjectIndex:0];
     }
 
@@ -113,8 +134,14 @@
 - (IBAction)searched:(id)sender{
     
     [self addObserver:self forKeyPath:@"search.tracks" options:0 context:nil];
-    self.search = [SPSearch searchWithSearchQuery:[self.searchField stringValue] inSession:[SPSession sharedSession]];
     
+    self.search = [SPSearch searchWithSearchQuery:[self.searchField stringValue] inSession:[SPSession sharedSession]];
+
+    //TODO hoped to fix search-for-same-string-twice bug like this, but no go. 
+//    for (id ob in self.arrayController.arrangedObjects) {
+//        [self.arrayController removeObject: ob];
+//    }
+//    
     [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
 }
 
@@ -195,6 +222,11 @@
 		   forKeyPath:@"playbackManager.currentTrack"
 			  options:0
 			  context:nil];
+    [self addObserver:self
+           forKeyPath:@"queueArrayCtrl.arrangedObjects"
+              options:0
+              context:nil];
+
 	
 	[NSApp beginSheet:self.loginSheet
 	   modalForWindow:self.window
@@ -242,8 +274,14 @@
         [searchResults reloadData];
 
     }
+    else if([ keyPath isEqualToString:@"queueArrayCtrl.arrangedObjects"]) {
+
+        [self.nextButton setEnabled:([self.queueArrayCtrl.arrangedObjects count] > 0)];
+        
+    }
     else if([keyPath isEqualToString:@"playbackManager.currentTrack"]) {
     
+        [self.trackDurationLabel setStringValue:self.trackDuration];
 
         if (self.playbackManager.currentTrack == nil) {
             [self playNextTrack:nil];
@@ -351,6 +389,31 @@
 	}
 }
 
+- (void) loveATrack:(SPTrack*)track {
+    
+    if (track == nil) {
+        return;
+    }
+    
+    dispatch_queue_t queue =
+	dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        BOOL retVal = [easyScrobble loveTrack:track];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if ( retVal == TRUE ) {
+                //Take action on success
+                NSLog(@"loved %@ successfully", track);
+            }
+            if ( retVal == FALSE ) {
+                //Take action on failure
+                NSLog(@"loving %@ failed", track);
+            }
+        });
+    });
+}
+
+
+
 - (void) scrobbleATrack:(SPTrack*)track {
     
     if (track == nil) {
@@ -368,7 +431,7 @@
             }
             if ( retVal == FALSE ) {
                 //Take action on failure
-                NSLog(@"scrobbling failed");
+                NSLog(@"scrobbling %@ failed", track);
             }
         });
     });
@@ -591,7 +654,6 @@
 {
     
     [[NSNotificationCenter defaultCenter] removeObserver: self];
-//    [self removeObserver:self forKeyPath:@"search.tracks" context:nil];
 
     
     if ([SPSession sharedSession].connectionState != SP_CONNECTION_STATE_LOGGED_OUT &&

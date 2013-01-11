@@ -33,6 +33,7 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 	NSSlider *__unsafe_unretained playbackProgressSlider;
 }
 
+@property (nonatomic, retain) IBOutlet NSButton * nextButton;
 @property (assign) IBOutlet NSSlider *playbackProgressSlider;
 @property (assign) IBOutlet NSTextField *trackURLField;
 
@@ -41,11 +42,11 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 @property (assign)   IBOutlet DNTrackTable *queueTable;
 @property (strong) IBOutlet RSRTVArrayController *arrayController;
 @property (strong) IBOutlet RSRTVArrayController *queueArrayCtrl;
+@property (nonatomic, retain) IBOutlet NSTextField* trackDurationLabel;
 
 
 
-
-
+@property (readonly) IBOutlet NSString* trackDuration;
 
 @property (assign) IBOutlet NSTextField *userNameField;
 @property (assign) IBOutlet NSTextField *lfmUserNameField;
