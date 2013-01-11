@@ -15,3 +15,7 @@ Keyboard shortcuts
 * `⌘E` enqueues, `⌘⇧E` adds tracks to top of queue.
 * `⌘N` jumps to the next track. Also useful for starting playback.
 
+Download
+--------
+
+If you're the type who prefers deep-frozen pizza and ready-made pasta sauce, you can find a compiled version [here](https://denknerd.org/files/Spotiqueue.app.zip). Also interesting for people who just don't happen to be script kiddies.
