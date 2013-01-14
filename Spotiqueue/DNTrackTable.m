@@ -44,12 +44,12 @@
 - (NSArray*) selectedTracks {
     
 //    NSLog(@"pfff. asking for selected tracks. %@", relatedArrayController);
-    __strong NSMutableArray* res = [NSMutableArray new];
+    __strong NSMutableArray* res = [[NSMutableArray alloc] init];
     for (id d in [relatedArrayController selectedObjects]) {
         [res addObject:[d valueForKey:@"originalTrack"]];
     }
     
-    return res;
+    return [res autorelease];
     
 }
 
@@ -63,13 +63,13 @@
 
 - (void) enqueueAlbum: (id) sender {
     if ([self.selectedTracks count] > 0) {
-        
-        SPTrack* t = [self.selectedTracks objectAtIndex:0];
-        SPAlbumBrowse* ab = [[SPAlbumBrowse alloc] initWithAlbum:t.album inSession:[SPSession sharedSession]];
-        
-        
-        [trackDelegate enqueueTracksBottom:ab.tracks];
-        
+//        
+//        SPTrack* t = [self.selectedTracks objectAtIndex:0];
+//        SPAlbumBrowse* ab = [[SPAlbumBrowse alloc] initWithAlbum:t.album inSession:[SPSession sharedSession]];
+//        
+//        
+//        [trackDelegate enqueueTracksBottom:ab.tracks];
+//        
 
     }
     
@@ -77,12 +77,12 @@
 - (void) enqueueAlbumTop: (id) sender {
     if ([self.selectedTracks count] > 0) {
         
-        SPTrack* t = [self.selectedTracks objectAtIndex:0];
-        SPAlbumBrowse* ab = [[SPAlbumBrowse alloc] initWithAlbum:t.album inSession:[SPSession sharedSession]];
-        
-        
-        [trackDelegate enqueueTracks:ab.tracks];
-        
+//        SPTrack* t = [self.selectedTracks objectAtIndex:0];
+//        SPAlbumBrowse* ab = [[SPAlbumBrowse alloc] initWithAlbum:t.album inSession:[SPSession sharedSession]];
+//        
+//        
+//        [trackDelegate enqueueTracks:ab.tracks];
+//        
         
     }
 }

@@ -51,7 +51,7 @@
     //results... so, whoever came up with this, thanks.
     
     NSString * encodedString = ( NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, ( CFStringRef)string, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]",kCFStringEncodingUTF8 );
-    return encodedString;
+    return [encodedString autorelease];
     
 }
 
@@ -136,6 +136,7 @@
     //Get the response from the server
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     
+    [request release];
     //Convert the response to a string
     NSString *responseString = [[NSString alloc] initWithData:response encoding:NSASCIIStringEncoding];
     
@@ -143,7 +144,7 @@
     
     //We want to see if this Scrobble call failed or succeeded
     NSRange startRange = [responseString rangeOfString:@"<lfm status=\"ok\">"];
-    
+    [responseString release];
     if (startRange.length > 0) {
         
         [self debugLog:@"Call suceeded"];
@@ -214,6 +215,7 @@
     //Get the response from the server
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     
+    [request release];
     //Convert the response to a string
     NSString *responseString = [[NSString alloc] initWithData:response encoding:NSASCIIStringEncoding];
     
@@ -241,6 +243,7 @@
         [self setSessionKey:keyString];
     }
     
+    [responseString release];
     if ( [self.sessionKey isEqualToString:@"NOKEY"]) {
         //If we've made it this far and the sessionKey wasn't set
         //then something went wrong talking to Last.fm
@@ -313,7 +316,7 @@
     
     //Get the response from the server
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    
+    [request release];
     //Convert the response to a string
     NSString *responseString = [[NSString alloc] initWithData:response encoding:NSASCIIStringEncoding];
     
@@ -321,7 +324,7 @@
     
     //We want to see if this Love call failed or succeeded
     NSRange startRange = [responseString rangeOfString:@"<lfm status=\"ok\">"];
-    
+    [responseString release];
     if (startRange.length > 0) {
         
         [self debugLog:@"Call suceeded"];

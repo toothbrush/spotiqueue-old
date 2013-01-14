@@ -1294,7 +1294,7 @@
 							<string key="NSFrame">{{1133, 99}, {82, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="441851600"/>
+							<reference key="NSNextKeyView" ref="956931155"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="458525303">
@@ -1312,13 +1312,44 @@
 								<int key="NSPeriodicInterval">25</int>
 							</object>
 						</object>
+						<object class="NSButton" id="956931155">
+							<reference key="NSNextResponder" ref="439893737"/>
+							<int key="NSvFlags">293</int>
+							<string key="NSFrame">{{983, 73}, {115, 18}}</string>
+							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="441851600"/>
+							<string key="NSReuseIdentifierKey">_NS:9</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="63354385">
+								<int key="NSCellFlags">-2080374784</int>
+								<int key="NSCellFlags2">268435456</int>
+								<string key="NSContents">Scrobble</string>
+								<reference key="NSSupport" ref="364661025"/>
+								<string key="NSCellIdentifier">_NS:9</string>
+								<reference key="NSControlView" ref="956931155"/>
+								<int key="NSButtonFlags">1211912448</int>
+								<int key="NSButtonFlags2">2</int>
+								<object class="NSCustomResource" key="NSNormalImage" id="930913039">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">NSSwitch</string>
+								</object>
+								<object class="NSButtonImageSource" key="NSAlternateImage" id="448893508">
+									<string key="NSImageName">NSSwitch</string>
+								</object>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">200</int>
+								<int key="NSPeriodicInterval">25</int>
+							</object>
+						</object>
 					</array>
 					<string key="NSFrameSize">{1229, 829}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="242235249"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMinSize">{800, 622}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<int key="NSWindowCollectionBehavior">128</int>
@@ -1525,13 +1556,8 @@
 								<reference key="NSControlView" ref="18638009"/>
 								<int key="NSButtonFlags">1211912448</int>
 								<int key="NSButtonFlags2">2</int>
-								<object class="NSCustomResource" key="NSNormalImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">NSSwitch</string>
-								</object>
-								<object class="NSButtonImageSource" key="NSAlternateImage">
-									<string key="NSImageName">NSSwitch</string>
-								</object>
+								<reference key="NSNormalImage" ref="930913039"/>
+								<reference key="NSAlternateImage" ref="448893508"/>
 								<string key="NSAlternateContents"/>
 								<string key="NSKeyEquivalent"/>
 								<int key="NSPeriodicDelay">200</int>
@@ -1683,7 +1709,7 @@
 					<reference key="NSNextKeyView" ref="561755598"/>
 					<string key="NSReuseIdentifierKey">_NS:21</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -2128,6 +2154,14 @@
 					<int key="connectionID">1260</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">scrobbleEnabled</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="956931155"/>
+					</object>
+					<int key="connectionID">1276</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">maxValue: playbackManager.currentTrack.duration</string>
 						<reference key="source" ref="84859311"/>
@@ -2559,10 +2593,14 @@
 							<string key="NSLabel">value: arrangedObjects.originalTrack.trackNumber</string>
 							<string key="NSBinding">value</string>
 							<string key="NSKeyPath">arrangedObjects.originalTrack.trackNumber</string>
+							<dictionary key="NSOptions">
+								<boolean value="NO" key="NSAllowsEditingMultipleValuesSelection"/>
+								<boolean value="YES" key="NSConditionallySetsEditable"/>
+							</dictionary>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1026</int>
+					<int key="connectionID">1282</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -2632,6 +2670,26 @@
 						</object>
 					</object>
 					<int key="connectionID">1272</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: self.playbackManager.currentTrack</string>
+						<reference key="source" ref="956931155"/>
+						<reference key="destination" ref="976324537"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="956931155"/>
+							<reference key="NSDestination" ref="976324537"/>
+							<string key="NSLabel">enabled: self.playbackManager.currentTrack</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">self.playbackManager.currentTrack</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSIsNotNil</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1281</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2962,6 +3020,7 @@
 							<reference ref="6180111"/>
 							<reference ref="840479427"/>
 							<reference ref="953397131"/>
+							<reference ref="956931155"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -3600,6 +3659,19 @@
 						<reference key="object" ref="778635246"/>
 						<reference key="parent" ref="720053764"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1274</int>
+						<reference key="object" ref="956931155"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="63354385"/>
+						</array>
+						<reference key="parent" ref="439893737"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1275</int>
+						<reference key="object" ref="63354385"/>
+						<reference key="parent" ref="956931155"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3632,6 +3704,8 @@
 				<string key="1261.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1262.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1273.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1274.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1275.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="129.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="134.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="136.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3758,7 +3832,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1273</int>
+			<int key="maxID">1282</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3826,6 +3900,7 @@
 						<string key="queueArrayCtrl">RSRTVArrayController</string>
 						<string key="queueTable">DNTrackTable</string>
 						<string key="savePassword">NSButton</string>
+						<string key="scrobbleEnabled">NSButton</string>
 						<string key="searchField">NSSearchField</string>
 						<string key="searchResults">DNTrackTable</string>
 						<string key="trackDuration">NSString</string>
@@ -3877,6 +3952,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="savePassword">
 							<string key="name">savePassword</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="scrobbleEnabled">
+							<string key="name">scrobbleEnabled</string>
 							<string key="candidateClassName">NSButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="searchField">

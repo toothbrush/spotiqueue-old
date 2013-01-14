@@ -18,12 +18,13 @@
 @synthesize searchResults;
 @synthesize trackURLField;
 @synthesize userNameField;
+@synthesize scrobbleEnabled;
 @synthesize passwordField;
 @synthesize lfmPasswordField, lfmUserNameField;
 @synthesize loginProgress;
 @synthesize savePassword;
 @synthesize loginSheet, searchField;
-@synthesize window;
+@synthesize window = _window;
 @synthesize playbackManager;
 @synthesize search, trackDurationLabel;
 @synthesize queueTable;
@@ -83,7 +84,7 @@
 - (NSString *)trackDuration {
     
     if (self.playbackManager.currentTrack == nil) {
-        return nil;
+        return @"-:--";
     }
     
     NSTimeInterval t = self.playbackManager.currentTrack.duration;
@@ -101,7 +102,7 @@
     
     NSMutableDictionary* value;
     for (SPTrack* t in tracks) {
-        value = [NSMutableDictionary new];
+        value = [[NSMutableDictionary alloc] init];
         [value setObject:t.name forKey:@"name"];
         [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
         [value setObject:t.album.name forKey:@"album"];
@@ -110,6 +111,7 @@
         [value setObject:[NSNumber numberWithDouble: [[NSDate date] timeIntervalSince1970]] forKey:@"whenAdded"];
         
         [queueArrayCtrl addObject:value];
+        [value release];
     }
 }
 
@@ -118,7 +120,7 @@
     NSMutableDictionary* value;
     NSEnumerator *enumerator = [tracks reverseObjectEnumerator];
     for (SPTrack* t in enumerator) {
-        value = [NSMutableDictionary new];
+        value = [[NSMutableDictionary alloc] init];
         [value setObject:t.name forKey:@"name"];
         [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
         [value setObject:t.album.name forKey:@"album"];
@@ -127,16 +129,21 @@
         [value setObject:[NSNumber numberWithDouble: [[NSDate date] timeIntervalSince1970]] forKey:@"whenAdded"];
         
         [queueArrayCtrl insertObject:value atArrangedObjectIndex:0];
+        [value release];
     }
 
 }
 
 - (IBAction)searched:(id)sender{
     
+    //[self removeObserver:self forKeyPath:@"search.tracks"];
+    
+    [self.search release];
+    
+    self.search = [[SPSearch searchWithSearchQuery:[self.searchField stringValue] inSession:[SPSession sharedSession]] retain];
+    
     [self addObserver:self forKeyPath:@"search.tracks" options:0 context:nil];
     
-    self.search = [SPSearch searchWithSearchQuery:[self.searchField stringValue] inSession:[SPSession sharedSession]];
-
     //TODO hoped to fix search-for-same-string-twice bug like this, but no go. 
 //    for (id ob in self.arrayController.arrangedObjects) {
 //        [self.arrayController removeObject: ob];
@@ -145,7 +152,12 @@
     [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
 }
 
-
+- (void)dealloc {
+    self.playbackManager = nil;
+    self.window = nil;
+    
+    [super dealloc];
+}
 
 -(void)applicationWillFinishLaunching:(NSNotification *)notification {
     
@@ -165,8 +177,8 @@
 	[[SPSession sharedSession] setDelegate:self];
 	self.playbackManager = [[SPPlaybackManager alloc] initWithPlaybackSession:[SPSession sharedSession]];
     
-	[self.window center];
-	[self.window orderFront:nil];
+	[_window center];
+	[_window orderFront:nil];
    
     [self.searchResults setRelatedArrayController:self.arrayController];
     [self.queueTable setRelatedArrayController:self.queueArrayCtrl];
@@ -260,7 +272,7 @@
         [[arrayController mutableArrayValueForKey:@"content"] removeAllObjects];
         
         for (SPTrack* t in self.search.tracks) {
-            value = [NSMutableDictionary new];
+            value = [[NSMutableDictionary alloc] init];
             [value setObject:t.name forKey:@"name"];
             [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
             [value setObject:t.album.name forKey:@"album"];
@@ -268,6 +280,8 @@
             [value setObject:t forKey:@"originalTrack"];
             
             [arrayController addObject:value];
+            
+            [value release];
 
         }
 
@@ -417,6 +431,10 @@
 - (void) scrobbleATrack:(SPTrack*)track {
     
     if (track == nil) {
+        return;
+    }
+    
+    if ([scrobbleEnabled state] != NSOnState) {
         return;
     }
     
@@ -700,6 +718,7 @@
         [alert addButtonWithTitle:cancelButton];
 
         NSInteger answer = [alert runModal];
+        [alert release];
         
         if (answer == NSAlertAlternateReturn) {
             return NSTerminateCancel;

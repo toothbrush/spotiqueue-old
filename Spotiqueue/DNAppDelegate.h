@@ -19,11 +19,11 @@
 SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 
 @private
-	NSWindow *__unsafe_unretained window;
+//	NSWindow *__unsafe_unretained window;
 	NSPanel *__unsafe_unretained loginSheet;
 	NSTextField * __unsafe_unretained userNameField;
 	NSSecureTextField *__unsafe_unretained passwordField;
-	NSTimeInterval currentTrackPosition;
+//	NSTimeInterval currentTrackPosition;
     
     LPEasyScrobble * easyScrobble;
 	SPTrack* previousSong;
@@ -36,7 +36,7 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 @property (nonatomic, retain) IBOutlet NSButton * nextButton;
 @property (assign) IBOutlet NSSlider *playbackProgressSlider;
 @property (assign) IBOutlet NSTextField *trackURLField;
-
+@property (nonatomic, retain) IBOutlet NSButton* scrobbleEnabled;
 
 @property (assign)   IBOutlet DNTrackTable *searchResults;
 @property (assign)   IBOutlet DNTrackTable *queueTable;
