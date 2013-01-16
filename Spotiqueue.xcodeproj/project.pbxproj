@@ -11,7 +11,6 @@
 		DA5754F8169C879000B4241E /* lastfm_red_small.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA5754F6169C879000B4241E /* lastfm_red_small.gif */; };
 		DA5754F9169C879000B4241E /* spotify-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA5754F7169C879000B4241E /* spotify-logo.jpg */; };
 		DA5754FC169C897000B4241E /* LPEasyScrobble.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5754FB169C897000B4241E /* LPEasyScrobble.m */; };
-		DA63BD4816A7056A00B4ACCE /* DNSearchField.m in Sources */ = {isa = PBXBuildFile; fileRef = DA63BD4716A7056A00B4ACCE /* DNSearchField.m */; };
 		DA6A9F1B168662BC00A250ED /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1A168662BC00A250ED /* Cocoa.framework */; };
 		DA6A9F25168662BC00A250ED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6A9F23168662BC00A250ED /* InfoPlist.strings */; };
 		DA6A9F27168662BC00A250ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6A9F26168662BC00A250ED /* main.m */; };
@@ -55,8 +54,6 @@
 		DA5754F7169C879000B4241E /* spotify-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "spotify-logo.jpg"; sourceTree = "<group>"; };
 		DA5754FA169C897000B4241E /* LPEasyScrobble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPEasyScrobble.h; sourceTree = "<group>"; };
 		DA5754FB169C897000B4241E /* LPEasyScrobble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPEasyScrobble.m; sourceTree = "<group>"; };
-		DA63BD4616A7056A00B4ACCE /* DNSearchField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNSearchField.h; sourceTree = "<group>"; };
-		DA63BD4716A7056A00B4ACCE /* DNSearchField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNSearchField.m; sourceTree = "<group>"; };
 		DA6A9F16168662BC00A250ED /* Spotiqueue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotiqueue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6A9F1A168662BC00A250ED /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		DA6A9F1D168662BC00A250ED /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -191,8 +188,6 @@
 				DAA78C9016919F11000C8692 /* SpotiqueueConstants.h */,
 				DA5754FA169C897000B4241E /* LPEasyScrobble.h */,
 				DA5754FB169C897000B4241E /* LPEasyScrobble.m */,
-				DA63BD4616A7056A00B4ACCE /* DNSearchField.h */,
-				DA63BD4716A7056A00B4ACCE /* DNSearchField.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -273,7 +268,6 @@
 				DAA78C85168B6CDE000C8692 /* DNTrackTable.m in Sources */,
 				DAA78C8F16919E63000C8692 /* SSKeychain.m in Sources */,
 				DA5754FC169C897000B4241E /* LPEasyScrobble.m in Sources */,
-				DA63BD4816A7056A00B4ACCE /* DNSearchField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
