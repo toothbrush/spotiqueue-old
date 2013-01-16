@@ -145,7 +145,7 @@
     
     //[self removeObserver:self forKeyPath:@"search.tracks"];
     
-//    [self.search release];
+    self.search = nil;
     
     self.search = [[SPSearch searchWithSearchQuery:[self.searchField stringValue] inSession:[SPSession sharedSession]] retain];
     [self.searchIndicator startAnimation:nil];

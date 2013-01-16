@@ -56,7 +56,7 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 @property (assign) IBOutlet NSSecureTextField *lfmPasswordField;
 @property (unsafe_unretained) IBOutlet NSPanel *loginSheet;
 @property (assign) IBOutlet NSWindow *window;
-@property (strong)     SPSearch * search;
+@property (nonatomic, retain)     SPSearch * search;
 
 
 - (IBAction)login:(id)sender;

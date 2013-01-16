@@ -541,7 +541,6 @@
 							<string key="NSFrame">{{18, 16}, {1193, 21}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSliderCell" key="NSCell" id="789665621">
 								<int key="NSCellFlags">-2080244224</int>
@@ -721,7 +720,7 @@
 											<string key="NSFrameSize">{823, 589}</string>
 											<reference key="NSSuperview" ref="48710806"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="110054257"/>
+											<reference key="NSNextKeyView" ref="201742925"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="764507664">
@@ -941,7 +940,7 @@
 							<string key="NSFrame">{{598, 172}, {611, 607}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="201742925"/>
+							<reference key="NSNextKeyView" ref="48710806"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133810</int>
 							<reference key="NSVScroller" ref="110054257"/>
@@ -1069,7 +1068,7 @@
 											<string key="NSFrameSize">{617, 589}</string>
 											<reference key="NSSuperview" ref="890426094"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="1031773166"/>
+											<reference key="NSNextKeyView" ref="12005055"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="1068634593">
@@ -1241,7 +1240,7 @@
 							<string key="NSFrame">{{12, 172}, {578, 607}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="12005055"/>
+							<reference key="NSNextKeyView" ref="890426094"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133810</int>
 							<reference key="NSVScroller" ref="1031773166"/>
@@ -1351,7 +1350,7 @@
 						</object>
 						<object class="NSProgressIndicator" id="59266026">
 							<reference key="NSNextResponder" ref="439893737"/>
-							<int key="NSvFlags">268</int>
+							<int key="NSvFlags">265</int>
 							<string key="NSFrame">{{898, 790}, {16, 16}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
@@ -4091,6 +4090,7 @@
 						<string key="saveAction:">id</string>
 						<string key="searched:">id</string>
 						<string key="seekToPosition:">id</string>
+						<string key="tableDoubleclick:tracks:">id</string>
 						<string key="toggleFullScreen:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -4124,6 +4124,10 @@
 						</object>
 						<object class="IBActionInfo" key="seekToPosition:">
 							<string key="name">seekToPosition:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="tableDoubleclick:tracks:">
+							<string key="name">tableDoubleclick:tracks:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleFullScreen:">
