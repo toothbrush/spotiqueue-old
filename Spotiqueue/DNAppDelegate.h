@@ -29,13 +29,11 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 	SPTrack* previousSong;
 	SPPlaybackManager *playbackManager;
 
-	NSTextField *__unsafe_unretained trackURLField;
 	NSSlider *__unsafe_unretained playbackProgressSlider;
 }
 
 @property (nonatomic, retain) IBOutlet NSButton * nextButton;
 @property (assign) IBOutlet NSSlider *playbackProgressSlider;
-@property (assign) IBOutlet NSTextField *trackURLField;
 @property (nonatomic, retain) IBOutlet NSButton* scrobbleEnabled;
 
 @property (assign)   IBOutlet DNTrackTable *searchResults;
@@ -52,6 +50,7 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 @property (assign) IBOutlet NSTextField *lfmUserNameField;
 @property (assign) IBOutlet NSSearchField *searchField;
 @property (assign) IBOutlet NSProgressIndicator *loginProgress;
+@property (nonatomic, retain) IBOutlet NSProgressIndicator* searchIndicator;
 @property (assign) IBOutlet NSButton *savePassword;
 @property (assign) IBOutlet NSSecureTextField *passwordField;
 @property (assign) IBOutlet NSSecureTextField *lfmPasswordField;
@@ -78,7 +77,7 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 
 @property (nonatomic, readwrite, strong) SPPlaybackManager *playbackManager;
 
-- (IBAction)playTrack:(id)sender;
+
 - (IBAction)seekToPosition:(id)sender;
 - (IBAction)toggleFullScreen:(id)sender;
 - (IBAction)focusOnSearch:(id)sender;

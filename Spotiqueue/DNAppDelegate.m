@@ -16,13 +16,12 @@
 @synthesize nextButton;
 @synthesize playbackProgressSlider;
 @synthesize searchResults;
-@synthesize trackURLField;
 @synthesize userNameField;
 @synthesize scrobbleEnabled;
 @synthesize passwordField;
 @synthesize lfmPasswordField, lfmUserNameField;
 @synthesize loginProgress;
-@synthesize savePassword;
+@synthesize savePassword, searchIndicator;
 @synthesize loginSheet, searchField;
 @synthesize window = _window;
 @synthesize playbackManager;
@@ -138,9 +137,10 @@
     
     //[self removeObserver:self forKeyPath:@"search.tracks"];
     
-    [self.search release];
+//    [self.search release];
     
     self.search = [[SPSearch searchWithSearchQuery:[self.searchField stringValue] inSession:[SPSession sharedSession]] retain];
+    [self.searchIndicator startAnimation:nil];
     
     [self addObserver:self forKeyPath:@"search.tracks" options:0 context:nil];
     
@@ -203,6 +203,8 @@
 
 }
 
+
+
 - (NSArray *)tracksSortDescriptors {
     return [NSArray arrayWithObjects:
             [NSSortDescriptor sortDescriptorWithKey:@"originalTrack.discNumber"
@@ -250,6 +252,7 @@
     easyScrobble = [LPEasyScrobble new];
     
     [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
+    [self.searchIndicator stopAnimation:nil];
     
 }
 
@@ -519,24 +522,6 @@
         previousSong = t;
     }];
 
-}
-
-- (IBAction)playTrack:(id)sender {
-	
-	// Invoked by clicking the "Play" button in the UI.
-    
-	if ([[trackURLField stringValue] length] > 0) {
-		
-		NSURL *trackURL = [NSURL URLWithString:[trackURLField stringValue]];
-		[[SPSession sharedSession] trackForURL:trackURL callback:^(SPTrack *track) {
-			if (track != nil) {
-				
-				[self playSPTrack:track];
-			}
-		}];
-		return;
-	}
-	NSBeep();
 }
 
 - (IBAction)seekToPosition:(id)sender {
