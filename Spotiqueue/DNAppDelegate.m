@@ -132,6 +132,14 @@
     }
 
 }
+- (IBAction)playOrPause:(id)sender {
+    
+    if (self.playbackManager.currentTrack != nil) {
+        self.playbackManager.isPlaying = !self.playbackManager.isPlaying;
+    }
+    
+}
+
 
 - (IBAction)searched:(id)sender{
     

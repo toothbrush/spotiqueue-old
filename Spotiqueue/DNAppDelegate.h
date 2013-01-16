@@ -62,6 +62,7 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 - (IBAction)login:(id)sender;
 
 - (IBAction)searched:(id)sender;
+- (IBAction)playOrPause:(id)sender;
 
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;

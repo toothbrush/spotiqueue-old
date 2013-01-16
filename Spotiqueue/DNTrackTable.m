@@ -125,7 +125,6 @@
 
 - (void) keyDown:(NSEvent *)theEvent {
 
-   
 //    NSLog(@"key event = %@", theEvent);
     NSUInteger flags = [theEvent modifierFlags] & NSCommandKeyMask;
 
@@ -153,8 +152,10 @@
         // lets fire the doubleclick action here.
         [self enter:nil];
         return;
-    
-    } 
+    } else if ([theEvent keyCode] == 49) {
+        //space was pressed
+        [self.trackDelegate playOrPause:nil];
+    }
     
     [super keyDown:theEvent];
 }

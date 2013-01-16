@@ -13,5 +13,6 @@
 - (void) enqueueTracks: (NSArray*) tracks;
 - (IBAction)tableDoubleclick:(id)sender tracks:(NSArray*)tracks;
 - (void) enqueueTracksBottom: (NSArray*) tracks;
+- (IBAction)playOrPause:(id)sender;
 
 @end
