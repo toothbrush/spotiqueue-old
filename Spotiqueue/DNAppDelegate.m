@@ -75,6 +75,10 @@
                     [self playNextTrack:nil];
                 }
 
+            } else {
+                // just enqueue, don't play-next.
+                [self enqueueTracksBottom:tracks];
+
             }
         }
     }
