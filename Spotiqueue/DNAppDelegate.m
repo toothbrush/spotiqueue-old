@@ -116,6 +116,8 @@
         [queueArrayCtrl addObject:value];
         [value release];
     }
+    
+    [self.queueTable scrollToEndOfDocument:nil];
 }
 
 - (void) enqueueTracks:(NSArray *)tracks {
@@ -135,6 +137,7 @@
         [value release];
     }
 
+    [self.queueTable scrollToBeginningOfDocument:nil];
 }
 - (IBAction)playOrPause:(id)sender {
     
@@ -151,6 +154,11 @@
     
     self.search = nil;
     
+    if ([[[self.searchField stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
+        [self.searchIndicator stopAnimation:nil];
+        return;
+    }
+    
     self.search = [[SPSearch searchWithSearchQuery:[self.searchField stringValue] inSession:[SPSession sharedSession]] retain];
     [self.searchIndicator startAnimation:nil];
     
@@ -162,6 +170,8 @@
 //    }
 //    
     [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
+    [sender resignFirstResponder];
+    [self.window makeFirstResponder:self.searchResults];
 }
 
 - (void)dealloc {
