@@ -53,28 +53,13 @@
     
 }
 
-- (void) appleE: (id) sender {
+- (void) enqueuetrack: (id) sender {
     [trackDelegate enqueueTracksBottom:[self selectedTracks]];
 }
 
-- (void) appleShiftE: (id) sender {
+- (void) enqueuetrackTop: (id) sender {
     [trackDelegate enqueueTracks:[self selectedTracks]];
 }
-
-- (void) enqueueAlbum: (id) sender {
-    if ([self.selectedTracks count] > 0) {
-//        
-//        SPTrack* t = [self.selectedTracks objectAtIndex:0];
-//        SPAlbumBrowse* ab = [[SPAlbumBrowse alloc] initWithAlbum:t.album inSession:[SPSession sharedSession]];
-//        
-//        
-//        [trackDelegate enqueueTracksBottom:ab.tracks];
-//        
-
-    }
-    
-}
-
 
 - (BOOL)resignFirstResponder {
     self.backgroundColor = [NSColor whiteColor];
@@ -84,20 +69,6 @@
 - (BOOL)becomeFirstResponder {
     self.backgroundColor = [NSColor colorWithSRGBRed:187.0/255.0f green:202.0/255.0f blue:1.0f alpha:0.4f];
     return [super becomeFirstResponder];
-}
-
-
-- (void) enqueueAlbumTop: (id) sender {
-    if ([self.selectedTracks count] > 0) {
-        
-//        SPTrack* t = [self.selectedTracks objectAtIndex:0];
-//        SPAlbumBrowse* ab = [[SPAlbumBrowse alloc] initWithAlbum:t.album inSession:[SPSession sharedSession]];
-//        
-//        
-//        [trackDelegate enqueueTracks:ab.tracks];
-//        
-        
-    }
 }
 
 - (void) deleteOrBackspace: (id) sender {
@@ -126,38 +97,42 @@
 - (void) keyDown:(NSEvent *)theEvent {
 
 //    NSLog(@"key event = %@", theEvent);
-    NSUInteger flags = [theEvent modifierFlags] & NSCommandKeyMask;
+    NSUInteger flags = [theEvent modifierFlags] & (NSCommandKeyMask | NSShiftKeyMask);
+    
+    if ([theEvent keyCode] == 123 && flags == NSCommandKeyMask) {
+        // command-left was pressed
+        [self enqueuetrack:nil];
 
-    if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"e"] && flags == NSCommandKeyMask) {
-        // command-e was pressed
-        [self appleE:nil];
-        return;
-    } else if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"E"] && flags == NSCommandKeyMask) {
-        // command-shift-e pressed
-        [self appleShiftE:nil];
-        return;
-    }
-    /* else if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"s"] && flags == NSCommandKeyMask) {
-        [self enqueueAlbum:nil];
-        return;
-    } else if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"S"] && flags == NSCommandKeyMask) {
-        [self enqueueAlbumTop:nil];
-        return;
-    } */
-    else if ([theEvent keyCode] == 117 || [theEvent keyCode] == 51) {
+    } else if ([theEvent keyCode] == 123 && flags == (NSCommandKeyMask | NSShiftKeyMask)) {
+        // command-shift-left pressed
+        // we also still support e and friends
+        [self enqueuetrackTop:nil];
+
+    } else if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"e"] && flags == NSCommandKeyMask) {
+        // command-left was pressed
+        [self enqueuetrack:nil];
+        
+    } else if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"E"] && flags == (NSCommandKeyMask | NSShiftKeyMask)) {
+        // command-shift-left pressed
+        // we also still support e and friends
+        [self enqueuetrackTop:nil];
+        
+    } else if ([theEvent keyCode] == 117 || [theEvent keyCode] == 51) {
         // delete or backspace
         [self deleteOrBackspace:nil];
-        return;
+
     } else if ([theEvent keyCode] == 36) {
         // lets fire the doubleclick action here.
         [self enter:nil];
-        return;
+
     } else if ([theEvent keyCode] == 49) {
         //space was pressed
         [self.trackDelegate playOrPause:nil];
-    }
+
+    } else {
     
-    [super keyDown:theEvent];
+        [super keyDown:theEvent];
+    }
 }
 
 @end
