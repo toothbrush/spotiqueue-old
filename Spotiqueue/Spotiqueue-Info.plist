@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>7</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.music</string>
 	<key>LSMinimumSystemVersion</key>
@@ -33,6 +33,6 @@
 	<key>NSPrincipalClass</key>
 	<string>DNApplication</string>
 	<key>SUFeedURL</key>
-	<string>https://denknerd.org/files/spotiqueue.xml</string>
+	<string>http://denknerd.org/files/spotiqueue.xml</string>
 </dict>
 </plist>

@@ -16,14 +16,13 @@
 #import "RSRTVArrayController.h"
 
 @interface DNAppDelegate : NSObject <NSApplicationDelegate,
-SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
+SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate,
+SPPlaylistDelegate> {
 
 @private
-//	NSWindow *__unsafe_unretained window;
-	NSPanel *__unsafe_unretained loginSheet;
+
 	NSTextField * __unsafe_unretained userNameField;
 	NSSecureTextField *__unsafe_unretained passwordField;
-//	NSTimeInterval currentTrackPosition;
     
     LPEasyScrobble * easyScrobble;
 	SPTrack* previousSong;
@@ -54,7 +53,8 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 @property (assign) IBOutlet NSButton *savePassword;
 @property (assign) IBOutlet NSSecureTextField *passwordField;
 @property (assign) IBOutlet NSSecureTextField *lfmPasswordField;
-@property (unsafe_unretained) IBOutlet NSPanel *loginSheet;
+@property (nonatomic, retain) IBOutlet NSPanel *loginSheet;
+@property (nonatomic, retain) IBOutlet NSPanel *loadPlaylistSheet;
 @property (assign) IBOutlet NSWindow *window;
 @property (nonatomic, retain)     SPSearch * search;
 
@@ -64,10 +64,18 @@ SPSessionDelegate, DNTrackTableDelegate, NSTableViewDelegate> {
 - (IBAction)searched:(id)sender;
 - (IBAction)playOrPause:(id)sender;
 
+- (IBAction)loadPlaylistFromURL:(id)sender;
+- (IBAction)showLoadPlaylist:(id)sender;
+- (IBAction)cancelLoadURLSheet:(id)sender;
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+
+@property (nonatomic, retain) IBOutlet NSTextField* playlistURL;
+
+
 
 - (IBAction)saveAction:(id)sender;
 

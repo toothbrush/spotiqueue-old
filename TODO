@@ -1,18 +1,22 @@
-* browse artist
+* browse artist only.
+* related artists? hm.
+* fix repeat-search-crash. eg "swans" then "swans failures". 
+* mention unread-messages-count
+
+
+* persist the current queue, always. 
 
 
 
 
-
-* allow opening playlists (into queue as well as search results..)
+* allow opening playlists (into search results)
 * allow entering spotify url (nice for neighbours' starred tracks, eg)
 * allow starring
 
+* pure arrowleft enqueues?
 
 
-* share playlists (via core data?? icloud?)
+* vim nav-keys.
 
-
-
-
-* "currently playing" on last.fm
+* share playlists (via core data?? icloud?) – low prio
+ 

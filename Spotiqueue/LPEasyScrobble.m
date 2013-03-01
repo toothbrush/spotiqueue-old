@@ -31,7 +31,7 @@
     [self setPassword:passwordArg];
     
     //Print debug statements if TRUE
-    [self setIsInDebug:FALSE];
+    [self setIsInDebug:TRUE];
     
     //Set the default value for session key
     [self setSessionKey:@"NOKEY"];
@@ -61,8 +61,8 @@
     
     [self debugLog:@"Entered scrobbleTrack"];
     
-    //Get the Artist Name
-    NSString *artist = track.consolidatedArtists;
+    //Get the first artist's Name
+    NSString *artist = [[track.artists objectAtIndex:0] name];
     
     //Get the Song Name
     NSString *song = track.name;
@@ -260,7 +260,7 @@
     [self debugLog:@"Entered scrobbleTrack"];
     
     //Get the Artist Name
-    NSString *artist = track.consolidatedArtists;
+    NSString *artist = [[track.artists objectAtIndex:0] name];
     
     //Get the Song Name
     NSString *song = track.name;
@@ -365,7 +365,7 @@
     
     if ( self.isInDebug == TRUE) {
         
-        NSLog(@"%@", stringToLog);
+        DLog(@"%@", stringToLog);
     }
     
 }

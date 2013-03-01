@@ -44,7 +44,7 @@
 
 - (NSArray*) selectedTracks {
     
-    //    NSLog(@"pfff. asking for selected tracks. %@", relatedArrayController);
+    //    DLog(@"pfff. asking for selected tracks. %@", relatedArrayController);
     __strong NSMutableArray* res = [[NSMutableArray alloc] init];
     for (id d in [relatedArrayController selectedObjects]) {
         [res addObject:[d valueForKey:@"originalTrack"]];
@@ -118,7 +118,7 @@
 
 - (void) keyDown:(NSEvent *)theEvent {
     
-    //    NSLog(@"key event = %@", theEvent);
+    //    DLog(@"key event = %@", theEvent);
     NSUInteger flags = [theEvent modifierFlags] & (NSCommandKeyMask | NSShiftKeyMask);
     
     if ([theEvent keyCode] == 123 && flags == NSCommandKeyMask) {

@@ -20,8 +20,10 @@
 @synthesize scrobbleEnabled;
 @synthesize passwordField;
 @synthesize lfmPasswordField, lfmUserNameField;
+@synthesize playlistURL;
 @synthesize loginProgress;
 @synthesize savePassword, searchIndicator;
+@synthesize loadPlaylistSheet;
 @synthesize loginSheet, searchField;
 @synthesize window = _window;
 @synthesize playbackManager;
@@ -176,6 +178,9 @@
 
 - (void)dealloc {
     self.playbackManager = nil;
+    self.playlistURL = nil;
+    self.loginSheet = nil;
+    self.loadPlaylistSheet = nil;
     self.window = nil;
     
     [super dealloc];
@@ -192,7 +197,7 @@
 												   error:&error];
     
 	if (error != nil) {
-		NSLog(@"CocoaLibSpotify init failed: %@", error);
+		DLog(@"CocoaLibSpotify init failed: %@", error);
 		abort();
 	}
     
@@ -278,7 +283,85 @@
     
 }
 
+- (void)loadPlaylistFromURL:(id)sender {
+   
+//    DLog(@"url will be: %@", [NSURL URLWithString:self.playlistURL.stringValue]);
+    [SPPlaylist playlistWithPlaylistURL:[NSURL URLWithString:self.playlistURL.stringValue] inSession:[SPSession sharedSession] callback:^(SPPlaylist *playlist) {
+        
+        DLog(@"returned playlist = %@ %@", playlist.name ,playlist);
+        
+        [playlist startLoading];
+        
+        
+        
+        playlist.delegate = self;
+        
+//        NSMutableArray* tracks = [[NSMutableArray alloc] init];
+//        for (SPPlaylistItem* pli in playlist.items) {
+//            if([pli.itemClass isSubclassOfClass:[SPTrack class]]) {
+//                SPTrack * tr = pli.item;
+//                [tracks addObject:tr];
+//            }
+//        }
+//        
+//        [self populateSearchTable:tracks];
+//        [tracks release];        
+        
+    }];
+    
+    [self cancelLoadURLSheet:nil];
 
+}
+
+- (void)playlist:(SPPlaylist *)aPlaylist willAddItems:(NSArray *)items atIndexes:(NSIndexSet *)theseIndexesArentYetValid {
+    DLog(@"willAddItems: %@", items);
+
+}
+- (void)playlist:(SPPlaylist *)aPlaylist didAddItems:(NSArray *)items atIndexes:(NSIndexSet *)newIndexes {
+    DLog(@"didAddItems: %@", items);
+}
+
+- (void)showLoadPlaylist:(id)sender {
+    [NSApp beginSheet:self.loadPlaylistSheet
+	   modalForWindow:self.window
+		modalDelegate:nil
+	   didEndSelector:nil
+		  contextInfo:nil];
+    
+    self.playlistURL.stringValue =
+        [NSString stringWithFormat:@"spotify:user:%@:starred",
+         self.playbackManager.playbackSession.user.canonicalName];
+    
+    self.playlistURL.stringValue = @"spotify:user:toothbrush666:playlist:0CGju5c3vrhBVTxQVTFgqS";
+
+}
+
+- (void) populateSearchTable: (NSArray*) results {
+    
+    if (results == nil) {
+        return;
+    }
+    [[arrayController mutableArrayValueForKey:@"content"] removeAllObjects];
+    
+    NSMutableDictionary *value;
+
+    for (SPTrack* t in results) {
+        value = [[NSMutableDictionary alloc] init];
+        [value setObject:t.name forKey:@"name"];
+        [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
+        [value setObject:t.album.name forKey:@"album"];
+        [value setObject:[t.album.spotifyURL absoluteString] forKey:@"albumURL"];
+        [value setObject:t forKey:@"originalTrack"];
+        
+        [arrayController addObject:value];
+        
+        [value release];
+        
+    }
+    
+    [searchResults reloadData];
+
+}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	
@@ -291,26 +374,9 @@
 			[self.playbackProgressSlider setDoubleValue:self.playbackManager.trackPosition];
 		}
     } else if ([keyPath isEqualToString:@"search.tracks"]) {
-//        NSLog(@"Search found tracks: %@", self.search.tracks);
-        NSMutableDictionary *value;
+//        DLog(@"Search found tracks: %@", self.search.tracks);
         
-        [[arrayController mutableArrayValueForKey:@"content"] removeAllObjects];
-        
-        for (SPTrack* t in self.search.tracks) {
-            value = [[NSMutableDictionary alloc] init];
-            [value setObject:t.name forKey:@"name"];
-            [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
-            [value setObject:t.album.name forKey:@"album"];
-            [value setObject:[t.album.spotifyURL absoluteString] forKey:@"albumURL"];
-            [value setObject:t forKey:@"originalTrack"];
-            
-            [arrayController addObject:value];
-            
-            [value release];
-
-        }
-
-        [searchResults reloadData];
+        [self populateSearchTable:self.search.tracks];
 
     }
     else if([ keyPath isEqualToString:@"queueArrayCtrl.arrangedObjects"]) {
@@ -337,7 +403,7 @@
         
         id t = [self.queueArrayCtrl.content objectAtIndex:0];
         t = [t objectForKey:@"originalTrack"];
-//        NSLog(@"next track should be %@" , t);
+//        DLog(@"next track should be %@" , t);
         [self.queueArrayCtrl removeObjectAtArrangedObjectIndex:0];
         [self playSPTrack:t];
     } else {
@@ -384,19 +450,21 @@
             [[lfmUserNameField stringValue] length] > 0) {
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
             dispatch_async(queue, ^{
+                DLog(@"trying to login to last.fm");
                 BOOL retVal = [easyScrobble setUsername:[lfmUserNameField stringValue]
                                             andPassword:[lfmPasswordField stringValue]];
+                DLog(@"last.fm logged in? %@", retVal?@"YES":@"NO");
                 dispatch_sync(dispatch_get_main_queue(), ^{
        		  		if ( retVal == TRUE ) {
        		  			//Take action on success
-                        NSLog(@"last.fm logged in okay");
+                        DLog(@"last.fm logged in okay");
                         [[SPSession sharedSession] attemptLoginWithUserName:[userNameField stringValue]
                                                                    password:[passwordField stringValue]];
                         
        		  		}
        		  		if ( retVal == FALSE ) {
        		  			//Take action on failure
-                        NSLog(@"lastfm login problem");
+                        DLog(@"lastfm login problem");
                         [loginProgress stopAnimation:self];
                         
                         NSMutableDictionary *err = [NSMutableDictionary dictionary];
@@ -441,11 +509,11 @@
         dispatch_sync(dispatch_get_main_queue(), ^{
             if ( retVal == TRUE ) {
                 //Take action on success
-                NSLog(@"loved %@ successfully", track);
+                DLog(@"loved %@ successfully", track);
             }
             if ( retVal == FALSE ) {
                 //Take action on failure
-                NSLog(@"loving %@ failed", track);
+                DLog(@"loving %@ failed", track);
             }
         });
     });
@@ -470,11 +538,11 @@
         dispatch_sync(dispatch_get_main_queue(), ^{
             if ( retVal == TRUE ) {
                 //Take action on success
-                NSLog(@"scrobbled %@ successfully", track);
+                DLog(@"scrobbled %@ successfully", track);
             }
             if ( retVal == FALSE ) {
                 //Take action on failure
-                NSLog(@"scrobbling %@ failed", track);
+                DLog(@"scrobbling %@ failed", track);
             }
         });
     });
@@ -493,6 +561,13 @@
     
     
     
+}
+
+- (void)cancelLoadURLSheet:(id)sender{
+    [self.loadPlaylistSheet orderOut:self];
+
+	[NSApp endSheet:self.loadPlaylistSheet];
+
 }
 
 -(void)session:(SPSession *)aSession didFailToLoginWithError:(NSError *)error; {
@@ -585,7 +660,7 @@
     
     NSManagedObjectModel *mom = [self managedObjectModel];
     if (!mom) {
-        NSLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
+        DLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
         return nil;
     }
     
@@ -663,7 +738,7 @@
     NSError *error = nil;
     
     if (![[self managedObjectContext] commitEditing]) {
-        NSLog(@"%@:%@ unable to commit editing before saving", [self class], NSStringFromSelector(_cmd));
+        DLog(@"%@:%@ unable to commit editing before saving", [self class], NSStringFromSelector(_cmd));
     }
     
     if (![[self managedObjectContext] save:&error]) {
@@ -697,7 +772,7 @@
     }
     
     if (![[self managedObjectContext] commitEditing]) {
-        NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
+        DLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
         return NSTerminateCancel;
     }
     

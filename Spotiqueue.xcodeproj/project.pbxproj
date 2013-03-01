@@ -54,7 +54,7 @@
 		DA5754F6169C879000B4241E /* lastfm_red_small.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lastfm_red_small.gif; sourceTree = "<group>"; };
 		DA5754F7169C879000B4241E /* spotify-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "spotify-logo.jpg"; sourceTree = "<group>"; };
 		DA5754FA169C897000B4241E /* LPEasyScrobble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPEasyScrobble.h; sourceTree = "<group>"; };
-		DA5754FB169C897000B4241E /* LPEasyScrobble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPEasyScrobble.m; sourceTree = "<group>"; };
+		DA5754FB169C897000B4241E /* LPEasyScrobble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LPEasyScrobble.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DA6A9F16168662BC00A250ED /* Spotiqueue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotiqueue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6A9F1A168662BC00A250ED /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		DA6A9F1D168662BC00A250ED /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -63,17 +63,17 @@
 		DA6A9F22168662BC00A250ED /* Spotiqueue-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Spotiqueue-Info.plist"; sourceTree = "<group>"; };
 		DA6A9F24168662BC00A250ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA6A9F26168662BC00A250ED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DA6A9F28168662BC00A250ED /* Spotiqueue-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spotiqueue-Prefix.pch"; sourceTree = "<group>"; };
+		DA6A9F28168662BC00A250ED /* Spotiqueue-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "Spotiqueue-Prefix.pch"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DA6A9F2A168662BC00A250ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		DA6A9F2C168662BC00A250ED /* DNAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNAppDelegate.h; sourceTree = "<group>"; };
-		DA6A9F2D168662BC00A250ED /* DNAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNAppDelegate.m; sourceTree = "<group>"; };
+		DA6A9F2D168662BC00A250ED /* DNAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DNAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DA6A9F30168662BD00A250ED /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		DA6A9F33168662BD00A250ED /* Spotiqueue.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spotiqueue.xcdatamodel; sourceTree = "<group>"; };
 		DA6A9F54168667DC00A250ED /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		DA6A9F55168667DC00A250ED /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		DA99E48D169DCC7B00968DE9 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		DAA78C83168B6CDE000C8692 /* DNTrackTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNTrackTable.h; sourceTree = "<group>"; };
-		DAA78C84168B6CDE000C8692 /* DNTrackTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNTrackTable.m; sourceTree = "<group>"; };
+		DAA78C84168B6CDE000C8692 /* DNTrackTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DNTrackTable.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DAA78C87168B6EE8000C8692 /* DNTrackTableDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNTrackTableDelegate.h; sourceTree = "<group>"; };
 		DAA78C8816919C59000C8692 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DAA78C8D16919E63000C8692 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
@@ -179,22 +179,30 @@
 		DAA78C86168B6D48000C8692 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				DA5754F3169C4BFF00B4241E /* RSRTVArrayController.h */,
-				DA5754F4169C4BFF00B4241E /* RSRTVArrayController.m */,
+				DAC4377016B05EE5001E94B4 /* Subclassed */,
 				DA6A9F2C168662BC00A250ED /* DNAppDelegate.h */,
 				DA6A9F2D168662BC00A250ED /* DNAppDelegate.m */,
-				DAA78C83168B6CDE000C8692 /* DNTrackTable.h */,
-				DAA78C84168B6CDE000C8692 /* DNTrackTable.m */,
 				DAA78C87168B6EE8000C8692 /* DNTrackTableDelegate.h */,
 				DAA78C8D16919E63000C8692 /* SSKeychain.h */,
 				DAA78C8E16919E63000C8692 /* SSKeychain.m */,
 				DAA78C9016919F11000C8692 /* SpotiqueueConstants.h */,
 				DA5754FA169C897000B4241E /* LPEasyScrobble.h */,
 				DA5754FB169C897000B4241E /* LPEasyScrobble.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		DAC4377016B05EE5001E94B4 /* Subclassed */ = {
+			isa = PBXGroup;
+			children = (
+				DA5754F3169C4BFF00B4241E /* RSRTVArrayController.h */,
+				DA5754F4169C4BFF00B4241E /* RSRTVArrayController.m */,
+				DAA78C83168B6CDE000C8692 /* DNTrackTable.h */,
+				DAA78C84168B6CDE000C8692 /* DNTrackTable.m */,
 				DAC4376C16B055B9001E94B4 /* DNApplication.h */,
 				DAC4376D16B055B9001E94B4 /* DNApplication.m */,
 			);
-			name = Classes;
+			name = Subclassed;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
