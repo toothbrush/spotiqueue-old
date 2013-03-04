@@ -118,7 +118,7 @@
 
 - (void) keyDown:(NSEvent *)theEvent {
     
-    //    DLog(@"key event = %@", theEvent);
+    DLog(@"key event = %@", theEvent);
     NSUInteger flags = [theEvent modifierFlags] & (NSCommandKeyMask | NSShiftKeyMask);
     
     if ([theEvent keyCode] == 123 && flags == NSCommandKeyMask) {
@@ -151,7 +151,22 @@
         //space was pressed
         [self.trackDelegate playOrPause:nil];
         
-    } else {
+    } else if([[theEvent characters] isEqualToString:@"j"] ||
+              [[theEvent characters] isEqualToString:@"J"]) { // down
+        
+        NSEvent* synthetic = [NSEvent keyEventWithType:NSKeyDown location:NSPointFromCGPoint(CGPointZero) modifierFlags:[theEvent modifierFlags] timestamp:0 windowNumber:0 context:nil characters:@"" charactersIgnoringModifiers:@"" isARepeat:NO keyCode:125];
+        
+        [super keyDown:synthetic];
+      
+    } else if([[theEvent characters] isEqualToString:@"k"] ||
+              [[theEvent characters] isEqualToString:@"K"]) { // up
+        
+        NSEvent* synthetic = [NSEvent keyEventWithType:NSKeyDown location:NSPointFromCGPoint(CGPointZero) modifierFlags:[theEvent modifierFlags] timestamp:0 windowNumber:0 context:nil characters:@"" charactersIgnoringModifiers:@"" isARepeat:NO keyCode:126];
+        
+        [super keyDown:synthetic];
+        
+    }
+    else {
         
         [super keyDown:theEvent];
     }
