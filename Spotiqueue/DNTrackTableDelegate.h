@@ -15,4 +15,7 @@
 - (void) enqueueTracksBottom: (NSArray*) tracks;
 - (IBAction)playOrPause:(id)sender;
 
+- (void) focusQueue:(id)sender;
+- (void) focusSearchResults:(id)sender;
+
 @end

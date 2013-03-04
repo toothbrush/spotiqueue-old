@@ -33,6 +33,19 @@
 
 
 
+- (void)focusQueue:(id)sender {
+    
+    [self.window.firstResponder resignFirstResponder];
+    [self.window makeFirstResponder:self.queueTable];
+}
+
+- (void)focusSearchResults:(id)sender {
+    [self.window.firstResponder resignFirstResponder];
+    [self.window makeFirstResponder:self.searchResults];
+    
+}
+
+
 - (IBAction)tableDoubleclick:(id)sender tracks:(NSArray*)tracks {
     
     if ([tracks isKindOfClass:[NSArray class]]) {
@@ -166,11 +179,6 @@
     
     [self addObserver:self forKeyPath:@"search.tracks" options:0 context:nil];
     
-    //TODO hoped to fix search-for-same-string-twice bug like this, but no go. 
-//    for (id ob in self.arrayController.arrangedObjects) {
-//        [self.arrayController removeObject: ob];
-//    }
-//    
     [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
     [sender resignFirstResponder];
     [self.window makeFirstResponder:self.searchResults];

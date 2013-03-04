@@ -165,8 +165,8 @@
         
         [super keyDown:synthetic];
         
-    }else if([[theEvent characters] isEqualToString:@"g"] ||
-             [[theEvent characters] isEqualToString:@"G"]) {
+    } else if([[theEvent characters] isEqualToString:@"g"] ||
+              [[theEvent characters] isEqualToString:@"G"]) {
 
         NSInteger numRows = [self numberOfRows];
         
@@ -181,6 +181,14 @@
               byExtendingSelection:NO];
             [self scrollToBeginningOfDocument:nil];
         }
+    } else if ([theEvent keyCode] == 123) { // left arrow
+        
+        // select queue
+        [self.trackDelegate focusQueue:self];
+
+    } else if ([theEvent keyCode] == 124) { //right arrow
+        // select search view
+        [self.trackDelegate focusSearchResults:self];
     }
     else {
         
