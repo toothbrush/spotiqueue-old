@@ -281,6 +281,8 @@
     [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
     [self.searchIndicator stopAnimation:nil];
     
+    [self.searchField becomeFirstResponder];
+    
 }
 
 - (void)loadPlaylistFromURL:(id)sender {

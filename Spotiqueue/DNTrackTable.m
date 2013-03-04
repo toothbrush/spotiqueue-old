@@ -165,6 +165,22 @@
         
         [super keyDown:synthetic];
         
+    }else if([[theEvent characters] isEqualToString:@"g"] ||
+             [[theEvent characters] isEqualToString:@"G"]) {
+
+        NSInteger numRows = [self numberOfRows];
+        
+        if ([theEvent modifierFlags] & NSShiftKeyMask) {
+            // go to bottom
+            [self selectRowIndexes:[NSIndexSet indexSetWithIndex:numRows-1]
+              byExtendingSelection:NO];
+            [self scrollToEndOfDocument:nil];
+        } else {
+            // go to top
+            [self selectRowIndexes:[NSIndexSet indexSetWithIndex:0]
+              byExtendingSelection:NO];
+            [self scrollToBeginningOfDocument:nil];
+        }
     }
     else {
         
