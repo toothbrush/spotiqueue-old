@@ -1,6 +1,6 @@
 * browse artist only.
 * related artists? hm.
-* fix repeat-search-crash. eg "swans" then "swans failures". 
+
 * mention unread-messages-count
 
 
@@ -16,7 +16,6 @@
 * pure arrowleft enqueues?
 
 
-* vim nav-keys.
 
 * share playlists (via core data?? icloud?) – low prio
  

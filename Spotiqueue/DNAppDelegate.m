@@ -241,14 +241,18 @@
 
 
 - (NSArray *)tracksSortDescriptors {
+    /* bonus bug:
+     do not refer to referred objects, like originalTrack.discNumber.
+     they probably get released, at which point stuff starts breaking.
+     */
     return [NSArray arrayWithObjects:
-            [NSSortDescriptor sortDescriptorWithKey:@"originalTrack.discNumber"
+            [NSSortDescriptor sortDescriptorWithKey:@"discNumber"
                                           ascending:YES],
             [NSSortDescriptor sortDescriptorWithKey:@"artist"
                                           ascending:YES],
             [NSSortDescriptor sortDescriptorWithKey:@"albumURL"
                                           ascending:YES],
-            [NSSortDescriptor sortDescriptorWithKey:@"originalTrack.trackNumber"
+            [NSSortDescriptor sortDescriptorWithKey:@"trackNumber"
                                           ascending:YES],
             nil];
 }
@@ -361,6 +365,8 @@
         [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
         [value setObject:t.album.name forKey:@"album"];
         [value setObject:[t.album.spotifyURL absoluteString] forKey:@"albumURL"];
+        [value setObject:[NSNumber numberWithInteger: t.discNumber] forKey:@"discNumber"];
+        [value setObject:[NSNumber numberWithInteger: t.trackNumber] forKey:@"trackNumber"];
         [value setObject:t forKey:@"originalTrack"];
         
         [arrayController addObject:value];
