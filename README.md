@@ -13,6 +13,7 @@ Keyboard shortcuts
 * Use arrows to navigate around lists (maybe using shift to select stuff).
 * Left and right arrows switch between queue and search results.
 * Vim keys (currently only `j`,`k`,`g`,`G`) work.
+* Holding the command-key and using the navigation keys moves the selected tracks in the queue.
 * Tab cycles through search (`⌘F` or `⌘L`), search results and queue.
 * Space bar pauses and unpauses (unless search field has focus).
 * Pressing ⏎ (Return) on a single item plays it immediately.
