@@ -1,3 +1,4 @@
+* shift-apple-up/down arrows move selection around in queue?
 * browse artist only.
 * related artists? hm.
 
@@ -25,3 +26,4 @@
 
 * send track to a friend (love-to-have: autocomplete username from friends)
 * drop-down of inbox?
+* `d` deletes from the queue.
