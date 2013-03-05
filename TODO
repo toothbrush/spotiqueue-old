@@ -21,3 +21,7 @@
 * disable scrobble-checkbox if not logged in to last fm
 * refactor / neaten last.fm easyscrobble – expose -(BOOL)isLoggedIn;
 * mention optional-ness of last fm in login panel
+
+
+* send track to a friend (love-to-have: autocomplete username from friends)
+* drop-down of inbox?

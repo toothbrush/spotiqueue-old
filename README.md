@@ -14,6 +14,7 @@ Keyboard shortcuts
 * Left and right arrows switch between queue and search results.
 * Vim keys (currently only `j`,`k`,`g`,`G`) work.
 * Tab cycles through search (`⌘F` or `⌘L`), search results and queue.
+* Space bar pauses and unpauses (unless search field has focus).
 * Pressing ⏎ (Return) on a single item plays it immediately.
 * Pressing ⏎ with multiple songs selected enqueues them (and starts playing, if currently paused).
 * `⌘←` enqueues, `⌘⇧←` adds tracks to top of queue.
