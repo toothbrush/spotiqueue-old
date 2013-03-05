@@ -18,3 +18,6 @@
 * share playlists (via core data?? icloud?) – low prio
 
 * investigate using Last.fm web api for related artists?
+* disable scrobble-checkbox if not logged in to last fm
+* refactor / neaten last.fm easyscrobble – expose -(BOOL)isLoggedIn;
+* mention optional-ness of last fm in login panel
