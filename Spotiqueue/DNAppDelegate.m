@@ -76,8 +76,10 @@
                 }
                 // finally remove the clicked track:
                 [self.queueArrayCtrl.content removeObjectAtIndex:0];
-                [self.queueTable deselectAll:nil];
+                [self.queueTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
                 [self.queueTable reloadData];
+
+
             }
         } else if ([tracks count] > 1) {
             // the user pressed enter on a whole bunch of tracks.
