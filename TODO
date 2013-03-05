@@ -4,7 +4,7 @@
 * mention unread-messages-count
 
 
-* persist the current queue, always. 
+* persist the current queue, always.
 
 
 
@@ -16,4 +16,5 @@
 
 
 * share playlists (via core data?? icloud?) – low prio
- 
+
+* investigate using Last.fm web api for related artists?
