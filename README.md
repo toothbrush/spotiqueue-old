@@ -5,6 +5,8 @@ A terribly simple Cocoa app for keyboard-based queue-oriented Spotify use. It sc
 
 Beware of rough edges. Scratches my itch, no other guarantees granted.
 
+![An obligatory screenshot. Should give an idea of what the point of the app is.](img/screenshot1.png)
+
 Keyboard shortcuts
 ------------------
 
