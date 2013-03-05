@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "DNTrackTableDelegate.h"
+@class RSRTVArrayController;
 
 @interface DNTrackTable : NSTableView <NSDraggingDestination, NSDraggingSource>
 
@@ -15,7 +16,7 @@
 
 - (NSArray*) selectedTracks;
 
-@property (assign) NSArrayController * relatedArrayController;
+@property (assign) RSRTVArrayController * relatedArrayController;
 @property (assign) id<DNTrackTableDelegate> trackDelegate;
 
 @end

@@ -9,6 +9,7 @@
 #import "DNTrackTable.h"
 #import <CocoaLibSpotify/CocoaLibSpotify.h>
 #import <CoreServices/CoreServices.h>
+#import "RSRTVArrayController.h"
 
 @implementation DNTrackTable
 
@@ -143,30 +144,44 @@
         // delete or backspace
         [self deleteOrBackspace:nil];
         
-    } else if ([theEvent keyCode] == 36) {
+    } else if ([theEvent keyCode] == 36) { // enter key
         // lets fire the doubleclick action here.
         [self enter:nil];
         
-    } else if ([theEvent keyCode] == 49) {
+    } else if ([theEvent keyCode] == 49) { // space bar
         //space was pressed
         [self.trackDelegate playOrPause:nil];
         
-    } else if([[theEvent characters] isEqualToString:@"j"] ||
-              [[theEvent characters] isEqualToString:@"J"]) { // down
+    } else if ([[[theEvent characters] lowercaseString] isEqualToString:@"d"] ) {
         
-        NSEvent* synthetic = [NSEvent keyEventWithType:NSKeyDown location:NSPointFromCGPoint(CGPointZero) modifierFlags:[theEvent modifierFlags] timestamp:0 windowNumber:0 context:nil characters:@"" charactersIgnoringModifiers:@"" isARepeat:NO keyCode:125];
+        [self deleteOrBackspace:nil];
+    } else if([[[theEvent characters] lowercaseString] isEqualToString:@"j"]) { // down
         
-        [super keyDown:synthetic];
+        if ([theEvent modifierFlags] & NSCommandKeyMask) {
+            // okay, we actually want to MOVE these rows
+            NSIndexSet* s=[self.relatedArrayController moveObjectsInArrangedObjectsFromIndexes:self.selectedRowIndexes toIndex:[self.selectedRowIndexes lastIndex]+2]; // plus 2 because inserting at original index+1 makes no change
+
+            [self selectRowIndexes:s byExtendingSelection:NO];
+        } else {
+            // vanilla behaviour
+            NSEvent* synthetic = [NSEvent keyEventWithType:NSKeyDown location:NSPointFromCGPoint(CGPointZero) modifierFlags:[theEvent modifierFlags] timestamp:0 windowNumber:0 context:nil characters:@"" charactersIgnoringModifiers:@"" isARepeat:NO keyCode:125];
+            
+            [super keyDown:synthetic];
+        }
       
-    } else if([[theEvent characters] isEqualToString:@"k"] ||
-              [[theEvent characters] isEqualToString:@"K"]) { // up
-        
-        NSEvent* synthetic = [NSEvent keyEventWithType:NSKeyDown location:NSPointFromCGPoint(CGPointZero) modifierFlags:[theEvent modifierFlags] timestamp:0 windowNumber:0 context:nil characters:@"" charactersIgnoringModifiers:@"" isARepeat:NO keyCode:126];
-        
-        [super keyDown:synthetic];
-        
-    } else if([[theEvent characters] isEqualToString:@"g"] ||
-              [[theEvent characters] isEqualToString:@"G"]) {
+    } else if([[[theEvent characters] lowercaseString] isEqualToString:@"k"]) { // up
+
+        if ([theEvent modifierFlags] & NSCommandKeyMask) {
+            // okay, we actually want to MOVE these rows
+            NSIndexSet* s=[self.relatedArrayController moveObjectsInArrangedObjectsFromIndexes:self.selectedRowIndexes toIndex:[self.selectedRowIndexes firstIndex]-1];
+            [self selectRowIndexes:s byExtendingSelection:NO];
+        } else {
+            // vanilla behaviour
+            NSEvent* synthetic = [NSEvent keyEventWithType:NSKeyDown location:NSPointFromCGPoint(CGPointZero) modifierFlags:[theEvent modifierFlags] timestamp:0 windowNumber:0 context:nil characters:@"" charactersIgnoringModifiers:@"" isARepeat:NO keyCode:126];
+            
+            [super keyDown:synthetic];
+        }
+    } else if([[[theEvent characters] lowercaseString] isEqualToString:@"g"]) {
 
         NSInteger numRows = [self numberOfRows];
         
@@ -189,6 +204,19 @@
     } else if ([theEvent keyCode] == 124) { //right arrow
         // select search view
         [self.trackDelegate focusSearchResults:self];
+    } else if ([theEvent keyCode] == 126 &&
+               flags & NSCommandKeyMask) { // up arrow with shift
+        // okay, we actually want to MOVE these rows
+        DLog(@"command-shift-arrow?");
+        NSIndexSet* s=[self.relatedArrayController moveObjectsInArrangedObjectsFromIndexes:self.selectedRowIndexes toIndex:[self.selectedRowIndexes firstIndex]-1];
+        [self selectRowIndexes:s byExtendingSelection:NO];
+    } else if ([theEvent keyCode] == 125 &&
+               flags & NSCommandKeyMask) { // down arrow
+        // okay, we actually want to MOVE these rows
+        NSIndexSet* s=[self.relatedArrayController moveObjectsInArrangedObjectsFromIndexes:self.selectedRowIndexes toIndex:[self.selectedRowIndexes lastIndex]+2]; // plus 2 because inserting at original index+1 makes no change
+        
+        [self selectRowIndexes:s byExtendingSelection:NO];
+
     }
     else {
         

@@ -1,4 +1,3 @@
-* shift-apple-up/down arrows move selection around in queue?
 * browse artist only.
 * related artists? hm.
 
@@ -21,9 +20,7 @@
 * investigate using Last.fm web api for related artists?
 * disable scrobble-checkbox if not logged in to last fm
 * refactor / neaten last.fm easyscrobble – expose -(BOOL)isLoggedIn;
-* mention optional-ness of last fm in login panel
 
 
 * send track to a friend (love-to-have: autocomplete username from friends)
 * drop-down of inbox?
-* `d` deletes from the queue.

@@ -139,15 +139,15 @@ NSString *kRSRTVMovedRowsType = @"com.red-sweater.RSRTVArrayController";
 		}
 		object = [objects objectAtIndex:copyIndex];
 		[self insertObject:[object copy] atArrangedObjectIndex:insertIndex];
-//		[self insertObject:[[object copy] autorelease] atArrangedObjectIndex:insertIndex];
 		
 		copyFromIndex = [indexSet indexLessThanIndex:copyFromIndex];
     }
 }
 
--(void) moveObjectsInArrangedObjectsFromIndexes:(NSIndexSet*)indexSet toIndex:(NSUInteger)insertIndex
+-(NSIndexSet*) moveObjectsInArrangedObjectsFromIndexes:(NSIndexSet*)indexSet toIndex:(NSUInteger)insertIndex
 {
-	
+    /* returns new indexset so selection can be updated */
+	DLog(@"[entered function] moving idxset to %lu: %@", (unsigned long)insertIndex, indexSet);
     NSArray	*objects = [self arrangedObjects];
 	NSUInteger thisIndex = [indexSet lastIndex];
 	
@@ -155,6 +155,12 @@ NSString *kRSRTVMovedRowsType = @"com.red-sweater.RSRTVArrayController";
     id			object;
     NSInteger			removeIndex;
 	
+    if (insertIndex > [objects count] ||
+        ![self isEditable]) {
+        return indexSet; // the original
+    }
+
+    
     while (NSNotFound != thisIndex)
 	{
 		if (thisIndex >= insertIndex)
@@ -167,7 +173,6 @@ NSString *kRSRTVMovedRowsType = @"com.red-sweater.RSRTVArrayController";
 			removeIndex = thisIndex;
 			insertIndex -= 1;
 		}
-		
 		// Get the object we're moving
 		object = [objects objectAtIndex:removeIndex];
 
@@ -179,6 +184,8 @@ NSString *kRSRTVMovedRowsType = @"com.red-sweater.RSRTVArrayController";
 		
 		thisIndex = [indexSet indexLessThanIndex:thisIndex];
     }
+    NSIndexSet* s = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(insertIndex, indexSet.count)];
+    return s;
 }
 
 
