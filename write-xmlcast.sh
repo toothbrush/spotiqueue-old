@@ -20,12 +20,9 @@ cat <<HERE > spotiqueue.xml
       <description>Most recent changes with links to updates.</description>
       <language>en</language>
       <item>
-          <title>Version $verNumber</title>
+      <title>Version $verNumber (build $buildNumber)</title>
           <description><![CDATA[
-              <h2>New Features</h2>
-              <ul>
-                  <li>Automatically generated, so no news, sorry!</li>
-              </ul>
+              <h2>New update available!</h2>
               ]]></description>
           <pubDate>$dateNow</pubDate>
           <enclosure url="http://www.denknerd.org/files/Spotiqueue.app.zip"
