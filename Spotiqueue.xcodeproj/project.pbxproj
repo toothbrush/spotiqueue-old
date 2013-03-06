@@ -20,8 +20,6 @@
 		DA6A9F34168662BD00A250ED /* Spotiqueue.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA6A9F32168662BD00A250ED /* Spotiqueue.xcdatamodeld */; };
 		DA6A9F56168667DC00A250ED /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F54168667DC00A250ED /* AudioUnit.framework */; };
 		DA6A9F57168667DC00A250ED /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F55168667DC00A250ED /* CoreAudio.framework */; };
-		DA99E48E169DCC7B00968DE9 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA99E48D169DCC7B00968DE9 /* Sparkle.framework */; };
-		DA99E490169DCC9E00968DE9 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA99E48D169DCC7B00968DE9 /* Sparkle.framework */; };
 		DAA78C71168B5227000C8692 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1D168662BC00A250ED /* AppKit.framework */; };
 		DAA78C73168B5229000C8692 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1E168662BC00A250ED /* CoreData.framework */; };
 		DAA78C74168B522A000C8692 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1F168662BC00A250ED /* Foundation.framework */; };
@@ -32,6 +30,9 @@
 		DAC4376E16B055B9001E94B4 /* DNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC4376D16B055B9001E94B4 /* DNApplication.m */; };
 		DAC626C2169ED42E00A74B02 /* CocoaLibSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC626C1169ED42E00A74B02 /* CocoaLibSpotify.framework */; };
 		DAC626C3169ED43800A74B02 /* CocoaLibSpotify.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAC626C1169ED42E00A74B02 /* CocoaLibSpotify.framework */; };
+		DAD06C3B16E7744300B943CB /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = DAD06C3A16E7744300B943CB /* dsa_pub.pem */; };
+		DAD06C3F16E77CE000B943CB /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD06C3E16E77CE000B943CB /* Sparkle.framework */; };
+		DAD06C4016E77CE700B943CB /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAD06C3E16E77CE000B943CB /* Sparkle.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,8 +42,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DA99E490169DCC9E00968DE9 /* Sparkle.framework in CopyFiles */,
 				DAC626C3169ED43800A74B02 /* CocoaLibSpotify.framework in CopyFiles */,
+				DAD06C4016E77CE700B943CB /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,7 +72,6 @@
 		DA6A9F33168662BD00A250ED /* Spotiqueue.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spotiqueue.xcdatamodel; sourceTree = "<group>"; };
 		DA6A9F54168667DC00A250ED /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		DA6A9F55168667DC00A250ED /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		DA99E48D169DCC7B00968DE9 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		DAA78C83168B6CDE000C8692 /* DNTrackTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNTrackTable.h; sourceTree = "<group>"; };
 		DAA78C84168B6CDE000C8692 /* DNTrackTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DNTrackTable.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DAA78C87168B6EE8000C8692 /* DNTrackTableDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNTrackTableDelegate.h; sourceTree = "<group>"; };
@@ -84,6 +84,8 @@
 		DAC4376C16B055B9001E94B4 /* DNApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNApplication.h; sourceTree = "<group>"; };
 		DAC4376D16B055B9001E94B4 /* DNApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNApplication.m; sourceTree = "<group>"; };
 		DAC626C1169ED42E00A74B02 /* CocoaLibSpotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLibSpotify.framework; sourceTree = "<group>"; };
+		DAD06C3A16E7744300B943CB /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		DAD06C3E16E77CE000B943CB /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		DAFDC61C169D8C4100A553E6 /* Spotiqueue.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Spotiqueue.iconset; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,8 +101,8 @@
 				DA6A9F57168667DC00A250ED /* CoreAudio.framework in Frameworks */,
 				DAA78C74168B522A000C8692 /* Foundation.framework in Frameworks */,
 				DA6A9F1B168662BC00A250ED /* Cocoa.framework in Frameworks */,
-				DA99E48E169DCC7B00968DE9 /* Sparkle.framework in Frameworks */,
 				DAC626C2169ED42E00A74B02 /* CocoaLibSpotify.framework in Frameworks */,
+				DAD06C3F16E77CE000B943CB /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,8 +131,8 @@
 		DA6A9F19168662BC00A250ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAD06C3E16E77CE000B943CB /* Sparkle.framework */,
 				DAC626C1169ED42E00A74B02 /* CocoaLibSpotify.framework */,
-				DA99E48D169DCC7B00968DE9 /* Sparkle.framework */,
 				DA6A9F1C168662BC00A250ED /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -166,6 +168,7 @@
 		DA6A9F21168662BC00A250ED /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DAD06C3A16E7744300B943CB /* dsa_pub.pem */,
 				DAFDC61C169D8C4100A553E6 /* Spotiqueue.iconset */,
 				DA6A9F22168662BC00A250ED /* Spotiqueue-Info.plist */,
 				DA6A9F23168662BC00A250ED /* InfoPlist.strings */,
@@ -216,6 +219,7 @@
 				DA6A9F13168662BC00A250ED /* Frameworks */,
 				DA6A9F14168662BC00A250ED /* Resources */,
 				DAE7B564169D83FA009ABCE9 /* CopyFiles */,
+				DAD06C4316E77E5C00B943CB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -264,10 +268,27 @@
 				DA6A9F31168662BD00A250ED /* MainMenu.xib in Resources */,
 				DA5754F8169C879000B4241E /* lastfm_red_small.gif in Resources */,
 				DA5754F9169C879000B4241E /* spotify-logo.jpg in Resources */,
+				DAD06C3B16E7744300B943CB /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DAD06C4316E77E5C00B943CB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# xcode-build-bump.sh\n# @desc Auto-increment the build number every time the project is run.\n# @usage\n# 1. Select: your Target in Xcode\n# 2. Select: Build Phases Tab\n# 3. Select: Add Build Phase -> Add Run Script\n# 4. Paste code below in to new \"Run Script\" section\n# 5. Drag the \"Run Script\" below \"Link Binaries With Libraries\"\n# 6. Insure that your starting build number is set to a whole integer and not a float (e.g. 1, not 1.0)\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DA6A9F12168662BC00A250ED /* Sources */ = {
