@@ -17,10 +17,9 @@
               ]]></description>
           <pubDate>Wed,  6 Mar 2013 13:58:00 +0200</pubDate>
           <enclosure url="http://www.denknerd.org/files/Spotiqueue.app.zip"
-              sparkle:version="10"
-              sparkle:shortVersionString="0.2"
-              sparkle:dsaSignature="MC4CFQCtDLdRWXe7jCAHmzWfgmzSg/GIdAIVAIaNBcyJmgvnQYexRoU7dnVpX6bJ"
-              length="2997684"
+              sparkle:version="11"
+              sparkle:shortVersionString="0.2.1"
+              sparkle:dsaSignature="MC4CFQDXh09A9I7bsuSw3VTSqBAx1gDEewIVAJaiM0cfOJY2QESlupTBdZQbgjbZ"
               type="application/octet-stream" />
       </item>
    </channel>
