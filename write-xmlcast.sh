@@ -5,6 +5,7 @@ verNumber=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "Spoti
 feedurl=$(/usr/libexec/PlistBuddy -c "Print SUFeedURL" "Spotiqueue/Spotiqueue-Info.plist")
 dateNow=$(date)
 signature=$(./sign_update.rb Spotiqueue.app.zip dsa_priv.pem)
+diffs=$(git log -n 15 --pretty=format:"<li>%ai: %s </li>")
 
 # decrement because plist is one ahead.
 
@@ -22,7 +23,10 @@ cat <<HERE > spotiqueue.xml
       <item>
       <title>Version $verNumber (build $buildNumber)</title>
           <description><![CDATA[
-              <h2>New update available!</h2>
+              <h2>Recent changes:</h2>
+              <ul>
+$diffs
+</ul>
               ]]></description>
           <pubDate>$dateNow</pubDate>
           <enclosure url="http://www.denknerd.org/files/Spotiqueue.app.zip"
