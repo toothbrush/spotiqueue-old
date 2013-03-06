@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+   <channel>
+      <title>Spotiqueue's Changelog</title>
+      <link>https://denknerd.org/files/spotiqueue.xml</link>
+      <description>Most recent changes with links to updates.</description>
+      <language>en</language>
+      <item>
+          <title>Version 0.2</title>
+          <description><![CDATA[
+              <h2>New Features</h2>
+              <ul>
+                  <li>Many shortcut keys: arrows, vim keys</li>
+                  <li>Signing fixed &mdash; if still not working, download manually</li>
+                  <li>etc...</li>
+              </ul>
+              ]]></description>
+          <pubDate>Wed,  6 Mar 2013 13:58:00 +0200</pubDate>
+          <enclosure url="http://www.denknerd.org/files/Spotiqueue.app.zip"
+              sparkle:version="10"
+              sparkle:shortVersionString="0.2"
+              sparkle:dsaSignature="MC4CFQCtDLdRWXe7jCAHmzWfgmzSg/GIdAIVAIaNBcyJmgvnQYexRoU7dnVpX6bJ"
+              length="2997684"
+              type="application/octet-stream" />
+      </item>
+   </channel>
+</rss>
+
