@@ -5,7 +5,7 @@ verNumber=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "Spoti
 feedurl=$(/usr/libexec/PlistBuddy -c "Print SUFeedURL" "Spotiqueue/Spotiqueue-Info.plist")
 dateNow=$(date)
 signature=$(./sign_update.rb Spotiqueue.app.zip dsa_priv.pem)
-diffs=$(git log -n 15 --pretty=format:"<li>%ai: %s </li>")
+diffs=$(git log -n 15 --pretty=format:"<li>%ar: %s </li>")
 
 # decrement because plist is one ahead.
 

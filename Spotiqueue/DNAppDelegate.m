@@ -103,12 +103,19 @@
                 // we should remove stuff above this entry.
                 
                 while (![[[self.queueArrayCtrl.content objectAtIndex:0] objectForKey:@"originalTrack"] isEqual: played]) {
-                    [self.queueArrayCtrl.content removeObjectAtIndex:0];
+                    
+                    [self.queueArrayCtrl removeObjectAtArrangedObjectIndex:0];
                 }
                 // finally remove the clicked track:
-                [self.queueArrayCtrl.content removeObjectAtIndex:0];
+                [self.queueArrayCtrl removeObjectAtArrangedObjectIndex:0];
+                
+                
                 [self.queueTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+
                 [self.queueTable reloadData];
+
+                [self.queueTable scrollToBeginningOfDocument:nil];
+                
 
 
             }
