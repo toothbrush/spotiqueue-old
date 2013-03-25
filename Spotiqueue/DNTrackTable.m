@@ -156,10 +156,13 @@
         flags == NSCommandKeyMask) {
         // command-right was pressed: browse album.
         
-        SPTrack* t = [self.selectedTracks objectAtIndex:0];
-        if (t) {
-            SPAlbum* a = t.album;
-            [self.trackDelegate triggerAlbumBrowse:a sender:self];
+        if ([self.selectedTracks count] == 1) {
+            
+            SPTrack* t = [self.selectedTracks objectAtIndex:0];
+            if (t) {
+                SPAlbum* a = t.album;
+                [self.trackDelegate triggerAlbumBrowse:a sender:self];
+            }
         }
     
         

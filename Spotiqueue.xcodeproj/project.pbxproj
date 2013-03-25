@@ -21,6 +21,7 @@
 		DA97043B1700580B0068C541 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA97043A1700580B0068C541 /* Growl.framework */; };
 		DA97043C1700581B0068C541 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA97043A1700580B0068C541 /* Growl.framework */; };
 		DA97044017005A730068C541 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = DA97043F17005A730068C541 /* Growl Registration Ticket.growlRegDict */; };
+		DA9704461700BC7A0068C541 /* DNDurationTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9704451700BC7A0068C541 /* DNDurationTransformer.m */; };
 		DAA78C71168B5227000C8692 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1D168662BC00A250ED /* AppKit.framework */; };
 		DAA78C73168B5229000C8692 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1E168662BC00A250ED /* CoreData.framework */; };
 		DAA78C74168B522A000C8692 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1F168662BC00A250ED /* Foundation.framework */; };
@@ -74,6 +75,8 @@
 		DA6A9F55168667DC00A250ED /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		DA97043A1700580B0068C541 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		DA97043F17005A730068C541 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
+		DA9704441700BC7A0068C541 /* DNDurationTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNDurationTransformer.h; sourceTree = "<group>"; };
+		DA9704451700BC7A0068C541 /* DNDurationTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNDurationTransformer.m; sourceTree = "<group>"; };
 		DAA78C83168B6CDE000C8692 /* DNTrackTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNTrackTable.h; sourceTree = "<group>"; };
 		DAA78C84168B6CDE000C8692 /* DNTrackTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DNTrackTable.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DAA78C87168B6EE8000C8692 /* DNTrackTableDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNTrackTableDelegate.h; sourceTree = "<group>"; };
@@ -207,6 +210,8 @@
 				DAA78C84168B6CDE000C8692 /* DNTrackTable.m */,
 				DAC4376C16B055B9001E94B4 /* DNApplication.h */,
 				DAC4376D16B055B9001E94B4 /* DNApplication.m */,
+				DA9704441700BC7A0068C541 /* DNDurationTransformer.h */,
+				DA9704451700BC7A0068C541 /* DNDurationTransformer.m */,
 			);
 			name = Subclassed;
 			sourceTree = "<group>";
@@ -305,6 +310,7 @@
 				DAA78C8F16919E63000C8692 /* SSKeychain.m in Sources */,
 				DA5754FC169C897000B4241E /* LPEasyScrobble.m in Sources */,
 				DAC4376E16B055B9001E94B4 /* DNApplication.m in Sources */,
+				DA9704461700BC7A0068C541 /* DNDurationTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

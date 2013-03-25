@@ -8,6 +8,7 @@
 
 #import "DNAppDelegate.h"
 #import <Growl/Growl.h>
+#import "DNDurationTransformer.h"
 
 @implementation DNAppDelegate
 
@@ -139,6 +140,7 @@
     }
 }
 
+
 - (NSString *)trackDuration {
     
     if (self.playbackManager.currentTrack == nil) {
@@ -248,6 +250,11 @@
 }
 
 -(void)applicationWillFinishLaunching:(NSNotification *)notification {
+    
+    DNDurationTransformer* dt = [[[DNDurationTransformer alloc] init] autorelease];
+    [NSValueTransformer setValueTransformer:dt
+                                    forName:@"DNDurationTransformer"];
+    
     
 #include "SpotifySecrets.h"
     
