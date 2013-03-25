@@ -122,25 +122,41 @@
     DLog(@"key event = %@", theEvent);
     NSUInteger flags = [theEvent modifierFlags] & (NSCommandKeyMask | NSShiftKeyMask);
     
-    if ([theEvent keyCode] == 123 && flags == NSCommandKeyMask) {
+    if ([theEvent keyCode] == 124 &&
+        flags == NSCommandKeyMask) {
+        // command-right was pressed: browse album.
+        
+        SPTrack* t = [self.selectedTracks objectAtIndex:0];
+        if (t) {
+            SPAlbum* a = t.album;
+            [self.trackDelegate triggerAlbumBrowse:a sender:self];
+        }
+    
+        
+    } else if ([theEvent keyCode] == 123 &&
+        flags == NSCommandKeyMask) {
         // command-left was pressed
         [self enqueuetrack:nil];
         
-    } else if ([theEvent keyCode] == 123 && flags == (NSCommandKeyMask | NSShiftKeyMask)) {
+    } else if ([theEvent keyCode] == 123 &&
+               flags == (NSCommandKeyMask | NSShiftKeyMask)) {
         // command-shift-left pressed
         // we also still support e and friends
         [self enqueuetrackTop:nil];
         
-    } else if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"e"] && flags == NSCommandKeyMask) {
-        // command-left was pressed
+    } else if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"e"] &&
+               flags == NSCommandKeyMask) {
+        // command-e was pressed
         [self enqueuetrack:nil];
         
-    } else if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"E"] && flags == (NSCommandKeyMask | NSShiftKeyMask)) {
-        // command-shift-left pressed
+    } else if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"E"] &&
+               flags == (NSCommandKeyMask | NSShiftKeyMask)) {
+        // command-shift-e pressed
         // we also still support e and friends
         [self enqueuetrackTop:nil];
         
-    } else if ([theEvent keyCode] == 117 || [theEvent keyCode] == 51) {
+    } else if ([theEvent keyCode] == 117 ||
+               [theEvent keyCode] == 51) {
         // delete or backspace
         [self deleteOrBackspace:nil];
         
@@ -205,13 +221,13 @@
         // select search view
         [self.trackDelegate focusSearchResults:self];
     } else if ([theEvent keyCode] == 126 &&
-               flags & NSCommandKeyMask) { // up arrow with shift
+               flags & NSCommandKeyMask) { // up arrow with cmd
         // okay, we actually want to MOVE these rows
         DLog(@"command-shift-arrow?");
         NSIndexSet* s=[self.relatedArrayController moveObjectsInArrangedObjectsFromIndexes:self.selectedRowIndexes toIndex:[self.selectedRowIndexes firstIndex]-1];
         [self selectRowIndexes:s byExtendingSelection:NO];
     } else if ([theEvent keyCode] == 125 &&
-               flags & NSCommandKeyMask) { // down arrow
+               flags & NSCommandKeyMask) { // down arrow with cmd
         // okay, we actually want to MOVE these rows
         NSIndexSet* s=[self.relatedArrayController moveObjectsInArrangedObjectsFromIndexes:self.selectedRowIndexes toIndex:[self.selectedRowIndexes lastIndex]+2]; // plus 2 because inserting at original index+1 makes no change
         

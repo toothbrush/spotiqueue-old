@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class SPArtist;
+@class SPAlbum;
 @protocol DNTrackTableDelegate <NSObject>
 
 - (void) enqueueTracks: (NSArray*) tracks;
@@ -17,5 +19,8 @@
 
 - (void) focusQueue:(id)sender;
 - (void) focusSearchResults:(id)sender;
+
+- (void) triggerArtistBrowse:(SPArtist*)artist sender:(id) sender;
+- (void) triggerAlbumBrowse:(SPAlbum*)album sender:(id) sender;
 
 @end
