@@ -199,21 +199,29 @@
     [api_request appendString:@"&api_sig="];
     [api_request appendString:api_sig_hashed];
     
+//    api_request = [NSMutableString stringWithString:[api_request stringByAddingPercentEscapesUsingEncoding:kCFStringEncodingUTF8]];
+
     [self debugLog:@"API Request:"];
     [self debugLog:api_request];
     
     //Set the URL
     NSURL *apiURL = [NSURL URLWithString:@"https://ws.audioscrobbler.com/2.0/"];
     
-    //Create a URL request for the URL. We want it to be a POST with the conent of the request string and in the right
+    
+        //Create a URL request for the URL. We want it to be a POST with the conent of the request string and in the right
     //content type
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: apiURL];
     [request setHTTPMethod: @"POST"];
-    [request setHTTPBody: [NSData dataWithBytes:[api_request UTF8String] length:[api_request length]]];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+    [request setHTTPBody: [NSData dataWithBytes:[api_request UTF8String]
+                                         length:[api_request length]]];
+    [request setValue:@"application/x-www-form-urlencoded"
+   forHTTPHeaderField:@"content-type"];
+    [self debugLog:[request description]];
     
     //Get the response from the server
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSData *response = [NSURLConnection sendSynchronousRequest:request
+                                             returningResponse:nil
+                                                         error:nil];
     
     [request release];
     //Convert the response to a string
@@ -251,6 +259,17 @@
     }
     return TRUE;
     
+}
+
+- (BOOL)isLoggedIn {
+    DLog(@"session key = %@", self.sessionKey);
+    if ( self.sessionKey == nil ||
+        [self.sessionKey isEqualToString:@"NOKEY"] ||
+        [self.sessionKey isEqualToString:@""]) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 - (BOOL) loveTrack:(SPTrack *) track {

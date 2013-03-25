@@ -34,6 +34,8 @@
 
 - (BOOL) startSession;
 
+- (BOOL) isLoggedIn;
+
 - (NSString*) MD5StringOfString:(NSString*) inputStr;
 
 - ( NSString *) scrubString: (NSString *) string;
