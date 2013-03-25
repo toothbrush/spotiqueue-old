@@ -308,6 +308,14 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	
+#ifdef DEBUG
+    
+    [[SPSession sharedSession] flushCaches:^{
+        DLog(@"libSpotify caches flushed.");
+    }];
+    
+#endif
+    
     [GrowlApplicationBridge setGrowlDelegate:@""]; // ugh, work around Growl bug.
     
 	[self addObserver:self
@@ -421,6 +429,7 @@
             return;
         }
         
+        DLog(@"found %@", result);
         [self insertPlaylistIntoSearchResultsBy:result];
 
     } else {
@@ -449,7 +458,7 @@
                     [self insertPlaylistIntoSearchResultsBy:u];
                     
                 } else {
-                    ALog(@"Unsupported URL provided: \"%@\"", u);
+                    DLog(@"Unsupported URL provided: \"%@\"", u);
                 }
             });
         });
@@ -500,8 +509,12 @@
                                                                    timeout:5.0
                                                                       then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
                                                                           
-                                                                          DLog(@"loaded playlist %@", p);
-                                                                          [self.playlistSelectionMenu addItemWithTitle: [p name]];
+                                                                          if (![loadedItems count]<1) {
+                                                                              DLog(@"loaded playlist %@", [loadedItems objectAtIndex:0]);
+                                                                              SPPlaylist* pp = [loadedItems objectAtIndex:0];
+                                                                              [self.playlistSelectionMenu addItemWithTitle: [pp name]];
+
+                                                                          }
                                                                       }];
                                            
                                        } else if ([p isKindOfClass:[SPPlaylistFolder class]]) {
@@ -527,7 +540,6 @@
 }
 
 - (void) addTrackToSearchResults: (id)tr {
-    NSMutableDictionary *value;
     
     if (tr == nil) {
         return;
@@ -536,19 +548,26 @@
         return;
     }
     SPTrack* t = tr;
+    
+    [SPAsyncLoading waitUntilLoaded:t
+                            timeout:5.0f
+                               then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
 
-    value = [[NSMutableDictionary alloc] init];
-    [value setObject:t.name forKey:@"name"];
-    [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
-    [value setObject:t.album.name forKey:@"album"];
-    [value setObject:[t.album.spotifyURL absoluteString] forKey:@"albumURL"];
-    [value setObject:[NSNumber numberWithInteger: t.discNumber] forKey:@"discNumber"];
-    [value setObject:[NSNumber numberWithInteger: t.trackNumber] forKey:@"trackNumber"];
-    [value setObject:t forKey:@"originalTrack"];
-    
-    [arrayController addObject:value];
-    
-    [value release];
+                                   NSMutableDictionary *value;
+                                   value = [[NSMutableDictionary alloc] init];
+                                   [value setObject:t.name forKey:@"name"];
+                                   [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
+                                   [value setObject:t.album.name forKey:@"album"];
+                                   [value setObject:[t.album.spotifyURL absoluteString] forKey:@"albumURL"];
+                                   [value setObject:[NSNumber numberWithInteger: t.discNumber] forKey:@"discNumber"];
+                                   [value setObject:[NSNumber numberWithInteger: t.trackNumber] forKey:@"trackNumber"];
+                                   [value setObject:t forKey:@"originalTrack"];
+                                   
+                                   [arrayController addObject:value];
+                                   
+                                   [value release];
+                               }];
+
 
 }
 
