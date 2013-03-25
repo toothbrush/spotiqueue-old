@@ -208,18 +208,28 @@
     self.search = nil;
     self.artistBrowse = nil;
     
-    if ([[[self.searchField stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
+    NSString* searchTerm = [[self.searchField stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([searchTerm isEqualToString:@""]) {
         [self.searchIndicator stopAnimation:nil];
         return;
     }
     
-    self.search = [[SPSearch searchWithSearchQuery:[self.searchField stringValue]
-                                         inSession:[SPSession sharedSession]] retain];
-    [self.searchIndicator startAnimation:nil];
+    if ([searchTerm hasPrefix:@"spotify:"]) {
+        [self dealWithSomeURL:searchTerm];
+//        [self.searchField setStringValue:@""];
+        [self.searchIndicator stopAnimation:nil];
+        
+    } else {
+        
+        self.search = [[SPSearch searchWithSearchQuery:searchTerm
+                                             inSession:[SPSession sharedSession]] retain];
+        [self.searchIndicator startAnimation:nil];
+        
+        [self addObserver:self forKeyPath:@"search.tracks" options:0 context:nil];
+        
+        [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
+    }
     
-    [self addObserver:self forKeyPath:@"search.tracks" options:0 context:nil];
-    
-    [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
     [sender resignFirstResponder];
     [self.window makeFirstResponder:self.searchResults];
 }
