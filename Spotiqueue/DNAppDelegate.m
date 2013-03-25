@@ -433,41 +433,55 @@
         [self insertPlaylistIntoSearchResultsBy:result];
 
     } else {
-        
-        NSURL* u = [NSURL URLWithString:self.playlistByURL.stringValue];
-        SPDispatchAsync(^{
-            id thing = [[SPSession sharedSession]
-                        objectRepresentationForSpotifyURL:u
-                        linkType:nil];
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                if ([thing isKindOfClass:[SPTrack class]]) {
-                    DLog(@"SPTrack was given. %@", thing);
-
-                    [self enqueueTracksBottom:[NSArray arrayWithObject:thing]];
-
-                } else if ([thing isKindOfClass:[SPAlbum class]]) {
-                    DLog(@"SPAlbum was given. %@", thing);
-                    [self insertAlbumByURL:u];
-                    
-                    
-                } else if ([thing isKindOfClass:[SPPlaylist class]]) {
-                    DLog(@"SPPlaylist was given. %@", thing);
-
-                    [self insertPlaylistIntoSearchResultsBy:u];
-                    
-                } else {
-                    DLog(@"Unsupported URL provided: \"%@\"", u);
-                }
-            });
-        });
-        
-        
-        
+               
+        [self dealWithSomeURL:self.playlistByURL.stringValue];
 
     }
         [self cancelLoadURLSheet:nil];
+
+}
+
+- (void)pasteURLString:(NSString *)stringURL sender:(id)sender {
+    [self dealWithSomeURL:stringURL];
+}
+- (void) dealWithSomeURL:(NSString*) stringURL {
+    
+    NSURL* u = [NSURL URLWithString:[stringURL stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    DLog(@"opening url = %@", u);
+    SPDispatchAsync(^{
+        id thing = [[SPSession sharedSession]
+                    objectRepresentationForSpotifyURL:u
+                    linkType:nil];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if ([thing isKindOfClass:[SPTrack class]]) {
+                DLog(@"SPTrack was given. %@", thing);
+                
+                [SPAsyncLoading waitUntilLoaded:thing
+                                        timeout:5.0f
+                                           then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+                                               [self enqueueTracksBottom:loadedItems];
+                                               
+                                           }];
+                
+                
+            } else if ([thing isKindOfClass:[SPAlbum class]]) {
+                DLog(@"SPAlbum was given. %@", thing);
+                [self insertAlbumByURL:u];
+                
+                
+            } else if ([thing isKindOfClass:[SPPlaylist class]]) {
+                DLog(@"SPPlaylist was given. %@", thing);
+                
+                [self insertPlaylistIntoSearchResultsBy:u];
+                
+            } else {
+                DLog(@"Unsupported URL provided: \"%@\"", u);
+            }
+        });
+    });
+    
 
 }
 

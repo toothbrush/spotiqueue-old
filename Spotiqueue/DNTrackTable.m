@@ -26,8 +26,38 @@
     return self;
 }
 
+- (void)copy: (id) sender {
+    NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
+    [pasteBoard clearContents];
+    
+    NSMutableArray * urls = [[NSMutableArray alloc] init];
+    
+    for (SPTrack* d  in [self selectedTracks]) {
+        if (d && d.spotifyURL) {
+            [urls addObject:d.spotifyURL];
+        }
 
+    }
+    
+    [pasteBoard writeObjects:urls];
+    // some code to put data on the pasteBoard
+    
+    [urls release];
+}
 
+- (void) paste: (id) sender {
+    // uh oh
+    NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
+
+    NSArray* a = [[pasteBoard stringForType:NSStringPboardType] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    for (NSString* pastedURL in a) {
+        if (pastedURL && ![pastedURL isEqualToString:@""]) {
+            [self.trackDelegate pasteURLString:pastedURL sender:self];
+        }
+    }
+    
+    
+}
 - (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)flag {
     
     if (!self.relatedArrayController.isEditable) {

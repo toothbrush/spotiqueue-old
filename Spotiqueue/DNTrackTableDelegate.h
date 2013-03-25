@@ -23,4 +23,5 @@
 - (void) triggerArtistBrowse:(SPArtist*)artist sender:(id) sender;
 - (void) triggerAlbumBrowse:(SPAlbum*)album sender:(id) sender;
 
+- (void) pasteURLString:(NSString*)stringURL sender:(id) sender;
 @end
