@@ -533,6 +533,8 @@
     
     // a playlist:
     // spotify:user:toothbrush666:playlist:0CGju5c3vrhBVTxQVTFgqS
+    // someone else:
+    // spotify:user:118172757:playlist:2acS52TIUt8cDzPPhv5qQn
     
     // an album:
     // spotify:album:0YSgqHce1ofZINjVas1D4v
@@ -548,10 +550,15 @@
         return;
     }
     SPTrack* t = tr;
-    
-    [SPAsyncLoading waitUntilLoaded:t
-                            timeout:5.0f
-                               then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+  
+    if (!t.isLoaded) {
+        
+        ALog(@"track wasn't ready yet! %@", t);
+        return;
+    }
+//    [SPAsyncLoading waitUntilLoaded:t
+//                            timeout:5.0f
+//                               then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
 
                                    NSMutableDictionary *value;
                                    value = [[NSMutableDictionary alloc] init];
@@ -566,7 +573,7 @@
                                    [arrayController addObject:value];
                                    
                                    [value release];
-                               }];
+//                               }];
 
 
 }
