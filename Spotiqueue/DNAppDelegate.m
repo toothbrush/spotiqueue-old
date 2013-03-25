@@ -407,7 +407,7 @@
 }
 
 - (void)loadPlaylistFromURL:(id)sender {
-   
+    
     SPPlaylistContainer* playlists = [[SPSession sharedSession] userPlaylists];
     
     if ([self.playlistByURL.stringValue isEqualToString:@""]) {
@@ -555,6 +555,7 @@
         
         ALog(@"track wasn't ready yet! %@", t);
         return;
+        
     }
 //    [SPAsyncLoading waitUntilLoaded:t
 //                            timeout:5.0f
@@ -770,6 +771,10 @@
             if ( retVal == TRUE ) {
                 //Take action on success
                 DLog(@"loved %@ successfully", track);
+                [self doGrowlNotification:@"Loved!" description:[NSString
+                                                                 stringWithFormat:@"%@ – %@",
+                                                                 track.consolidatedArtists,
+                                                                 track.name]];
             }
             if ( retVal == FALSE ) {
                 //Take action on failure
@@ -865,6 +870,25 @@
 #pragma mark -
 #pragma mark Playback
 
+- (void) doGrowlNotification: (NSString*)title description: (NSString*) description {
+    
+    if (! [[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:@"hideInfoPopups"]) {
+        [GrowlApplicationBridge notifyWithTitle:title
+                                    description:description
+                               notificationName:@"New track playing"
+                                       iconData:nil
+                                       priority:0
+                                       isSticky:NO
+                                   clickContext:nil];
+
+    }
+   ;
+    
+    
+  
+}
+
+
 - (void) playSPTrack:(SPTrack *)t {
     [SPAsyncLoading waitUntilLoaded:t timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *tracks, NSArray *notLoadedTracks) {
         
@@ -875,14 +899,9 @@
             if (error) {
                 [self.window presentError:error];
             } else {
-                
-                [GrowlApplicationBridge notifyWithTitle:[t consolidatedArtists]
-                                            description:[t name]
-                                       notificationName:@"New track playing"
-                                               iconData:nil
-                                               priority:0
-                                               isSticky:NO
-                                           clickContext:nil];
+            
+                [self doGrowlNotification:[t name] description:[t consolidatedArtists]];
+               
             }
             
         } ];
