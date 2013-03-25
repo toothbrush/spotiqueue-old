@@ -11,7 +11,6 @@
 #import "SSKeychain.h"
 #import <CocoaLibSpotify/CocoaLibSpotify.h>
 #import "DNTrackTable.h"
-
 #import "LPEasyScrobble.h"
 #import "RSRTVArrayController.h"
 
@@ -24,15 +23,18 @@ SPPlaylistDelegate> {
 	NSTextField * __unsafe_unretained userNameField;
 	NSSecureTextField *__unsafe_unretained passwordField;
     
-    LPEasyScrobble * easyScrobble;
 	SPTrack* previousSong;
 	SPPlaybackManager *playbackManager;
 
 	NSSlider *__unsafe_unretained playbackProgressSlider;
 }
 
+@property (nonatomic, retain) LPEasyScrobble * easyScrobble;
+
 @property (nonatomic, retain) IBOutlet NSButton * nextButton;
+@property (nonatomic, retain) SPArtistBrowse* artistBrowse;
 @property (assign) IBOutlet NSSlider *playbackProgressSlider;
+
 @property (nonatomic, retain) IBOutlet NSButton* scrobbleEnabled;
 
 @property (assign)   IBOutlet DNTrackTable *searchResults;
@@ -66,6 +68,7 @@ SPPlaylistDelegate> {
 
 - (IBAction)loadPlaylistFromURL:(id)sender;
 - (IBAction)showLoadPlaylist:(id)sender;
+- (IBAction)loadStarredTracks:(id)sender;
 - (IBAction)cancelLoadURLSheet:(id)sender;
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -73,7 +76,8 @@ SPPlaylistDelegate> {
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 
-@property (nonatomic, retain) IBOutlet NSTextField* playlistURL;
+@property (nonatomic, retain) IBOutlet NSPopUpButton* playlistSelectionMenu;
+@property (nonatomic, retain) IBOutlet NSTextField*   playlistByURL;
 
 
 
@@ -89,6 +93,7 @@ SPPlaylistDelegate> {
 
 - (IBAction)seekToPosition:(id)sender;
 - (IBAction)toggleFullScreen:(id)sender;
+
 - (IBAction)focusOnSearch:(id)sender;
 - (IBAction)playNextTrack:(id)sender;
 

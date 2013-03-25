@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		DA5754F5169C4E2A00B4241E /* RSRTVArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5754F4169C4BFF00B4241E /* RSRTVArrayController.m */; };
-		DA5754F8169C879000B4241E /* lastfm_red_small.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA5754F6169C879000B4241E /* lastfm_red_small.gif */; };
-		DA5754F9169C879000B4241E /* spotify-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA5754F7169C879000B4241E /* spotify-logo.jpg */; };
 		DA5754FC169C897000B4241E /* LPEasyScrobble.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5754FB169C897000B4241E /* LPEasyScrobble.m */; };
 		DA6A9F1B168662BC00A250ED /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1A168662BC00A250ED /* Cocoa.framework */; };
 		DA6A9F25168662BC00A250ED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6A9F23168662BC00A250ED /* InfoPlist.strings */; };
@@ -20,6 +18,9 @@
 		DA6A9F34168662BD00A250ED /* Spotiqueue.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA6A9F32168662BD00A250ED /* Spotiqueue.xcdatamodeld */; };
 		DA6A9F56168667DC00A250ED /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F54168667DC00A250ED /* AudioUnit.framework */; };
 		DA6A9F57168667DC00A250ED /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F55168667DC00A250ED /* CoreAudio.framework */; };
+		DA97043B1700580B0068C541 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA97043A1700580B0068C541 /* Growl.framework */; };
+		DA97043C1700581B0068C541 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA97043A1700580B0068C541 /* Growl.framework */; };
+		DA97044017005A730068C541 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = DA97043F17005A730068C541 /* Growl Registration Ticket.growlRegDict */; };
 		DAA78C71168B5227000C8692 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1D168662BC00A250ED /* AppKit.framework */; };
 		DAA78C73168B5229000C8692 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1E168662BC00A250ED /* CoreData.framework */; };
 		DAA78C74168B522A000C8692 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6A9F1F168662BC00A250ED /* Foundation.framework */; };
@@ -44,6 +45,7 @@
 			files = (
 				DAC626C3169ED43800A74B02 /* CocoaLibSpotify.framework in CopyFiles */,
 				DAD06C4016E77CE700B943CB /* Sparkle.framework in CopyFiles */,
+				DA97043C1700581B0068C541 /* Growl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,8 +54,6 @@
 /* Begin PBXFileReference section */
 		DA5754F3169C4BFF00B4241E /* RSRTVArrayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSRTVArrayController.h; sourceTree = "<group>"; };
 		DA5754F4169C4BFF00B4241E /* RSRTVArrayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSRTVArrayController.m; sourceTree = "<group>"; };
-		DA5754F6169C879000B4241E /* lastfm_red_small.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lastfm_red_small.gif; sourceTree = "<group>"; };
-		DA5754F7169C879000B4241E /* spotify-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "spotify-logo.jpg"; sourceTree = "<group>"; };
 		DA5754FA169C897000B4241E /* LPEasyScrobble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPEasyScrobble.h; sourceTree = "<group>"; };
 		DA5754FB169C897000B4241E /* LPEasyScrobble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LPEasyScrobble.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DA6A9F16168662BC00A250ED /* Spotiqueue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotiqueue.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +72,8 @@
 		DA6A9F33168662BD00A250ED /* Spotiqueue.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spotiqueue.xcdatamodel; sourceTree = "<group>"; };
 		DA6A9F54168667DC00A250ED /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		DA6A9F55168667DC00A250ED /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		DA97043A1700580B0068C541 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
+		DA97043F17005A730068C541 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		DAA78C83168B6CDE000C8692 /* DNTrackTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNTrackTable.h; sourceTree = "<group>"; };
 		DAA78C84168B6CDE000C8692 /* DNTrackTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DNTrackTable.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DAA78C87168B6EE8000C8692 /* DNTrackTableDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNTrackTableDelegate.h; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				DA6A9F1B168662BC00A250ED /* Cocoa.framework in Frameworks */,
 				DAC626C2169ED42E00A74B02 /* CocoaLibSpotify.framework in Frameworks */,
 				DAD06C3F16E77CE000B943CB /* Sparkle.framework in Frameworks */,
+				DA97043B1700580B0068C541 /* Growl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +134,7 @@
 		DA6A9F19168662BC00A250ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA97043A1700580B0068C541 /* Growl.framework */,
 				DAD06C3E16E77CE000B943CB /* Sparkle.framework */,
 				DAC626C1169ED42E00A74B02 /* CocoaLibSpotify.framework */,
 				DA6A9F1C168662BC00A250ED /* Other Frameworks */,
@@ -157,8 +161,6 @@
 			children = (
 				DAA78C86168B6D48000C8692 /* Classes */,
 				DA6A9F2F168662BD00A250ED /* MainMenu.xib */,
-				DA5754F6169C879000B4241E /* lastfm_red_small.gif */,
-				DA5754F7169C879000B4241E /* spotify-logo.jpg */,
 				DA6A9F32168662BD00A250ED /* Spotiqueue.xcdatamodeld */,
 				DA6A9F21168662BC00A250ED /* Supporting Files */,
 			);
@@ -170,6 +172,7 @@
 			children = (
 				DAD06C3A16E7744300B943CB /* dsa_pub.pem */,
 				DAFDC61C169D8C4100A553E6 /* Spotiqueue.iconset */,
+				DA97043F17005A730068C541 /* Growl Registration Ticket.growlRegDict */,
 				DA6A9F22168662BC00A250ED /* Spotiqueue-Info.plist */,
 				DA6A9F23168662BC00A250ED /* InfoPlist.strings */,
 				DA6A9F26168662BC00A250ED /* main.m */,
@@ -266,9 +269,8 @@
 				DA6A9F2B168662BC00A250ED /* Credits.rtf in Resources */,
 				DABF28F2169D8DB100003A11 /* Spotiqueue.iconset in Resources */,
 				DA6A9F31168662BD00A250ED /* MainMenu.xib in Resources */,
-				DA5754F8169C879000B4241E /* lastfm_red_small.gif in Resources */,
-				DA5754F9169C879000B4241E /* spotify-logo.jpg in Resources */,
 				DAD06C3B16E7744300B943CB /* dsa_pub.pem in Resources */,
+				DA97044017005A730068C541 /* Growl Registration Ticket.growlRegDict in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

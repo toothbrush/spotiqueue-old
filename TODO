@@ -1,7 +1,10 @@
-* browse artist only.
+* total playing time playlist
+* time per track?
+
+* clickable artist name leading to Last.fm page?
 * related artists? hm.
 
-* mention unread-messages-count
+
 
 
 * persist the current queue, always.
@@ -9,18 +12,13 @@
 
 
 
-* allow opening playlists (into search results)
-* allow entering spotify url (nice for neighbours' starred tracks, eg)
-* allow starring
+* show/allow starring
 
 
 
-* share playlists (via core data?? icloud?) – low prio
-
-* investigate using Last.fm web api for related artists?
-* disable scrobble-checkbox if not logged in to last fm
-* refactor / neaten last.fm easyscrobble – expose -(BOOL)isLoggedIn;
 
 
-* send track to a friend (love-to-have: autocomplete username from friends)
-* drop-down of inbox?
+* preload in SPSession for smooth playback
+
+* right-click copy spotify url to clipboard? Always show current spotify url?
+

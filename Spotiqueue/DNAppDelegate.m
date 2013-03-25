@@ -7,6 +7,7 @@
 //
 
 #import "DNAppDelegate.h"
+#import <Growl/Growl.h>
 
 @implementation DNAppDelegate
 
@@ -20,18 +21,48 @@
 @synthesize scrobbleEnabled;
 @synthesize passwordField;
 @synthesize lfmPasswordField, lfmUserNameField;
-@synthesize playlistURL;
+@synthesize playlistSelectionMenu;
 @synthesize loginProgress;
+@synthesize playlistByURL;
 @synthesize savePassword, searchIndicator;
-@synthesize loadPlaylistSheet;
+@synthesize loadPlaylistSheet, easyScrobble;
 @synthesize loginSheet, searchField;
 @synthesize window = _window;
-@synthesize playbackManager;
+@synthesize playbackManager, artistBrowse;
 @synthesize search, trackDurationLabel;
 @synthesize queueTable;
 @synthesize arrayController, queueArrayCtrl;
 
 
+- (void)triggerArtistBrowse:(SPArtist*)artist sender:(id)sender {
+    DLog(@"start browsing %@", artist);
+
+    self.artistBrowse = nil; // release any previous browser
+    self.search       = nil;
+    self.artistBrowse = [SPArtistBrowse browseArtist:artist
+                                           inSession:[SPSession sharedSession]
+                                                type:SP_ARTISTBROWSE_NO_TRACKS];
+    
+    [self addObserver:self forKeyPath:@"artistBrowse.albums" options:0 context:nil];
+    
+}
+
+- (void)triggerAlbumBrowse:(SPAlbum*)album sender:(id)sender {
+    
+    SPAlbumBrowse* ab = [SPAlbumBrowse browseAlbum:album
+                                         inSession:[SPSession sharedSession]];
+    
+    [SPAsyncLoading waitUntilLoaded:ab
+                            timeout:10.0f
+                               then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+                                   SPAlbumBrowse* abl = [loadedItems objectAtIndex:0];
+                                   if (abl==nil) {
+                                       return;
+                                   }
+                                   
+                                   [self populateSearchTable:abl.tracks];
+                               }];
+}
 
 - (void)focusQueue:(id)sender {
     
@@ -167,16 +198,16 @@
 
 - (IBAction)searched:(id)sender{
     
-    //[self removeObserver:self forKeyPath:@"search.tracks"];
-    
     self.search = nil;
+    self.artistBrowse = nil;
     
     if ([[[self.searchField stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
         [self.searchIndicator stopAnimation:nil];
         return;
     }
     
-    self.search = [[SPSearch searchWithSearchQuery:[self.searchField stringValue] inSession:[SPSession sharedSession]] retain];
+    self.search = [[SPSearch searchWithSearchQuery:[self.searchField stringValue]
+                                         inSession:[SPSession sharedSession]] retain];
     [self.searchIndicator startAnimation:nil];
     
     [self addObserver:self forKeyPath:@"search.tracks" options:0 context:nil];
@@ -188,8 +219,11 @@
 
 - (void)dealloc {
     self.playbackManager = nil;
-    self.playlistURL = nil;
+    self.playlistSelectionMenu = nil;
+
+    self.easyScrobble = nil;
     self.loginSheet = nil;
+    self.playlistByURL = nil;
     self.loadPlaylistSheet = nil;
     self.window = nil;
     
@@ -266,8 +300,9 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	// Insert code here to initialize your application
 	
+    [GrowlApplicationBridge setGrowlDelegate:@""]; // ugh, work around Growl bug.
+    
 	[self addObserver:self
 		   forKeyPath:@"playbackManager.trackPosition"
 			  options:0
@@ -281,51 +316,142 @@
            forKeyPath:@"queueArrayCtrl.arrangedObjects"
               options:0
               context:nil];
-
-	
+    
 	[NSApp beginSheet:self.loginSheet
 	   modalForWindow:self.window
 		modalDelegate:nil
 	   didEndSelector:nil
 		  contextInfo:nil];
     
+    
     [self.arrayController setDraggingEnabled:NO];
-    easyScrobble = [LPEasyScrobble new];
+    self.easyScrobble = [LPEasyScrobble new];
     
     [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
     [self.searchIndicator stopAnimation:nil];
     
     [self.searchField becomeFirstResponder];
+        
+}
+- (void) insertPlaylistIntoSearchResultsBy:(NSURL*) url {
+    [SPPlaylist playlistWithPlaylistURL:url
+                              inSession:[SPSession sharedSession]
+                               callback:^(SPPlaylist *playlist) {
+                                   
+                                   if (playlist == nil) {
+                                       return;
+                                   }
+                                   
+                                   [SPAsyncLoading waitUntilLoaded:playlist
+                                                           timeout:20.0f
+                                                              then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+                                                                  
+                                                                  SPPlaylist* loaded = [loadedItems objectAtIndex:0];
+                                                                  [self populateSearchTable:loaded.items];
+                                                                  
+                                                              }];
+                               }];
+
+}
+
+- (void) insertAlbumByURL: (NSURL*) url {
+ 
+    [SPAlbum albumWithAlbumURL:url
+                     inSession:[SPSession sharedSession]
+                      callback:^(SPAlbum *album) {
+                          if (album == nil) {
+                              return;
+                          }
+                         
+                          SPAlbumBrowse* ab = [SPAlbumBrowse browseAlbum:album
+                                           inSession:[SPSession sharedSession]];
+                          [SPAsyncLoading waitUntilLoaded:ab
+                                                  timeout:10.0f
+                                                     then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+                                                         SPAlbumBrowse* a = [loadedItems objectAtIndex:0];
+                                                        
+                                                         [self populateSearchTable:a.tracks];
+                                                         
+                                                     }];
+                      }];
+}
+
+- (void)loadStarredTracks:(id)sender {
+    SPPlaylist* p = [[SPSession sharedSession] starredPlaylist];
     
+    [SPAsyncLoading waitUntilLoaded:p
+                            timeout:10.0f
+                               then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+                                   SPPlaylist* starred = [loadedItems objectAtIndex:0];
+                                   if (starred == nil) {
+                                       return;
+                                   }
+     [self populateSearchTable:starred.items];
+                               }];
+    [self cancelLoadURLSheet:nil];
 }
 
 - (void)loadPlaylistFromURL:(id)sender {
    
-//    DLog(@"url will be: %@", [NSURL URLWithString:self.playlistURL.stringValue]);
-    [SPPlaylist playlistWithPlaylistURL:[NSURL URLWithString:self.playlistURL.stringValue] inSession:[SPSession sharedSession] callback:^(SPPlaylist *playlist) {
-        
-        DLog(@"returned playlist = %@ %@", playlist.name ,playlist);
-        
-        [playlist startLoading];
-        
-        
-        
-        playlist.delegate = self;
-        
-//        NSMutableArray* tracks = [[NSMutableArray alloc] init];
-//        for (SPPlaylistItem* pli in playlist.items) {
-//            if([pli.itemClass isSubclassOfClass:[SPTrack class]]) {
-//                SPTrack * tr = pli.item;
-//                [tracks addObject:tr];
-//            }
-//        }
-//        
-//        [self populateSearchTable:tracks];
-//        [tracks release];        
-        
-    }];
+    SPPlaylistContainer* playlists = [[SPSession sharedSession] userPlaylists];
     
-    [self cancelLoadURLSheet:nil];
+    if ([self.playlistByURL.stringValue isEqualToString:@""]) {
+        
+        NSString* playlistname = [self.playlistSelectionMenu selectedItem].title;
+        DLog(@"looking for %@", playlistname);
+        
+        NSURL* result = nil;
+        
+        for (id p  in playlists.playlists) {
+            if ([[p name] isEqualToString:playlistname]) {
+                result = [p spotifyURL];
+                break;
+            }
+        }
+        
+        if (result == nil) {
+            NSBeep();
+            return;
+        }
+        
+        [self insertPlaylistIntoSearchResultsBy:result];
+
+    } else {
+        
+        NSURL* u = [NSURL URLWithString:self.playlistByURL.stringValue];
+        SPDispatchAsync(^{
+            id thing = [[SPSession sharedSession]
+                        objectRepresentationForSpotifyURL:u
+                        linkType:nil];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if ([thing isKindOfClass:[SPTrack class]]) {
+                    DLog(@"SPTrack was given. %@", thing);
+
+                    [self enqueueTracksBottom:[NSArray arrayWithObject:thing]];
+
+                } else if ([thing isKindOfClass:[SPAlbum class]]) {
+                    DLog(@"SPAlbum was given. %@", thing);
+                    [self insertAlbumByURL:u];
+                    
+                    
+                } else if ([thing isKindOfClass:[SPPlaylist class]]) {
+                    DLog(@"SPPlaylist was given. %@", thing);
+
+                    [self insertPlaylistIntoSearchResultsBy:u];
+                    
+                } else {
+                    ALog(@"Unsupported URL provided: \"%@\"", u);
+                }
+            });
+        });
+        
+        
+        
+
+    }
+        [self cancelLoadURLSheet:nil];
 
 }
 
@@ -338,17 +464,89 @@
 }
 
 - (void)showLoadPlaylist:(id)sender {
+    
+    if (![[SPSession sharedSession] user]) {
+        return;
+    }
+    
+    [self.playlistByURL setStringValue:@""];
     [NSApp beginSheet:self.loadPlaylistSheet
 	   modalForWindow:self.window
 		modalDelegate:nil
 	   didEndSelector:nil
 		  contextInfo:nil];
+
     
-    self.playlistURL.stringValue =
-        [NSString stringWithFormat:@"spotify:user:%@:starred",
-         self.playbackManager.playbackSession.user.canonicalName];
+    SPPlaylistContainer* c = [[SPSession sharedSession] userPlaylists];
+
+    [SPAsyncLoading waitUntilLoaded:c
+                            timeout:20.0
+                               then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+                                   
+                                   [self.playlistSelectionMenu removeAllItems];
+                                   
+                                   
+                                   for (id p in [[loadedItems objectAtIndex:0] playlists]) {
+                                       if ([p isKindOfClass:[SPPlaylist class]]) {
+                                           
+                                           [SPAsyncLoading waitUntilLoaded:p
+                                                                   timeout:5.0
+                                                                      then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+                                                                          
+                                                                          DLog(@"loaded playlist %@", p);
+                                                                          [self.playlistSelectionMenu addItemWithTitle: [p name]];
+                                                                      }];
+                                           
+                                       } else if ([p isKindOfClass:[SPPlaylistFolder class]]) {
+                                           // maybe handle playlist folders later. bleh.
+                                       }
+
+                                       
+                                       
+                                   }
+                               }];
     
-    self.playlistURL.stringValue = @"spotify:user:toothbrush666:playlist:0CGju5c3vrhBVTxQVTFgqS";
+    
+    
+    // a track:
+    // spotify:track:0If1Jxo7CjpTsKLz3aXmqW
+    
+    // a playlist:
+    // spotify:user:toothbrush666:playlist:0CGju5c3vrhBVTxQVTFgqS
+    
+    // an album:
+    // spotify:album:0YSgqHce1ofZINjVas1D4v
+
+}
+
+- (void) addTrackToSearchResults: (id)tr {
+    NSMutableDictionary *value;
+    
+    if (tr == nil) {
+        return;
+    }
+    if (![tr isKindOfClass:[SPTrack class]]) {
+        return;
+    }
+    SPTrack* t = tr;
+
+    value = [[NSMutableDictionary alloc] init];
+    [value setObject:t.name forKey:@"name"];
+    [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
+    [value setObject:t.album.name forKey:@"album"];
+    [value setObject:[t.album.spotifyURL absoluteString] forKey:@"albumURL"];
+    [value setObject:[NSNumber numberWithInteger: t.discNumber] forKey:@"discNumber"];
+    [value setObject:[NSNumber numberWithInteger: t.trackNumber] forKey:@"trackNumber"];
+    [value setObject:t forKey:@"originalTrack"];
+    
+    [arrayController addObject:value];
+    
+    [value release];
+
+}
+
+- (void) emptySearchResults {
+    [[arrayController mutableArrayValueForKey:@"content"] removeAllObjects];
 
 }
 
@@ -357,24 +555,14 @@
     if (results == nil) {
         return;
     }
-    [[arrayController mutableArrayValueForKey:@"content"] removeAllObjects];
-    
-    NSMutableDictionary *value;
+    [self emptySearchResults];
+    for (id t in results) {
+        if ([t isKindOfClass:[SPTrack class]]) {
+            [self addTrackToSearchResults:t];
+        } else if ([t isKindOfClass:[SPPlaylistItem class]]) {
+            [self addTrackToSearchResults:[t item]];
+        }
 
-    for (SPTrack* t in results) {
-        value = [[NSMutableDictionary alloc] init];
-        [value setObject:t.name forKey:@"name"];
-        [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
-        [value setObject:t.album.name forKey:@"album"];
-        [value setObject:[t.album.spotifyURL absoluteString] forKey:@"albumURL"];
-        [value setObject:[NSNumber numberWithInteger: t.discNumber] forKey:@"discNumber"];
-        [value setObject:[NSNumber numberWithInteger: t.trackNumber] forKey:@"trackNumber"];
-        [value setObject:t forKey:@"originalTrack"];
-        
-        [arrayController addObject:value];
-        
-        [value release];
-        
     }
     
     [searchResults reloadData];
@@ -392,9 +580,30 @@
 			[self.playbackProgressSlider setDoubleValue:self.playbackManager.trackPosition];
 		}
     } else if ([keyPath isEqualToString:@"search.tracks"]) {
-//        DLog(@"Search found tracks: %@", self.search.tracks);
-        
         [self populateSearchTable:self.search.tracks];
+
+    } else if ([keyPath isEqualToString:@"artistBrowse.albums"]) {
+
+        [self emptySearchResults];
+
+        for (SPAlbum* a in self.artistBrowse.albums) {
+            // make an albumbrowse and fetch the tracks.
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+            dispatch_async(queue, ^{
+                
+                SPAlbumBrowse* alB = [SPAlbumBrowse browseAlbum:a
+                                                      inSession:[SPSession sharedSession]];
+                [SPAsyncLoading waitUntilLoaded:alB
+                                        timeout:20.0f
+                                           then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+                                               SPAlbumBrowse* ab = [loadedItems objectAtIndex:0];
+                                               //                                           DLog(@"got album browser: %@", ab);
+                                               for (SPTrack*t  in ab.tracks) {
+                                                   [self addTrackToSearchResults:t];
+                                               }
+                                           }];
+            });
+        }
 
     }
     else if([ keyPath isEqualToString:@"queueArrayCtrl.arrangedObjects"]) {
@@ -571,13 +780,13 @@
 
 -(void)sessionDidLoginSuccessfully:(SPSession *)aSession; {
 	
+    [self.scrobbleEnabled setHidden: ![self.easyScrobble isLoggedIn]];
+
 	// Invoked by SPSession after a successful login.
 	
 	[self.loginSheet orderOut:self];
     [loginProgress stopAnimation:self];
 	[NSApp endSheet:self.loginSheet];
-    
-    
     
 }
 
@@ -630,10 +839,20 @@
             [self scrobbleATrack:previousSong];
         
         [self.playbackManager playTrack:t callback:^(NSError *error) {
-            if (error)
+            if (error) {
                 [self.window presentError:error];
+            } else {
+                
+                [GrowlApplicationBridge notifyWithTitle:[t consolidatedArtists]
+                                            description:[t name]
+                                       notificationName:@"New track playing"
+                                               iconData:nil
+                                               priority:0
+                                               isSticky:NO
+                                           clickContext:nil];
+            }
             
-        }];
+        } ];
         previousSong = t;
     }];
 
