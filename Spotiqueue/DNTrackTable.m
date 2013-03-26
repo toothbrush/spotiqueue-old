@@ -166,6 +166,19 @@
         }
     
         
+    } else if ([[[theEvent charactersIgnoringModifiers] lowercaseString] isEqualToString:@"s"] &&
+               flags == 0) {
+        // s was pressed: star selected track
+        
+        if ([self.selectedTracks count] == 1) {
+            
+            SPTrack* t = [self.selectedTracks objectAtIndex:0];
+            if (t) {
+                [t setStarred:!t.starred];
+            }
+        }
+        
+        
     } else if ([theEvent keyCode] == 123 &&
         flags == NSCommandKeyMask) {
         // command-left was pressed
