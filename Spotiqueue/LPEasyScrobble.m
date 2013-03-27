@@ -270,14 +270,12 @@
 }
 
 - (BOOL)isLoggedIn {
-    DLog(@"session key = %@", self.sessionKey);
     
     if (!(self.APIKey || self.sessionKey || self.APISecret)) {
         return NO;
     }
     
-    if ( self.sessionKey == nil ||
-        [self.sessionKey isEqualToString:@"NOKEY"] ||
+    if ([self.sessionKey isEqualToString:@"NOKEY"] ||
         [self.sessionKey isEqualToString:@""]) {
         return NO;
     } else {

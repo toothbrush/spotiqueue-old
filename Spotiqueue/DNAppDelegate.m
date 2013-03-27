@@ -32,7 +32,7 @@
 @synthesize playbackManager;
 @synthesize search, trackDurationLabel;
 @synthesize queueTable;
-@synthesize arrayController, queueArrayCtrl;
+@synthesize searchArrayController, queueArrayController;
 
 
 - (void)triggerAlbumBrowse:(SPAlbum*)album sender:(id)sender {
@@ -90,12 +90,12 @@
             if (sender == self.queueTable) {
                 // we should remove stuff above this entry.
                 
-                while (![[[self.queueArrayCtrl.content objectAtIndex:0] objectForKey:@"originalTrack"] isEqual: played]) {
+                while (![[[self.queueArrayController.content objectAtIndex:0] objectForKey:@"originalTrack"] isEqual: played]) {
                     
-                    [self.queueArrayCtrl removeObjectAtArrangedObjectIndex:0];
+                    [self.queueArrayController removeObjectAtArrangedObjectIndex:0];
                 }
                 // finally remove the clicked track:
-                [self.queueArrayCtrl removeObjectAtArrangedObjectIndex:0];
+                [self.queueArrayController removeObjectAtArrangedObjectIndex:0];
                 
                 
                 [self.queueTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
@@ -109,7 +109,7 @@
             }
         } else if ([tracks count] > 1) {
             // the user pressed enter on a whole bunch of tracks.
-            if ([self.queueArrayCtrl.content count] == 0) {
+            if ([self.queueArrayController.content count] == 0) {
                 // the queue is empty now, so we assume the user means to play the whole lot
                 
                 [self enqueueTracksBottom:tracks];
@@ -157,7 +157,7 @@
         
         [value setObject:[NSNumber numberWithDouble: [[NSDate date] timeIntervalSince1970]] forKey:@"whenAdded"];
         
-        [queueArrayCtrl addObject:value];
+        [queueArrayController addObject:value];
         [value release];
     }
     
@@ -177,7 +177,7 @@
         
         [value setObject:[NSNumber numberWithDouble: [[NSDate date] timeIntervalSince1970]] forKey:@"whenAdded"];
         
-        [queueArrayCtrl insertObject:value atArrangedObjectIndex:0];
+        [queueArrayController insertObject:value atArrangedObjectIndex:0];
         [value release];
     }
 
@@ -197,7 +197,8 @@
     self.search = nil;
     
     NSString* searchTerm = [[self.searchField stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([searchTerm isEqualToString:@""]) {
+    
+    if (searchTerm == nil || [searchTerm isEqualToString:@""]) {
         [self.searchIndicator stopAnimation:nil];
         return;
     }
@@ -261,8 +262,8 @@
 	[_window center];
 	[_window orderFront:nil];
    
-    [self.searchResults setRelatedArrayController:self.arrayController];
-    [self.queueTable setRelatedArrayController:self.queueArrayCtrl];
+    [self.searchResults setRelatedArrayController:self.searchArrayController];
+    [self.queueTable setRelatedArrayController:self.queueArrayController];
     [self.searchResults setTrackDelegate:self];
     [self.queueTable setTrackDelegate:self];
     
@@ -331,7 +332,7 @@
 			  options:0
 			  context:nil];
     [self addObserver:self
-           forKeyPath:@"queueArrayCtrl.arrangedObjects"
+           forKeyPath:@"queueArrayController.arrangedObjects"
               options:0
               context:nil];
     
@@ -342,7 +343,7 @@
 		  contextInfo:nil];
     
     
-    [self.arrayController setDraggingEnabled:NO];
+    [self.searchArrayController setDraggingEnabled:NO];
     self.easyScrobble = [LPEasyScrobble new];
     
     [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
@@ -568,30 +569,26 @@
         return;
         
     }
-//    [SPAsyncLoading waitUntilLoaded:t
-//                            timeout:5.0f
-//                               then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
 
-                                   NSMutableDictionary *value;
-                                   value = [[NSMutableDictionary alloc] init];
-                                   [value setObject:t.name forKey:@"name"];
-                                   [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
-                                   [value setObject:t.album.name forKey:@"album"];
-                                   [value setObject:[t.album.spotifyURL absoluteString] forKey:@"albumURL"];
-                                   [value setObject:[NSNumber numberWithInteger: t.discNumber] forKey:@"discNumber"];
-                                   [value setObject:[NSNumber numberWithInteger: t.trackNumber] forKey:@"trackNumber"];
-                                   [value setObject:t forKey:@"originalTrack"];
-                                   
-                                   [arrayController addObject:value];
-                                   
-                                   [value release];
-//                               }];
-
+    
+    NSMutableDictionary *value;
+    value = [[NSMutableDictionary alloc] init];
+    [value setObject:t.name forKey:@"name"];
+    [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
+    [value setObject:t.album.name forKey:@"album"];
+    [value setObject:[t.album.spotifyURL absoluteString] forKey:@"albumURL"];
+    [value setObject:[NSNumber numberWithInteger: t.discNumber] forKey:@"discNumber"];
+    [value setObject:[NSNumber numberWithInteger: t.trackNumber] forKey:@"trackNumber"];
+    [value setObject:t forKey:@"originalTrack"];
+    
+    [searchArrayController addObject:value];
+    
+    [value release];
 
 }
 
 - (void) emptySearchResults {
-    [[arrayController mutableArrayValueForKey:@"content"] removeAllObjects];
+    [searchArrayController removeObjects: [searchArrayController arrangedObjects]];
 
 }
 
@@ -628,9 +625,9 @@
         // check if there's less than 5 percent left, then preload the next track.
         if (self.playbackManager.currentTrack.duration > 30.0 &&
             self.playbackManager.trackPosition / self.playbackManager.currentTrack.duration > 0.95) {
-            if ([self.queueArrayCtrl.content count] > 0) {
+            if ([self.queueArrayController.content count] > 0) {
                 
-                id t = [self.queueArrayCtrl.content objectAtIndex:0];
+                id t = [self.queueArrayController.content objectAtIndex:0];
                 t = [t objectForKey:@"originalTrack"];
                 
                 if (t != nil && [t isKindOfClass:[SPTrack class]]) {
@@ -652,16 +649,18 @@
     } else if ([keyPath isEqualToString:@"search.tracks"]) {
         [self populateSearchTable:self.search.tracks];
 
-    } else if([ keyPath isEqualToString:@"queueArrayCtrl.arrangedObjects"]) {
+    } else if([ keyPath isEqualToString:@"queueArrayController.arrangedObjects"]) {
 
-        [self.nextButton setEnabled:([self.queueArrayCtrl.arrangedObjects count] > 0)];
+        [self.nextButton setEnabled:([self.queueArrayController.arrangedObjects count] > 0)];
         
-    }    else if([keyPath isEqualToString:@"playbackManager.currentTrack"]) {
+    } else if([keyPath isEqualToString:@"playbackManager.currentTrack"]) {
+        
+        DLog(@"playbackManager.currentTrack observed. value = %@", self.playbackManager.currentTrack);
     
         [self.trackDurationLabel setStringValue:self.trackDuration];
 
         if (self.playbackManager.currentTrack == nil) {
-
+            DLog(@"trying to advance to next track...");
             [self playNextTrack:nil];
         }
     }  else {
@@ -671,18 +670,18 @@
 
 - (IBAction)playNextTrack:(id)sender {
     // we seem to have stopped. grab next track off queue and continue.
-    if ([self.queueArrayCtrl.content count] > 0) {
+    if ([self.queueArrayController.content count] > 0) {
         
-        id t = [self.queueArrayCtrl.content objectAtIndex:0];
+        id t = [self.queueArrayController.content objectAtIndex:0];
         t = [t objectForKey:@"originalTrack"];
 
         if (t == nil) {
-            DLog(@"hm, track == nil? not advancing track?");
+            DLog(@"hm, originalTrack of queue[0] == nil? not advancing track?");
             return;
         }
         [self playSPTrack:t];
 
-        [self.queueArrayCtrl removeObjectAtArrangedObjectIndex:0];
+        [self.queueArrayController removeObjectAtArrangedObjectIndex:0];
     } else {
         // the queue is empty, so we stop.
         DLog(@"empty queue => stop");
@@ -915,25 +914,32 @@
 
 
 - (void) playSPTrack:(SPTrack *)t {
-    
+
+    DLog(@"trying to play = %@", t);
     // the async doesn't seem to slow stuff down at all. 
-    [SPAsyncLoading waitUntilLoaded:t timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *tracks, NSArray *notLoadedTracks) {
+    
+    if(self.playbackManager.currentTrack == nil) // this means the track was finished.
+        [self scrobbleATrack:previousSong];
+    
+    DLog(@"hullo? t = %@", t);
+    if (t == nil || ![t isKindOfClass:[SPTrack class]]) {
         
-        if(self.playbackManager.currentTrack == nil) // this means the track was finished.
-            [self scrobbleATrack:previousSong];
+        DLog(@"danger will robinson!");
+        return;
+    }
+    [self.playbackManager playTrack:t callback:^(NSError *error) {
+        DLog(@"in callback of playSPTrack:");
+        if (error) {
+            [self.window presentError:error];
+        } else {
+            
+            [self doGrowlNotification:[t name] description:[t consolidatedArtists]];
+            
+        }
         
-        [self.playbackManager playTrack:t callback:^(NSError *error) {
-            if (error) {
-                [self.window presentError:error];
-            } else {
-            
-                [self doGrowlNotification:[t name] description:[t consolidatedArtists]];
-               
-            }
-            
-        } ];
-        previousSong = t;
-    }];
+    } ];
+    previousSong = t;
+
 
 }
 

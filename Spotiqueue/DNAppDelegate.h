@@ -38,8 +38,8 @@ SPPlaylistDelegate> {
 
 @property (assign)   IBOutlet DNTrackTable *searchResults;
 @property (assign)   IBOutlet DNTrackTable *queueTable;
-@property (strong) IBOutlet RSRTVArrayController *arrayController;
-@property (strong) IBOutlet RSRTVArrayController *queueArrayCtrl;
+@property (strong) IBOutlet RSRTVArrayController *searchArrayController;
+@property (strong) IBOutlet RSRTVArrayController *queueArrayController;
 @property (nonatomic, retain) IBOutlet NSTextField* trackDurationLabel;
 
 

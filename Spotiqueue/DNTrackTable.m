@@ -75,7 +75,6 @@
 
 - (NSArray*) selectedTracks {
     
-    //    DLog(@"pfff. asking for selected tracks. %@", relatedArrayController);
     __strong NSMutableArray* res = [[NSMutableArray alloc] init];
     for (id d in [relatedArrayController selectedObjects]) {
         [res addObject:[d valueForKey:@"originalTrack"]];
@@ -221,7 +220,8 @@
         
         if ([theEvent modifierFlags] & NSCommandKeyMask) {
             // okay, we actually want to MOVE these rows
-            NSIndexSet* s=[self.relatedArrayController moveObjectsInArrangedObjectsFromIndexes:self.selectedRowIndexes toIndex:[self.selectedRowIndexes lastIndex]+2]; // plus 2 because inserting at original index+1 makes no change
+            NSIndexSet* s=[self.relatedArrayController moveObjectsInArrangedObjectsFromIndexes:self.selectedRowIndexes
+                                                                                       toIndex:[self.selectedRowIndexes lastIndex]+2]; // plus 2 because inserting at original index+1 makes no change
 
             [self selectRowIndexes:s byExtendingSelection:NO];
         } else {
