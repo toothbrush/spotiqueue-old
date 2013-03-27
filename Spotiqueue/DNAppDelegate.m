@@ -24,29 +24,16 @@
 @synthesize lfmPasswordField, lfmUserNameField;
 @synthesize playlistSelectionMenu;
 @synthesize loginProgress;
-@synthesize playlistByURL;
+
 @synthesize savePassword, searchIndicator;
 @synthesize loadPlaylistSheet, easyScrobble;
 @synthesize loginSheet, searchField;
 @synthesize window = _window;
-@synthesize playbackManager, artistBrowse;
+@synthesize playbackManager;
 @synthesize search, trackDurationLabel;
 @synthesize queueTable;
 @synthesize arrayController, queueArrayCtrl;
 
-
-- (void)triggerArtistBrowse:(SPArtist*)artist sender:(id)sender {
-    DLog(@"start browsing %@", artist);
-
-    self.artistBrowse = nil; // release any previous browser
-    self.search       = nil;
-    self.artistBrowse = [SPArtistBrowse browseArtist:artist
-                                           inSession:[SPSession sharedSession]
-                                                type:SP_ARTISTBROWSE_NO_TRACKS];
-    
-    [self addObserver:self forKeyPath:@"artistBrowse.albums" options:0 context:nil];
-    
-}
 
 - (void)triggerAlbumBrowse:(SPAlbum*)album sender:(id)sender {
     
@@ -208,7 +195,6 @@
 - (IBAction)searched:(id)sender{
     
     self.search = nil;
-    self.artistBrowse = nil;
     
     NSString* searchTerm = [[self.searchField stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([searchTerm isEqualToString:@""]) {
@@ -218,7 +204,7 @@
     
     if ([searchTerm hasPrefix:@"spotify:"]) {
         [self dealWithSomeURL:searchTerm];
-//        [self.searchField setStringValue:@""];
+
         [self.searchIndicator stopAnimation:nil];
         
     } else {
@@ -242,7 +228,7 @@
 
     self.easyScrobble = nil;
     self.loginSheet = nil;
-    self.playlistByURL = nil;
+
     self.loadPlaylistSheet = nil;
     self.window = nil;
     
@@ -427,34 +413,29 @@
     
     SPPlaylistContainer* playlists = [[SPSession sharedSession] userPlaylists];
     
-    if ([self.playlistByURL.stringValue isEqualToString:@""]) {
-        
-        NSString* playlistname = [self.playlistSelectionMenu selectedItem].title;
-        DLog(@"looking for %@", playlistname);
-        
-        NSURL* result = nil;
-        
-        for (id p  in playlists.playlists) {
-            if ([[p name] isEqualToString:playlistname]) {
-                result = [p spotifyURL];
-                break;
-            }
+    
+    NSString* playlistname = [self.playlistSelectionMenu selectedItem].title;
+    DLog(@"looking for playlist: \"%@\"", playlistname);
+    
+    NSURL* result = nil;
+    
+    for (id p  in playlists.playlists) {
+        if ([[p name] isEqualToString:playlistname]) {
+            result = [p spotifyURL];
+            break;
         }
-        
-        if (result == nil) {
-            NSBeep();
-            return;
-        }
-        
-        DLog(@"found %@", result);
-        [self insertPlaylistIntoSearchResultsBy:result];
-
-    } else {
-               
-        [self dealWithSomeURL:self.playlistByURL.stringValue];
-
     }
-        [self cancelLoadURLSheet:nil];
+    
+    if (result == nil) {
+        NSBeep();
+        DLog(@"hm, playlist not found.");
+        return;
+    }
+    
+    DLog(@"found %@", result);
+    [self insertPlaylistIntoSearchResultsBy:result];
+    
+    [self cancelLoadURLSheet:nil];
 
 }
 
@@ -516,7 +497,6 @@
         return;
     }
     
-    [self.playlistByURL setStringValue:@""];
     [NSApp beginSheet:self.loadPlaylistSheet
 	   modalForWindow:self.window
 		modalDelegate:nil
@@ -644,47 +624,47 @@
         if (![[self.playbackProgressSlider cell] isHighlighted]) {
 			[self.playbackProgressSlider setDoubleValue:self.playbackManager.trackPosition];
 		}
+        
+        // check if there's less than 5 percent left, then preload the next track.
+        if (self.playbackManager.currentTrack.duration > 30.0 &&
+            self.playbackManager.trackPosition / self.playbackManager.currentTrack.duration > 0.95) {
+            if ([self.queueArrayCtrl.content count] > 0) {
+                
+                id t = [self.queueArrayCtrl.content objectAtIndex:0];
+                t = [t objectForKey:@"originalTrack"];
+                
+                if (t != nil && [t isKindOfClass:[SPTrack class]]) {
+                    
+                    if (![(SPTrack*)(t) isLoaded]) {
+                        DLog(@"try preloading next track... %@", t);
+                        [[SPSession sharedSession] preloadTrackForPlayback:t
+                                                                  callback:^(NSError *error) {
+                                                                      DLog(@"preloaded %@:", t);
+                                                                      if (error) {
+                                                                          DLog(@"   preload error: %@", [error userInfo]);
+                                                                      }
+                                                                  }];
+                        
+                    }
+                }
+            }
+        }
     } else if ([keyPath isEqualToString:@"search.tracks"]) {
         [self populateSearchTable:self.search.tracks];
 
-    } else if ([keyPath isEqualToString:@"artistBrowse.albums"]) {
-
-        [self emptySearchResults];
-
-        for (SPAlbum* a in self.artistBrowse.albums) {
-            // make an albumbrowse and fetch the tracks.
-            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-            dispatch_async(queue, ^{
-                
-                SPAlbumBrowse* alB = [SPAlbumBrowse browseAlbum:a
-                                                      inSession:[SPSession sharedSession]];
-                [SPAsyncLoading waitUntilLoaded:alB
-                                        timeout:20.0f
-                                           then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
-                                               SPAlbumBrowse* ab = [loadedItems objectAtIndex:0];
-                                               //                                           DLog(@"got album browser: %@", ab);
-                                               for (SPTrack*t  in ab.tracks) {
-                                                   [self addTrackToSearchResults:t];
-                                               }
-                                           }];
-            });
-        }
-
-    }
-    else if([ keyPath isEqualToString:@"queueArrayCtrl.arrangedObjects"]) {
+    } else if([ keyPath isEqualToString:@"queueArrayCtrl.arrangedObjects"]) {
 
         [self.nextButton setEnabled:([self.queueArrayCtrl.arrangedObjects count] > 0)];
         
-    }
-    else if([keyPath isEqualToString:@"playbackManager.currentTrack"]) {
+    }    else if([keyPath isEqualToString:@"playbackManager.currentTrack"]) {
     
         [self.trackDurationLabel setStringValue:self.trackDuration];
 
         if (self.playbackManager.currentTrack == nil) {
+
             [self playNextTrack:nil];
         }
-    }
-        else {
+    }  else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
@@ -695,11 +675,17 @@
         
         id t = [self.queueArrayCtrl.content objectAtIndex:0];
         t = [t objectForKey:@"originalTrack"];
-//        DLog(@"next track should be %@" , t);
-        [self.queueArrayCtrl removeObjectAtArrangedObjectIndex:0];
+
+        if (t == nil) {
+            DLog(@"hm, track == nil? not advancing track?");
+            return;
+        }
         [self playSPTrack:t];
+
+        [self.queueArrayCtrl removeObjectAtArrangedObjectIndex:0];
     } else {
         // the queue is empty, so we stop.
+        DLog(@"empty queue => stop");
         previousSong = nil; // don't scrobble stuff twice.
     }
 }
@@ -794,6 +780,10 @@
         return;
     }
     
+    if (!self.easyScrobble.isLoggedIn) {
+        return;
+    }
+    
     dispatch_queue_t queue =
 	dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
@@ -824,6 +814,10 @@
     }
     
     if ([scrobbleEnabled state] != NSOnState) {
+        return;
+    }
+    
+    if (!self.easyScrobble.isLoggedIn) {
         return;
     }
     
@@ -921,6 +915,8 @@
 
 
 - (void) playSPTrack:(SPTrack *)t {
+    
+    // the async doesn't seem to slow stuff down at all. 
     [SPAsyncLoading waitUntilLoaded:t timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *tracks, NSArray *notLoadedTracks) {
         
         if(self.playbackManager.currentTrack == nil) // this means the track was finished.

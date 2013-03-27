@@ -32,7 +32,6 @@ SPPlaylistDelegate> {
 @property (nonatomic, retain) LPEasyScrobble * easyScrobble;
 
 @property (nonatomic, retain) IBOutlet NSButton * nextButton;
-@property (nonatomic, retain) SPArtistBrowse* artistBrowse;
 @property (assign) IBOutlet NSSlider *playbackProgressSlider;
 
 @property (nonatomic, retain) IBOutlet NSButton* scrobbleEnabled;
@@ -77,7 +76,6 @@ SPPlaylistDelegate> {
 
 
 @property (nonatomic, retain) IBOutlet NSPopUpButton* playlistSelectionMenu;
-@property (nonatomic, retain) IBOutlet NSTextField*   playlistByURL;
 
 
 

@@ -552,7 +552,6 @@
 							<string key="NSFrame">{{18, 16}, {1193, 21}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSliderCell" key="NSCell" id="789665621">
 								<int key="NSCellFlags">-2080244224</int>
@@ -714,7 +713,7 @@
 											<string key="NSFrameSize">{611, 589}</string>
 											<reference key="NSSuperview" ref="48710806"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="110054257"/>
+											<reference key="NSNextKeyView" ref="201742925"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="764507664">
@@ -972,7 +971,7 @@
 							<string key="NSFrame">{{598, 172}, {611, 607}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="201742925"/>
+							<reference key="NSNextKeyView" ref="48710806"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133810</int>
 							<reference key="NSVScroller" ref="110054257"/>
@@ -1101,7 +1100,7 @@
 											<string key="NSFrameSize">{643, 589}</string>
 											<reference key="NSSuperview" ref="890426094"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="1031773166"/>
+											<reference key="NSNextKeyView" ref="12005055"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="1068634593">
@@ -1329,7 +1328,7 @@
 							<string key="NSFrame">{{12, 172}, {578, 607}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="12005055"/>
+							<reference key="NSNextKeyView" ref="890426094"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133810</int>
 							<reference key="NSVScroller" ref="1031773166"/>
@@ -1652,7 +1651,6 @@
 							<string key="NSFrame">{{320, 12}, {96, 32}}</string>
 							<reference key="NSSuperview" ref="450090410"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="916339962">
 								<int key="NSCellFlags">67239424</int>
@@ -1910,7 +1908,7 @@
 			<object class="NSWindowTemplate" id="415456580">
 				<int key="NSWindowStyleMask">3</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{120, 65}, {399, 201}}</string>
+				<string key="NSWindowRect">{{120, 65}, {399, 162}}</string>
 				<int key="NSWTFlags">-1535638528</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSPanel</string>
@@ -1926,7 +1924,6 @@
 							<string key="NSFrame">{{314, 12}, {71, 32}}</string>
 							<reference key="NSSuperview" ref="60454001"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="781018071">
@@ -1971,10 +1968,10 @@
 						<object class="NSPopUpButton" id="983540783">
 							<reference key="NSNextResponder" ref="60454001"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{17, 140}, {365, 26}}</string>
+							<string key="NSFrame">{{17, 101}, {365, 26}}</string>
 							<reference key="NSSuperview" ref="60454001"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="323496322"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSPopUpButtonCell" key="NSCell" id="955150645">
@@ -2037,32 +2034,10 @@
 								<int key="NSArrowPosition">2</int>
 							</object>
 						</object>
-						<object class="NSTextField" id="323496322">
-							<reference key="NSNextResponder" ref="60454001"/>
-							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{20, 102}, {359, 22}}</string>
-							<reference key="NSSuperview" ref="60454001"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="996149856"/>
-							<string key="NSReuseIdentifierKey">_NS:9</string>
-							<bool key="NSEnabled">YES</bool>
-							<object class="NSTextFieldCell" key="NSCell" id="259862285">
-								<int key="NSCellFlags">-1804599231</int>
-								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents"/>
-								<reference key="NSSupport" ref="364661025"/>
-								<string key="NSPlaceholderString">…or enter a Spotify URL</string>
-								<string key="NSCellIdentifier">_NS:9</string>
-								<reference key="NSControlView" ref="323496322"/>
-								<bool key="NSDrawsBackground">YES</bool>
-								<reference key="NSBackgroundColor" ref="795725058"/>
-								<reference key="NSTextColor" ref="279536870"/>
-							</object>
-						</object>
 						<object class="NSTextField" id="220578545">
 							<reference key="NSNextResponder" ref="60454001"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{17, 172}, {106, 17}}</string>
+							<string key="NSFrame">{{17, 133}, {106, 17}}</string>
 							<reference key="NSSuperview" ref="60454001"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="983540783"/>
@@ -2104,7 +2079,7 @@
 							</object>
 						</object>
 					</array>
-					<string key="NSFrameSize">{399, 201}</string>
+					<string key="NSFrameSize">{399, 162}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="220578545"/>
@@ -2564,14 +2539,6 @@
 						<reference key="destination" ref="983540783"/>
 					</object>
 					<int key="connectionID">1386</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">playlistByURL</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="323496322"/>
-					</object>
-					<int key="connectionID">1389</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -4378,7 +4345,6 @@
 						<reference key="object" ref="60454001"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="983540783"/>
-							<reference ref="323496322"/>
 							<reference ref="220578545"/>
 							<reference ref="996149856"/>
 							<reference ref="227746396"/>
@@ -4457,19 +4423,6 @@
 						<int key="objectID">1384</int>
 						<reference key="object" ref="56690902"/>
 						<reference key="parent" ref="61065091"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1387</int>
-						<reference key="object" ref="323496322"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="259862285"/>
-						</array>
-						<reference key="parent" ref="60454001"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1388</int>
-						<reference key="object" ref="259862285"/>
-						<reference key="parent" ref="323496322"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1392</int>
@@ -4621,8 +4574,6 @@
 				<string key="1382.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1383.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1384.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1387.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1388.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1392.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1393.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1394.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4772,6 +4723,7 @@
 						<string key="searched:">id</string>
 						<string key="seekToPosition:">id</string>
 						<string key="showLoadPlaylist:">id</string>
+						<string key="tableDoubleclick:tracks:">id</string>
 						<string key="toggleFullScreen:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -4823,6 +4775,10 @@
 							<string key="name">showLoadPlaylist:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="tableDoubleclick:tracks:">
+							<string key="name">tableDoubleclick:tracks:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="toggleFullScreen:">
 							<string key="name">toggleFullScreen:</string>
 							<string key="candidateClassName">id</string>
@@ -4838,7 +4794,6 @@
 						<string key="nextButton">NSButton</string>
 						<string key="passwordField">NSSecureTextField</string>
 						<string key="playbackProgressSlider">NSSlider</string>
-						<string key="playlistByURL">NSTextField</string>
 						<string key="playlistSelectionMenu">NSPopUpButton</string>
 						<string key="queueArrayCtrl">RSRTVArrayController</string>
 						<string key="queueTable">DNTrackTable</string>
@@ -4888,10 +4843,6 @@
 						<object class="IBToOneOutletInfo" key="playbackProgressSlider">
 							<string key="name">playbackProgressSlider</string>
 							<string key="candidateClassName">NSSlider</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="playlistByURL">
-							<string key="name">playlistByURL</string>
-							<string key="candidateClassName">NSTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="playlistSelectionMenu">
 							<string key="name">playlistSelectionMenu</string>

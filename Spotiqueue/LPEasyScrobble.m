@@ -59,6 +59,9 @@
 - (BOOL) scrobbleTrack:(SPTrack *)track {
     //Scrobbles a track
     
+    if (track == nil) {
+        return NO;
+    }
     [self debugLog:@"Entered scrobbleTrack"];
     
     //Get the first artist's Name
@@ -76,6 +79,11 @@
     float UNIXTime = (float)ti;
     int UNIXTimeStamp = (int)UNIXTime;
     NSString *dateString = [NSString stringWithFormat:@"%i", UNIXTimeStamp];
+    
+    //check that we're logged in and all's well
+    if (!self.isLoggedIn) {
+        return NO;
+    }
     
     //Build auth.getMobileSession SIG
     NSMutableString *api_sig = [NSMutableString string];
@@ -263,6 +271,11 @@
 
 - (BOOL)isLoggedIn {
     DLog(@"session key = %@", self.sessionKey);
+    
+    if (!(self.APIKey || self.sessionKey || self.APISecret)) {
+        return NO;
+    }
+    
     if ( self.sessionKey == nil ||
         [self.sessionKey isEqualToString:@"NOKEY"] ||
         [self.sessionKey isEqualToString:@""]) {
@@ -274,7 +287,12 @@
 
 - (BOOL) loveTrack:(SPTrack *) track {
     //Loves a track
-    
+    if (!self.isLoggedIn) {
+        return NO;
+    }
+    if (track == nil) {
+        return NO;
+    }
     
     [self debugLog:@"Entered scrobbleTrack"];
     
