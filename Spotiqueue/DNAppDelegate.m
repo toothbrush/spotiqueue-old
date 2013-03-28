@@ -19,7 +19,7 @@
 @synthesize playbackProgressSlider;
 @synthesize searchResults;
 @synthesize userNameField;
-@synthesize scrobbleEnabled;
+
 @synthesize passwordField;
 @synthesize lfmPasswordField, lfmUserNameField;
 @synthesize playlistSelectionMenu;
@@ -818,7 +818,7 @@
         return;
     }
     
-    if ([scrobbleEnabled state] != NSOnState) {
+    if ([[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:@"pauseScrobbling"]) {
         return;
     }
     
@@ -848,9 +848,7 @@
 
 -(void)sessionDidLoginSuccessfully:(SPSession *)aSession; {
 	
-    [self.scrobbleEnabled setHidden: ![self.easyScrobble isLoggedIn]];
-
-	// Invoked by SPSession after a successful login.
+    // Invoked by SPSession after a successful login.
 	
 	[self.loginSheet orderOut:self];
     [loginProgress stopAnimation:self];

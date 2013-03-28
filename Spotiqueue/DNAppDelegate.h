@@ -34,8 +34,6 @@ SPPlaylistDelegate> {
 @property (nonatomic, retain) IBOutlet NSButton * nextButton;
 @property (assign) IBOutlet NSSlider *playbackProgressSlider;
 
-@property (nonatomic, retain) IBOutlet NSButton* scrobbleEnabled;
-
 @property (assign)   IBOutlet DNTrackTable *searchResults;
 @property (assign)   IBOutlet DNTrackTable *queueTable;
 @property (strong) IBOutlet RSRTVArrayController *searchArrayController;
