@@ -1051,7 +1051,7 @@
 								<int key="NSCellFlags2">268436544</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="364661025"/>
-								<string key="NSPlaceholderString">…search… (⌘F)</string>
+								<string key="NSPlaceholderString"> Search for music… (⌘F)</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="485589794"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1167,7 +1167,7 @@
 														<reference key="NSSupport" ref="364661025"/>
 														<string key="NSCellIdentifier">_NS:9</string>
 														<reference key="NSControlView" ref="417385849"/>
-														<int key="NSButtonFlags">1211912448</int>
+														<int key="NSButtonFlags">1215582464</int>
 														<int key="NSButtonFlags2">2</int>
 														<reference key="NSNormalImage" ref="580647732"/>
 														<reference key="NSAlternateImage" ref="448893508"/>

@@ -1,14 +1,13 @@
 #!/bin/sh
-buildNumber=$(/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "Spotiqueue/Spotiqueue-Info.plist")
-buildNumber=$(($buildNumber - 1))
-verNumber=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "Spotiqueue/Spotiqueue-Info.plist")
-feedurl=$(/usr/libexec/PlistBuddy -c "Print SUFeedURL" "Spotiqueue/Spotiqueue-Info.plist")
+
+thePList="Spotiqueue.app/Contents/Info.plist"
+
+buildNumber=$(/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "$thePList")
+verNumber=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$thePList")
+feedurl=$(/usr/libexec/PlistBuddy -c "Print SUFeedURL" "$thePList")
 dateNow=$(date)
 signature=$(./sign_update.rb Spotiqueue.app.zip dsa_priv.pem)
 diffs=$(git log -n 15 --pretty=format:"<li>%ar: %s </li>")
-
-# decrement because plist is one ahead.
-
 
 ## now generate the xml file:
 

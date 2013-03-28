@@ -192,9 +192,9 @@
     NSString *api_sig_hashed = [self MD5StringOfString:api_sig];
     
     [self debugLog:@"API Sig (raw):"];
-    [self debugLog:api_sig];
+//    [self debugLog:api_sig];
     [self debugLog:@"API Sig (hashed):"];
-    [self debugLog:api_sig_hashed];
+//    [self debugLog:api_sig_hashed];
     
     //Create the request string
     NSMutableString *api_request = [NSMutableString string];
@@ -209,8 +209,8 @@
     
 //    api_request = [NSMutableString stringWithString:[api_request stringByAddingPercentEscapesUsingEncoding:kCFStringEncodingUTF8]];
 
-    [self debugLog:@"API Request:"];
-    [self debugLog:api_request];
+//    [self debugLog:@"API Request:"];
+//    [self debugLog:api_request];
     
     //Set the URL
     NSURL *apiURL = [NSURL URLWithString:@"https://ws.audioscrobbler.com/2.0/"];
@@ -224,7 +224,7 @@
                                          length:[api_request length]]];
     [request setValue:@"application/x-www-form-urlencoded"
    forHTTPHeaderField:@"content-type"];
-    [self debugLog:[request description]];
+//    [self debugLog:[request description]];
     
     //Get the response from the server
     NSData *response = [NSURLConnection sendSynchronousRequest:request
