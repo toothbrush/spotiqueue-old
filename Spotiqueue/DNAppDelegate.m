@@ -679,6 +679,12 @@
             DLog(@"hm, originalTrack of queue[0] == nil? not advancing track?");
             return;
         }
+        
+        // only Growl if auto-advanced (don't spam user after cmd-N)
+        if (sender == nil) {
+            [self doGrowlNotification:[t name] description:[t consolidatedArtists]];
+        }
+        
         [self playSPTrack:t];
 
         [self.queueArrayController removeObjectAtArrangedObjectIndex:0];
@@ -933,8 +939,7 @@
             [self.window presentError:error];
         } else {
             
-            [self doGrowlNotification:[t name] description:[t consolidatedArtists]];
-            
+            DLog(@"started playing %@", t);
         }
         
     } ];

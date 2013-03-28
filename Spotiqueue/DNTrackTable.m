@@ -148,7 +148,7 @@
 
 - (void) keyDown:(NSEvent *)theEvent {
     
-    DLog(@"key event = %@", theEvent);
+//    DLog(@"key event = %@", theEvent);
     NSUInteger flags = [theEvent modifierFlags] & (NSCommandKeyMask | NSShiftKeyMask);
     
     if ([theEvent keyCode] == 124 &&
