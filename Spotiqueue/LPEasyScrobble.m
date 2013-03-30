@@ -20,18 +20,37 @@
 @synthesize APISecret;
 @synthesize isInDebug;
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [self setAPIKey:   LFMAPIKey];
+        [self setAPISecret:LFMAPISecret];
+        
+        NSUserDefaultsController * d = [NSUserDefaultsController sharedUserDefaultsController];
+        
+        self.username = [[d values] valueForKey:@"easyscrobbleusername"];
+        self.sessionKey = [[d values] valueForKey:@"easyscrobblesessionkey"];
+
+    }
+    return self;
+}
+
 - (BOOL) setUsername: (NSString*) userNameArg andPassword: (NSString *) passwordArg {
     //Get the information required to log into Last.FM
-    
-    [self setAPIKey:   LFMAPIKey];
-    [self setAPISecret:LFMAPISecret];
+
+    //Print debug statements if TRUE
+    [self setIsInDebug:TRUE];
+
+    if ([self.username isEqualToString:userNameArg]) {
+        // seems we have a fine saved session. use it.
+        DLog(@"using saved lastfm session");
+        return YES;
+    }
     
     //Username and Password
     [self setUsername:userNameArg];
     [self setPassword:passwordArg];
-    
-    //Print debug statements if TRUE
-    [self setIsInDebug:TRUE];
     
     //Set the default value for session key
     [self setSessionKey:@"NOKEY"];
@@ -59,7 +78,9 @@
 - (BOOL) scrobbleTrack:(SPTrack *)track {
     //Scrobbles a track
     
+    DLog(@"hmm2...");
     if (track == nil) {
+        DLog(@"track == nil in scrobbleTrack:");
         return NO;
     }
     [self debugLog:@"Entered scrobbleTrack"];
@@ -163,7 +184,7 @@
         
         [self debugLog:@"Call failed"];
         
-        
+        [self killSession];
         return FALSE;
         
     }
@@ -240,7 +261,7 @@
     NSRange startRange = [responseString rangeOfString:@"<key>"];
     
     
-    if ( startRange.length > 0  ) {
+    if ( startRange.length > 0 ) {
         
         //This is evil, but Apple's XML parsing is fucking bullshit.
         //This extracts the key. No funny stuff.
@@ -257,6 +278,11 @@
         
         //Load the key into our key property
         [self setSessionKey:keyString];
+        
+        NSUserDefaultsController* d = [NSUserDefaultsController sharedUserDefaultsController];
+
+        [[d values] setValue:keyString forKey:@"easyscrobblesessionkey"];
+        [[d values] setValue:self.username forKey:@"easyscrobbleusername"];
     }
     
     [responseString release];
@@ -266,6 +292,15 @@
         return FALSE;
     }
     return TRUE;
+    
+}
+
+- (void) killSession {
+    DLog(@"something went wrong; killing lastfm session");
+    self.sessionKey = @"NOKEY";
+    self.username = @"";
+    self.password = @"";
+    
     
 }
 
@@ -369,7 +404,7 @@
     } else {
         
         [self debugLog:@"Call failed"];
-        
+        [self killSession];
         
         return FALSE;
         
