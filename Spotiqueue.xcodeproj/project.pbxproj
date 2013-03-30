@@ -30,12 +30,29 @@
 		DAA78C8F16919E63000C8692 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA78C8E16919E63000C8692 /* SSKeychain.m */; };
 		DABF28F2169D8DB100003A11 /* Spotiqueue.iconset in Resources */ = {isa = PBXBuildFile; fileRef = DAFDC61C169D8C4100A553E6 /* Spotiqueue.iconset */; };
 		DAC4376E16B055B9001E94B4 /* DNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC4376D16B055B9001E94B4 /* DNApplication.m */; };
-		DAC626C2169ED42E00A74B02 /* CocoaLibSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC626C1169ED42E00A74B02 /* CocoaLibSpotify.framework */; };
-		DAC626C3169ED43800A74B02 /* CocoaLibSpotify.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAC626C1169ED42E00A74B02 /* CocoaLibSpotify.framework */; };
 		DAD06C3B16E7744300B943CB /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = DAD06C3A16E7744300B943CB /* dsa_pub.pem */; };
 		DAD06C3F16E77CE000B943CB /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD06C3E16E77CE000B943CB /* Sparkle.framework */; };
 		DAD06C4016E77CE700B943CB /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAD06C3E16E77CE000B943CB /* Sparkle.framework */; };
+		DAE322DD1704AB4600C55E04 /* CocoaLibSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE322DA1704AB2A00C55E04 /* CocoaLibSpotify.framework */; };
+		DAE322DE1704AB4E00C55E04 /* CocoaLibSpotify.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAE322DA1704AB2A00C55E04 /* CocoaLibSpotify.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DAE322D91704AB2A00C55E04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAE322D41704AB2900C55E04 /* CocoaLibSpotify Mac Framework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 503D630F13258041007772CA;
+			remoteInfo = CocoaLibSpotify;
+		};
+		DAE322DB1704AB2A00C55E04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAE322D41704AB2900C55E04 /* CocoaLibSpotify Mac Framework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 504E4934155AA85400E1C0F7;
+			remoteInfo = CocoaLSTests;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		DAE7B564169D83FA009ABCE9 /* CopyFiles */ = {
@@ -44,8 +61,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DAC626C3169ED43800A74B02 /* CocoaLibSpotify.framework in CopyFiles */,
 				DAD06C4016E77CE700B943CB /* Sparkle.framework in CopyFiles */,
+				DAE322DE1704AB4E00C55E04 /* CocoaLibSpotify.framework in CopyFiles */,
 				DA97043C1700581B0068C541 /* Growl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,9 +105,9 @@
 		DABF28F5169DAECD00003A11 /* SpotifySecrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpotifySecrets.h; path = Spotiqueue/SpotifySecrets.h; sourceTree = "<group>"; };
 		DAC4376C16B055B9001E94B4 /* DNApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNApplication.h; sourceTree = "<group>"; };
 		DAC4376D16B055B9001E94B4 /* DNApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNApplication.m; sourceTree = "<group>"; };
-		DAC626C1169ED42E00A74B02 /* CocoaLibSpotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLibSpotify.framework; sourceTree = "<group>"; };
 		DAD06C3A16E7744300B943CB /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		DAD06C3E16E77CE000B943CB /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		DAE322D41704AB2900C55E04 /* CocoaLibSpotify Mac Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CocoaLibSpotify Mac Framework.xcodeproj"; path = "cocoalibspotify/Mac Framework/CocoaLibSpotify Mac Framework.xcodeproj"; sourceTree = "<group>"; };
 		DAFDC61C169D8C4100A553E6 /* Spotiqueue.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Spotiqueue.iconset; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,12 +118,12 @@
 			files = (
 				DAA78C8916919C59000C8692 /* Security.framework in Frameworks */,
 				DA6A9F56168667DC00A250ED /* AudioUnit.framework in Frameworks */,
+				DAE322DD1704AB4600C55E04 /* CocoaLibSpotify.framework in Frameworks */,
 				DAA78C73168B5229000C8692 /* CoreData.framework in Frameworks */,
 				DAA78C71168B5227000C8692 /* AppKit.framework in Frameworks */,
 				DA6A9F57168667DC00A250ED /* CoreAudio.framework in Frameworks */,
 				DAA78C74168B522A000C8692 /* Foundation.framework in Frameworks */,
 				DA6A9F1B168662BC00A250ED /* Cocoa.framework in Frameworks */,
-				DAC626C2169ED42E00A74B02 /* CocoaLibSpotify.framework in Frameworks */,
 				DAD06C3F16E77CE000B943CB /* Sparkle.framework in Frameworks */,
 				DA97043B1700580B0068C541 /* Growl.framework in Frameworks */,
 			);
@@ -118,6 +135,7 @@
 		DA6A9F0B168662BC00A250ED = {
 			isa = PBXGroup;
 			children = (
+				DAE322D41704AB2900C55E04 /* CocoaLibSpotify Mac Framework.xcodeproj */,
 				DABF28F4169DAECD00003A11 /* LFMSecrets.h */,
 				DABF28F5169DAECD00003A11 /* SpotifySecrets.h */,
 				DA6A9F20168662BC00A250ED /* Spotiqueue */,
@@ -139,7 +157,6 @@
 			children = (
 				DA97043A1700580B0068C541 /* Growl.framework */,
 				DAD06C3E16E77CE000B943CB /* Sparkle.framework */,
-				DAC626C1169ED42E00A74B02 /* CocoaLibSpotify.framework */,
 				DA6A9F1C168662BC00A250ED /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -216,6 +233,15 @@
 			name = Subclassed;
 			sourceTree = "<group>";
 		};
+		DAE322D51704AB2900C55E04 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DAE322DA1704AB2A00C55E04 /* CocoaLibSpotify.framework */,
+				DAE322DC1704AB2A00C55E04 /* CocoaLSTests.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -258,12 +284,35 @@
 			mainGroup = DA6A9F0B168662BC00A250ED;
 			productRefGroup = DA6A9F17168662BC00A250ED /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = DAE322D51704AB2900C55E04 /* Products */;
+					ProjectRef = DAE322D41704AB2900C55E04 /* CocoaLibSpotify Mac Framework.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				DA6A9F15168662BC00A250ED /* Spotiqueue */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		DAE322DA1704AB2A00C55E04 /* CocoaLibSpotify.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CocoaLibSpotify.framework;
+			remoteRef = DAE322D91704AB2A00C55E04 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DAE322DC1704AB2A00C55E04 /* CocoaLSTests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = CocoaLSTests.app;
+			remoteRef = DAE322DB1704AB2A00C55E04 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		DA6A9F14168662BC00A250ED /* Resources */ = {

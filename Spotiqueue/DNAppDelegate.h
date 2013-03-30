@@ -23,13 +23,13 @@ SPPlaylistDelegate> {
 	NSTextField * __unsafe_unretained userNameField;
 	NSSecureTextField *__unsafe_unretained passwordField;
     
-	SPTrack* previousSong;
 	SPPlaybackManager *playbackManager;
 
 	NSSlider *__unsafe_unretained playbackProgressSlider;
 }
 
 @property (nonatomic, retain) LPEasyScrobble * easyScrobble;
+@property (nonatomic, retain)	SPTrack* previousSong;
 
 @property (nonatomic, retain) IBOutlet NSButton * nextButton;
 @property (assign) IBOutlet NSSlider *playbackProgressSlider;
@@ -38,7 +38,7 @@ SPPlaylistDelegate> {
 @property (assign)   IBOutlet DNTrackTable *queueTable;
 @property (strong) IBOutlet RSRTVArrayController *searchArrayController;
 @property (strong) IBOutlet RSRTVArrayController *queueArrayController;
-@property (nonatomic, retain) IBOutlet NSTextField* trackDurationLabel;
+
 
 
 

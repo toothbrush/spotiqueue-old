@@ -18,7 +18,7 @@
 @synthesize nextButton;
 @synthesize playbackProgressSlider;
 @synthesize searchResults;
-@synthesize userNameField;
+@synthesize userNameField, previousSong;
 
 @synthesize passwordField;
 @synthesize lfmPasswordField, lfmUserNameField;
@@ -30,7 +30,7 @@
 @synthesize loginSheet, searchField;
 @synthesize window = _window;
 @synthesize playbackManager;
-@synthesize search, trackDurationLabel;
+@synthesize search;
 @synthesize queueTable;
 @synthesize searchArrayController, queueArrayController;
 
@@ -229,6 +229,7 @@
 
     self.easyScrobble = nil;
     self.loginSheet = nil;
+    self.previousSong = nil;
 
     self.loadPlaylistSheet = nil;
     self.window = nil;
@@ -247,7 +248,7 @@
     
 	NSError *error = nil;
 	[SPSession initializeSharedSessionWithApplicationKey:[NSData dataWithBytes:&g_appkey length:sizeof(g_appkey)]
-											   userAgent:@"com.spotify.SimplePlayer"
+											   userAgent:@"org.denknerd.Spotiqueue"
 										   loadingPolicy:SPAsyncLoadingManual
 												   error:&error];
     
@@ -344,7 +345,7 @@
     
     
     [self.searchArrayController setDraggingEnabled:NO];
-    self.easyScrobble = [LPEasyScrobble new];
+    self.easyScrobble = [[LPEasyScrobble alloc] init];
     
     [self.searchResults setSortDescriptors: self.tracksSortDescriptors];
     [self.searchIndicator stopAnimation:nil];
@@ -656,8 +657,6 @@
     } else if([keyPath isEqualToString:@"playbackManager.currentTrack"]) {
         
         DLog(@"playbackManager.currentTrack observed. value = %@", self.playbackManager.currentTrack);
-    
-        [self.trackDurationLabel setStringValue:self.trackDuration];
 
         if (self.playbackManager.currentTrack == nil) {
             DLog(@"trying to advance to next track...");
@@ -691,7 +690,8 @@
     } else {
         // the queue is empty, so we stop.
         DLog(@"empty queue => stop");
-        previousSong = nil; // don't scrobble stuff twice.
+        [self scrobbleATrack:self.previousSong];
+        self.previousSong = nil; // don't scrobble stuff twice.
     }
 }
 
@@ -814,21 +814,28 @@
 
 - (void) scrobbleATrack:(SPTrack*)track {
     
+    DLog(@"entered scrobbleATrack: %@", track);
+    
     if (track == nil) {
+        DLog(@"bailing out on account of track being nil???");
         return;
     }
     
-    if ([[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:@"pauseScrobbling"]) {
+    if ((NSInteger)[[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:@"pauseScrobbling"] == NSOnState) {
+        DLog(@"do-not-scrobble cancelled scrobbling");
         return;
     }
     
     if (!self.easyScrobble.isLoggedIn) {
+        DLog(@"not-logged-in");
         return;
     }
     
+    DLog(@"hmm...");
     dispatch_queue_t queue =
 	dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
+        DLog(@"trying to scrobble");
         BOOL retVal = [easyScrobble scrobbleTrack:track];
         dispatch_sync(dispatch_get_main_queue(), ^{
             if ( retVal == TRUE ) {
@@ -923,7 +930,7 @@
     // the async doesn't seem to slow stuff down at all. 
     
     if(self.playbackManager.currentTrack == nil) // this means the track was finished.
-        [self scrobbleATrack:previousSong];
+        [self scrobbleATrack:self.previousSong];
     
     DLog(@"hullo? t = %@", t);
     if (t == nil || ![t isKindOfClass:[SPTrack class]]) {
@@ -941,7 +948,7 @@
         }
         
     } ];
-    previousSong = t;
+    self.previousSong = t;
 
 
 }
