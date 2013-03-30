@@ -56,11 +56,17 @@
 
 - (void)focusQueue:(id)sender {
     
+    if ([self.window firstResponder] == self.queueTable) {
+        return;
+    }
     [self.window.firstResponder resignFirstResponder];
     [self.window makeFirstResponder:self.queueTable];
 }
 
 - (void)focusSearchResults:(id)sender {
+    if ([self.window firstResponder] == self.searchResults) {
+        return;
+    }
     [self.window.firstResponder resignFirstResponder];
     [self.window makeFirstResponder:self.searchResults];
     
