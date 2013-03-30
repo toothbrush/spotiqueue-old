@@ -16,7 +16,9 @@
 @synthesize managedObjectModel            = _managedObjectModel;
 @synthesize managedObjectContext          = _managedObjectContext;
 @synthesize nextButton;
+@synthesize aboutText;
 @synthesize playbackProgressSlider;
+@synthesize aboutWindow;
 @synthesize searchResults;
 @synthesize userNameField, previousSong;
 
@@ -229,12 +231,25 @@
 
     self.easyScrobble = nil;
     self.loginSheet = nil;
+    self.aboutText = nil;
     self.previousSong = nil;
 
+    self.aboutWindow = nil;
     self.loadPlaylistSheet = nil;
     self.window = nil;
     
     [super dealloc];
+}
+
+- (void)showAbout:(id)sender {
+    [self.aboutText
+     readRTFDFromFile:[[NSBundle mainBundle] pathForResource:@"Credits"
+                                                      ofType:@"rtf"]];
+    
+    [self.aboutWindow center];
+    [self.aboutWindow makeKeyAndOrderFront:nil];
+    
+    
 }
 
 -(void)applicationWillFinishLaunching:(NSNotification *)notification {
@@ -1142,4 +1157,18 @@
     return NSTerminateNow;
 }
 
+
+- (NSString *)bundleVersionNumber {
+    
+    NSString* build = [[[NSBundle mainBundle] infoDictionary]
+                       valueForKey:@"CFBundleVersion"];
+    NSString* version = [[[NSBundle mainBundle] infoDictionary]
+                         valueForKey:@"CFBundleShortVersionString"];
+    
+    return [NSString stringWithFormat:@"%@ (build %@)", version, build];
+}
+- (NSString*) copyrightLine {
+    return [[[NSBundle mainBundle] infoDictionary]
+            valueForKey:@"NSHumanReadableCopyright"];
+}
 @end

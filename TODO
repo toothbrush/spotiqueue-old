@@ -1,13 +1,11 @@
 * clickable artist name leading to Last.fm page?
 
 * twice-arrow-right changes selection colour
-* not scrobbling???????
 
 
 
 * persist the current queue, if possible.
 
-* try using a saved last.fm token
 * figure out why stuff crashes so much
 * figure out why auto-advance is flaky on 10.6
 

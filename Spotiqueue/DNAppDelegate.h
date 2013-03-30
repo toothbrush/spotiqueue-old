@@ -28,6 +28,9 @@ SPPlaylistDelegate> {
 	NSSlider *__unsafe_unretained playbackProgressSlider;
 }
 
+@property (nonatomic, retain) IBOutlet NSTextView* aboutText;
+@property (nonatomic, retain) IBOutlet NSWindow* aboutWindow;
+
 @property (nonatomic, retain) LPEasyScrobble * easyScrobble;
 @property (nonatomic, retain)	SPTrack* previousSong;
 
@@ -94,5 +97,7 @@ SPPlaylistDelegate> {
 - (IBAction)playNextTrack:(id)sender;
 
 - (void) playSPTrack:(SPTrack*) t;
+
+- (IBAction)showAbout:(id)sender;
 
 @end
