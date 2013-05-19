@@ -1116,7 +1116,9 @@
 	}];
     }
 	
-
+    if ([self.loginSheet isVisible]) {
+        [self.loginSheet orderOut:nil];
+    }
     
     // Save changes in the application's managed object context before the application terminates.
     

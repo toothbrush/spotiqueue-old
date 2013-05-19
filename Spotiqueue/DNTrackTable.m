@@ -34,7 +34,7 @@
     
     for (SPTrack* d  in [self selectedTracks]) {
         if (d && d.spotifyURL) {
-            [urls addObject:d.spotifyURL];
+            [urls addObject: [NSString stringWithFormat:@"%@", d.spotifyURL]];
         }
 
     }
