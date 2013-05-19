@@ -48,6 +48,11 @@
         return YES;
     }
     
+    if ([userNameArg isEqualToString:@""]) {
+        DLog(@"user tried to login with blank LastFM credentials; don't scrobble.");
+        return NO;
+    }
+    
     //Username and Password
     [self setUsername:userNameArg];
     [self setPassword:passwordArg];
@@ -103,6 +108,7 @@
     
     //check that we're logged in and all's well
     if (!self.isLoggedIn) {
+        DLog(@"stop scrobbling, we're not logged in.");
         return NO;
     }
     

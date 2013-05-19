@@ -705,9 +705,15 @@
             [self doGrowlNotification:[t name] description:[t consolidatedArtists]];
         }
         
-        [self playSPTrack:t];
+        if ([t availability] == SP_TRACK_AVAILABILITY_AVAILABLE) {
+            [self playSPTrack:t];
+            [self.queueArrayController removeObjectAtArrangedObjectIndex:0];
+        } else {
+            DLog(@"Track unavailable?? %@", t);
+            // unavailable -> pause for now...
+            [self.playbackManager setIsPlaying:NO];
+        }
 
-        [self.queueArrayController removeObjectAtArrangedObjectIndex:0];
     } else {
         // the queue is empty, so we stop.
         DLog(@"empty queue => stop");
@@ -842,13 +848,14 @@
         return;
     }
     
-    if ((NSInteger)[[[NSUserDefaultsController sharedUserDefaultsController] values] valueForKey:@"pauseScrobbling"] == NSOnState) {
+    if ([[[[NSUserDefaultsController sharedUserDefaultsController]
+           values] valueForKey:@"pauseScrobbling"] intValue] == NSOnState) {
         DLog(@"do-not-scrobble cancelled scrobbling");
         return;
     }
     
-    if (!self.easyScrobble.isLoggedIn) {
-        DLog(@"not-logged-in");
+    if (!self.easyScrobble.isLoggedIn || [self.easyScrobble.username isEqualToString:@""]) {
+        DLog(@"not-logged-in, username = %@", self.easyScrobble.username);
         return;
     }
     
@@ -953,7 +960,6 @@
     if(self.playbackManager.currentTrack == nil) // this means the track was finished.
         [self scrobbleATrack:self.previousSong];
     
-    DLog(@"hullo? t = %@", t);
     if (t == nil || ![t isKindOfClass:[SPTrack class]]) {
         
         DLog(@"danger will robinson!");

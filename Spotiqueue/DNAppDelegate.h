@@ -35,10 +35,10 @@ SPPlaylistDelegate> {
 @property (nonatomic, retain)	SPTrack* previousSong;
 
 @property (nonatomic, retain) IBOutlet NSButton * nextButton;
-@property (assign) IBOutlet NSSlider *playbackProgressSlider;
+@property (retain) IBOutlet NSSlider *playbackProgressSlider;
 
-@property (assign)   IBOutlet DNTrackTable *searchResults;
-@property (assign)   IBOutlet DNTrackTable *queueTable;
+@property (retain)   IBOutlet DNTrackTable *searchResults;
+@property (retain)   IBOutlet DNTrackTable *queueTable;
 @property (strong) IBOutlet RSRTVArrayController *searchArrayController;
 @property (strong) IBOutlet RSRTVArrayController *queueArrayController;
 
