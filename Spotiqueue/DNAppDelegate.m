@@ -616,7 +616,11 @@
 }
 
 - (void) emptySearchResults {
+    if ([self.searchArrayController.arrangedObjects count] == 0) {
+        return;
+    }
     [searchArrayController removeObjects: [searchArrayController arrangedObjects]];
+    [self.searchResults reloadData];
 
 }
 
@@ -625,7 +629,10 @@
     if (results == nil) {
         return;
     }
+    
+    
     [self emptySearchResults];
+    
     for (id t in results) {
         if ([t isKindOfClass:[SPTrack class]]) {
             [self addTrackToSearchResults:t];
