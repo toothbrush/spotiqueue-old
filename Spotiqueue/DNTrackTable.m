@@ -267,17 +267,36 @@
         // select search view
         [self.trackDelegate focusSearchResults:self];
     } else if ([theEvent keyCode] == 126 &&
-               flags & NSCommandKeyMask) { // up arrow with cmd
+               flags & NSCommandKeyMask&&
+               [self.relatedArrayController.selectedObjects count] > 0) { // up arrow with cmd
         // okay, we actually want to MOVE these rows
         DLog(@"command-shift-arrow?");
         NSIndexSet* s=[self.relatedArrayController moveObjectsInArrangedObjectsFromIndexes:self.selectedRowIndexes toIndex:[self.selectedRowIndexes firstIndex]-1];
         [self selectRowIndexes:s byExtendingSelection:NO];
+        
+        if (!(
+              [s lastIndex] == [self.relatedArrayController.arrangedObjects count]   ||
+              [s lastIndex] == [self.relatedArrayController.arrangedObjects count]-1 ||
+              [s lastIndex] == [self.relatedArrayController.arrangedObjects count]-2 ||
+              [s lastIndex] == [self.relatedArrayController.arrangedObjects count]-3)) {
+            // when the selected block is at the bottom of a long list,
+            // this logic doesn't seem to work... We'll make an exception here.
+            
+            [self scrollRowToVisible:MAX(0 , [s firstIndex] - 5)];
+        } else {
+            [self scrollToEndOfDocument:nil];
+        }
+
+        
     } else if ([theEvent keyCode] == 125 &&
-               flags & NSCommandKeyMask) { // down arrow with cmd
+               flags & NSCommandKeyMask &&
+               [self.relatedArrayController.selectedObjects count] > 0) { // down arrow with cmd
         // okay, we actually want to MOVE these rows
         NSIndexSet* s=[self.relatedArrayController moveObjectsInArrangedObjectsFromIndexes:self.selectedRowIndexes toIndex:[self.selectedRowIndexes lastIndex]+2]; // plus 2 because inserting at original index+1 makes no change
         
         [self selectRowIndexes:s byExtendingSelection:NO];
+        [self scrollRowToVisible: MIN( [self.relatedArrayController.arrangedObjects count] -1
+                                      ,  [s lastIndex]+5)  ];
 
     } else if ([[theEvent characters] characterAtIndex:0] == NSTabCharacter &&
                flags == 0) {

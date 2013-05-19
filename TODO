@@ -1,22 +1,16 @@
-* search -> sort by track number -> search again -> crash!
 
 * clickable artist name leading to Last.fm page?
-* show duration of selection in search view keihandig
 * some way to copy currenly-playing track URI
 
 * pasting track which isn't yet loaded requires re-pasting after cache
 
 
-* moving entries with cmd key should keep a bit of context visible. 
-* remove star-checkboxes from focus ring
 * / might be a nice shortcut to Search!
 
 
 
 
-* persist the current queue, if possible.
 
-* figure out why stuff crashes so much
 
 
 * preload in SPSession for gapless playback
