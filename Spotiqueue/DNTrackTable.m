@@ -279,6 +279,11 @@
         
         [self selectRowIndexes:s byExtendingSelection:NO];
 
+    } else if ([[theEvent characters] characterAtIndex:0] == NSTabCharacter &&
+               flags == 0) {
+        // tab key pressed, move to next control.
+        [self resignFirstResponder];
+        [self.window makeFirstResponder: self.nextKeyView];
     }
     else {
         

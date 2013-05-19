@@ -372,6 +372,12 @@
     [self.searchIndicator stopAnimation:nil];
     
     [self.searchField becomeFirstResponder];
+    
+    // setup "focus loop"
+    
+    self.searchField.nextKeyView = self.searchResults;
+    self.searchResults.nextKeyView = self.queueTable;
+    self.queueTable.nextKeyView = self.searchField;
         
 }
 - (void) insertPlaylistIntoSearchResultsBy:(NSURL*) url {
@@ -915,7 +921,9 @@
 }
 
 -(void)sessionDidLogOut:(SPSession *)aSession; {}
--(void)session:(SPSession *)aSession didEncounterNetworkError:(NSError *)error; {}
+-(void)session:(SPSession *)aSession didEncounterNetworkError:(NSError *)error; {
+    [self.playbackManager setIsPlaying:NO];
+}
 -(void)session:(SPSession *)aSession didLogMessage:(NSString *)aMessage; {}
 -(void)sessionDidChangeMetadata:(SPSession *)aSession; {}
 
@@ -955,7 +963,7 @@
 - (void) playSPTrack:(SPTrack *)t {
 
     DLog(@"trying to play = %@", t);
-    // the async doesn't seem to slow stuff down at all. 
+    // the async doesn't seem to slow stuff down at all.
     
     if(self.playbackManager.currentTrack == nil) // this means the track was finished.
         [self scrobbleATrack:self.previousSong];
