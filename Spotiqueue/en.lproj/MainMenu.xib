@@ -1308,7 +1308,7 @@
 							<string key="NSFrame">{{9, 787}, {479, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="971748425"/>
+							<reference key="NSNextKeyView" ref="347784970"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="487099934">
@@ -1716,7 +1716,7 @@
 							<string key="NSFrame">{{131, 46}, {114, 19}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="840479427"/>
+							<reference key="NSNextKeyView" ref="785777168"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="101777234">
@@ -1760,7 +1760,7 @@
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
-						<object class="NSTextField" id="971748425">
+						<object class="NSTextField" id="347784970">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">269</int>
 							<string key="NSFrame">{{517, 787}, {150, 17}}</string>
@@ -1769,15 +1769,36 @@
 							<reference key="NSNextKeyView" ref="59266026"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSTextFieldCell" key="NSCell" id="171853041">
+							<object class="NSTextFieldCell" key="NSCell" id="255913152">
 								<int key="NSCellFlags">68157504</int>
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents">Label</string>
 								<reference key="NSSupport" ref="364661025"/>
 								<string key="NSCellIdentifier">_NS:1535</string>
-								<reference key="NSControlView" ref="971748425"/>
+								<reference key="NSControlView" ref="347784970"/>
 								<reference key="NSBackgroundColor" ref="7707313"/>
 								<reference key="NSTextColor" ref="179039633"/>
+							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						</object>
+						<object class="NSTextField" id="785777168">
+							<reference key="NSNextResponder" ref="439893737"/>
+							<int key="NSvFlags">292</int>
+							<string key="NSFrame">{{333, 48}, {384, 17}}</string>
+							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="840479427"/>
+							<string key="NSReuseIdentifierKey">_NS:1535</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSTextFieldCell" key="NSCell" id="197506744">
+								<int key="NSCellFlags">70254657</int>
+								<int key="NSCellFlags2">272630784</int>
+								<string key="NSContents">Label</string>
+								<reference key="NSSupport" ref="364661025"/>
+								<string key="NSCellIdentifier">_NS:1535</string>
+								<reference key="NSControlView" ref="785777168"/>
+								<reference key="NSBackgroundColor" ref="7707313"/>
+								<reference key="NSTextColor" ref="405935179"/>
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
@@ -3644,10 +3665,10 @@
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">displayPatternValue1: selectedObjects.originalTrack.@sum.duration</string>
-						<reference key="source" ref="971748425"/>
+						<reference key="source" ref="347784970"/>
 						<reference key="destination" ref="809652973"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="971748425"/>
+							<reference key="NSSource" ref="347784970"/>
 							<reference key="NSDestination" ref="809652973"/>
 							<string key="NSLabel">displayPatternValue1: selectedObjects.originalTrack.@sum.duration</string>
 							<string key="NSBinding">displayPatternValue1</string>
@@ -3660,6 +3681,22 @@
 						</object>
 					</object>
 					<int key="connectionID">1570</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: self.playbackManager.currentTrack.spotifyURL</string>
+						<reference key="source" ref="785777168"/>
+						<reference key="destination" ref="976324537"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="785777168"/>
+							<reference key="NSDestination" ref="976324537"/>
+							<string key="NSLabel">value: self.playbackManager.currentTrack.spotifyURL</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">self.playbackManager.currentTrack.spotifyURL</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1576</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3968,7 +4005,8 @@
 							<reference ref="947149824"/>
 							<reference ref="775199328"/>
 							<reference ref="789627736"/>
-							<reference ref="971748425"/>
+							<reference ref="347784970"/>
+							<reference ref="785777168"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -4874,16 +4912,29 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1559</int>
-						<reference key="object" ref="971748425"/>
+						<reference key="object" ref="347784970"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="171853041"/>
+							<reference ref="255913152"/>
 						</array>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1560</int>
-						<reference key="object" ref="171853041"/>
-						<reference key="parent" ref="971748425"/>
+						<reference key="object" ref="255913152"/>
+						<reference key="parent" ref="347784970"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1572</int>
+						<reference key="object" ref="785777168"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="197506744"/>
+						</array>
+						<reference key="parent" ref="439893737"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1573</int>
+						<reference key="object" ref="197506744"/>
+						<reference key="parent" ref="785777168"/>
 					</object>
 				</array>
 			</object>
@@ -4980,6 +5031,8 @@
 				<string key="1521.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1559.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1560.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1572.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1573.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="197.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="198.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5082,7 +5135,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1571</int>
+			<int key="maxID">1577</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5103,7 +5156,6 @@
 						<string key="seekToPosition:">id</string>
 						<string key="showAbout:">id</string>
 						<string key="showLoadPlaylist:">id</string>
-						<string key="tableDoubleclick:tracks:">id</string>
 						<string key="toggleFullScreen:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -5157,10 +5209,6 @@
 						</object>
 						<object class="IBActionInfo" key="showLoadPlaylist:">
 							<string key="name">showLoadPlaylist:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="tableDoubleclick:tracks:">
-							<string key="name">tableDoubleclick:tracks:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleFullScreen:">
