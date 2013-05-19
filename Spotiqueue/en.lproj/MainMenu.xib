@@ -1308,7 +1308,7 @@
 							<string key="NSFrame">{{9, 787}, {479, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="1034583593"/>
+							<reference key="NSNextKeyView" ref="971748425"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="487099934">
@@ -1760,7 +1760,7 @@
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
-						<object class="NSTextField" id="1034583593">
+						<object class="NSTextField" id="971748425">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">269</int>
 							<string key="NSFrame">{{517, 787}, {150, 17}}</string>
@@ -1769,13 +1769,13 @@
 							<reference key="NSNextKeyView" ref="59266026"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSTextFieldCell" key="NSCell" id="422260477">
+							<object class="NSTextFieldCell" key="NSCell" id="171853041">
 								<int key="NSCellFlags">68157504</int>
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents">Label</string>
 								<reference key="NSSupport" ref="364661025"/>
 								<string key="NSCellIdentifier">_NS:1535</string>
-								<reference key="NSControlView" ref="1034583593"/>
+								<reference key="NSControlView" ref="971748425"/>
 								<reference key="NSBackgroundColor" ref="7707313"/>
 								<reference key="NSTextColor" ref="179039633"/>
 							</object>
@@ -3153,15 +3153,15 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.originalTrack.trackNumber</string>
+						<string key="label">value: arrangedObjects.trackNo</string>
 						<reference key="source" ref="962280212"/>
 						<reference key="destination" ref="809652973"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="962280212"/>
 							<reference key="NSDestination" ref="809652973"/>
-							<string key="NSLabel">value: arrangedObjects.originalTrack.trackNumber</string>
+							<string key="NSLabel">value: arrangedObjects.trackNo</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.originalTrack.trackNumber</string>
+							<string key="NSKeyPath">arrangedObjects.trackNo</string>
 							<dictionary key="NSOptions">
 								<boolean value="NO" key="NSAllowsEditingMultipleValuesSelection"/>
 								<boolean value="YES" key="NSConditionallySetsEditable"/>
@@ -3169,7 +3169,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1282</int>
+					<int key="connectionID">1571</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -3644,10 +3644,10 @@
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">displayPatternValue1: selectedObjects.originalTrack.@sum.duration</string>
-						<reference key="source" ref="1034583593"/>
+						<reference key="source" ref="971748425"/>
 						<reference key="destination" ref="809652973"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="1034583593"/>
+							<reference key="NSSource" ref="971748425"/>
 							<reference key="NSDestination" ref="809652973"/>
 							<string key="NSLabel">displayPatternValue1: selectedObjects.originalTrack.@sum.duration</string>
 							<string key="NSBinding">displayPatternValue1</string>
@@ -3968,7 +3968,7 @@
 							<reference ref="947149824"/>
 							<reference ref="775199328"/>
 							<reference ref="789627736"/>
-							<reference ref="1034583593"/>
+							<reference ref="971748425"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -4874,16 +4874,16 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1559</int>
-						<reference key="object" ref="1034583593"/>
+						<reference key="object" ref="971748425"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="422260477"/>
+							<reference ref="171853041"/>
 						</array>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1560</int>
-						<reference key="object" ref="422260477"/>
-						<reference key="parent" ref="1034583593"/>
+						<reference key="object" ref="171853041"/>
+						<reference key="parent" ref="971748425"/>
 					</object>
 				</array>
 			</object>
@@ -5082,7 +5082,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1570</int>
+			<int key="maxID">1571</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5103,6 +5103,7 @@
 						<string key="seekToPosition:">id</string>
 						<string key="showAbout:">id</string>
 						<string key="showLoadPlaylist:">id</string>
+						<string key="tableDoubleclick:tracks:">id</string>
 						<string key="toggleFullScreen:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -5156,6 +5157,10 @@
 						</object>
 						<object class="IBActionInfo" key="showLoadPlaylist:">
 							<string key="name">showLoadPlaylist:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="tableDoubleclick:tracks:">
+							<string key="name">tableDoubleclick:tracks:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleFullScreen:">

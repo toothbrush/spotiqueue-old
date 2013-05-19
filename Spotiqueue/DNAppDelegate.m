@@ -161,6 +161,7 @@
         [value setObject:t.name forKey:@"name"];
         [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
         [value setObject:t.album.name forKey:@"album"];
+        [value setObject:[NSNumber numberWithUnsignedLong: t.trackNumber] forKey:@"trackNo"];
         [value setObject:t forKey:@"originalTrack"];
         
         [value setObject:[NSNumber numberWithDouble: [[NSDate date] timeIntervalSince1970]] forKey:@"whenAdded"];
@@ -181,6 +182,8 @@
         [value setObject:t.name forKey:@"name"];
         [value setObject:[[t.artists objectAtIndex:0] name] forKey:@"artist"];
         [value setObject:t.album.name forKey:@"album"];
+        [value setObject:[NSNumber numberWithUnsignedLong: t.trackNumber] forKey:@"trackNo"];
+
         [value setObject:t forKey:@"originalTrack"];
         
         [value setObject:[NSNumber numberWithDouble: [[NSDate date] timeIntervalSince1970]] forKey:@"whenAdded"];
@@ -321,7 +324,7 @@
                                           ascending:YES],
             [NSSortDescriptor sortDescriptorWithKey:@"albumURL"
                                           ascending:YES],
-            [NSSortDescriptor sortDescriptorWithKey:@"trackNumber"
+            [NSSortDescriptor sortDescriptorWithKey:@"trackNo"
                                           ascending:YES],
             nil];
 }
@@ -606,7 +609,7 @@
     [value setObject:t.album.name forKey:@"album"];
     [value setObject:[t.album.spotifyURL absoluteString] forKey:@"albumURL"];
     [value setObject:[NSNumber numberWithInteger: t.discNumber] forKey:@"discNumber"];
-    [value setObject:[NSNumber numberWithInteger: t.trackNumber] forKey:@"trackNumber"];
+    [value setObject:[NSNumber numberWithInteger: t.trackNumber] forKey:@"trackNo"];
     [value setObject:t forKey:@"originalTrack"];
     
     [searchArrayController addObject:value];
