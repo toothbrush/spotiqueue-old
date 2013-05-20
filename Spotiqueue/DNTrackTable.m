@@ -32,9 +32,12 @@
     
     NSMutableArray * urls = [[NSMutableArray alloc] init];
     
-    for (SPTrack* d  in [self selectedTracks]) {
+    for (SPTrack* d in [self selectedTracks]) {
         if (d && d.spotifyURL) {
-            [urls addObject: [NSString stringWithFormat:@"%@", d.spotifyURL]];
+            [urls addObject: [NSString stringWithFormat:@"%@ (%@ – %@)",
+                              d.spotifyURL,
+                              [d consolidatedArtists],
+                              d.name]];
         }
 
     }

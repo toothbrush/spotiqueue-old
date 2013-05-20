@@ -1783,8 +1783,8 @@
 						</object>
 						<object class="NSTextField" id="785777168">
 							<reference key="NSNextResponder" ref="439893737"/>
-							<int key="NSvFlags">292</int>
-							<string key="NSFrame">{{333, 48}, {384, 17}}</string>
+							<int key="NSvFlags">294</int>
+							<string key="NSFrame">{{333, 48}, {623, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="840479427"/>
@@ -3684,19 +3684,65 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.playbackManager.currentTrack.spotifyURL</string>
+						<string key="label">displayPatternValue1: self.playbackManager.currentTrack.spotifyURL</string>
+						<reference key="source" ref="785777168"/>
+						<reference key="destination" ref="976324537"/>
+						<object class="NSNibBindingConnector" key="connector" id="1057588040">
+							<reference key="NSSource" ref="785777168"/>
+							<reference key="NSDestination" ref="976324537"/>
+							<string key="NSLabel">displayPatternValue1: self.playbackManager.currentTrack.spotifyURL</string>
+							<string key="NSBinding">displayPatternValue1</string>
+							<string key="NSKeyPath">self.playbackManager.currentTrack.spotifyURL</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSDisplayPattern</string>
+								<string key="NS.object.0">%{value1}@ (%{value2}@ – %{value3}@)</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1581</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">displayPatternValue2: self.playbackManager.currentTrack.consolidatedArtists</string>
+						<reference key="source" ref="785777168"/>
+						<reference key="destination" ref="976324537"/>
+						<object class="NSNibBindingConnector" key="connector" id="980818766">
+							<reference key="NSSource" ref="785777168"/>
+							<reference key="NSDestination" ref="976324537"/>
+							<string key="NSLabel">displayPatternValue2: self.playbackManager.currentTrack.consolidatedArtists</string>
+							<string key="NSBinding">displayPatternValue2</string>
+							<string key="NSKeyPath">self.playbackManager.currentTrack.consolidatedArtists</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSDisplayPattern</string>
+								<string key="NS.object.0">%{value1}@ (%{value2}@ – %{value3}@)</string>
+							</object>
+							<reference key="NSPreviousConnector" ref="1057588040"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1585</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">displayPatternValue3: self.playbackManager.currentTrack.name</string>
 						<reference key="source" ref="785777168"/>
 						<reference key="destination" ref="976324537"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="785777168"/>
 							<reference key="NSDestination" ref="976324537"/>
-							<string key="NSLabel">value: self.playbackManager.currentTrack.spotifyURL</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.playbackManager.currentTrack.spotifyURL</string>
+							<string key="NSLabel">displayPatternValue3: self.playbackManager.currentTrack.name</string>
+							<string key="NSBinding">displayPatternValue3</string>
+							<string key="NSKeyPath">self.playbackManager.currentTrack.name</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSDisplayPattern</string>
+								<string key="NS.object.0">%{value1}@ (%{value2}@ – %{value3}@)</string>
+							</object>
+							<reference key="NSPreviousConnector" ref="980818766"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1576</int>
+					<int key="connectionID">1587</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -5135,7 +5181,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1577</int>
+			<int key="maxID">1587</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

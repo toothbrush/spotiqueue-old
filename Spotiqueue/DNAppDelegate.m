@@ -476,7 +476,18 @@
 }
 - (void) dealWithSomeURL:(NSString*) stringURL {
     
-    NSURL* u = [NSURL URLWithString:[stringURL stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    NSString* term = [stringURL stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    // perhaps the spotify url has a suffix, i.e.:
+    // spotify:track:jklsdfjklasdfjklafsdjkl (The Doors - The End)
+    
+    NSArray *a = [term componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    if ([a count] < 1) {
+        return;
+    }
+    
+    NSURL* u = [NSURL URLWithString: [a objectAtIndex:0]];
     DLog(@"opening url = %@", u);
     SPDispatchAsync(^{
         id thing = [[SPSession sharedSession]

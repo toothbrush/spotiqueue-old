@@ -1,6 +1,5 @@
 
 * clickable artist name leading to Last.fm page?
-* some way to copy currenly-playing track URI
 
 * pasting track which isn't yet loaded requires re-pasting after cache
 
@@ -12,5 +11,6 @@
 
 
 
+* is it really solved, the unplayable-track-loops thing?
 
 * preload in SPSession for gapless playback
